@@ -20,7 +20,7 @@ let s:save_guioptions = &guioptions
 set guioptions=
 call plug#begin($VIMPLUGDIR)
 
-Plug 'Shougo/vimproc', { 'do': has('win32') ? '.\\tools\\update-dll-mingw.bat' : 'make' }
+"Plug 'Shougo/vimproc', { 'do': has('win32') ? '.\\tools\\update-dll-mingw.bat' : 'make' }
 Plug 'Konfekt/FastFold'
 Plug 'Shougo/neocomplete'
 Plug 'Shougo/neosnippet'
