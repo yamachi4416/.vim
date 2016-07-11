@@ -1,0 +1,10 @@
+*
+!config/
+!config/*.vim
+!.gitignore
+!vimrc
+!gvimrc
+!mapping.vim
+!command.vim
+!download.vim
+!globalvar.vim
