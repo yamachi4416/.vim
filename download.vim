@@ -20,11 +20,8 @@ let s:save_guioptions = &guioptions
 set guioptions=
 call plug#begin($VIMPLUGDIR)
 
-"Plug 'Shougo/vimproc', { 'do': has('win32') ? '.\\tools\\update-dll-mingw.bat' : 'make' }
+Plug 'Shougo/vimproc', { 'do': has('win32') ? '.\\tools\\update-dll-mingw.bat' : 'make' }
 Plug 'Konfekt/FastFold'
-Plug 'Shougo/neocomplete'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/ctrlp-pipe'
@@ -38,6 +35,12 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
+
+if has('lua')
+  Plug 'Shougo/neocomplete'
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+endif
 
 "Vim
 Plug 'vim-jp/vimdoc-ja'
@@ -54,16 +57,20 @@ Plug 'briancollins/vim-jst'
 Plug 'digitaltoad/vim-pug'
 
 "Python
-"Plug 'andviro/flake8-vim'
-"Plug 'davidhalter/jedi-vim'
-"Plug 'hynek/vim-python-pep8-indent'
-"Plug 'lambdalisue/vim-django-support'
-"Plug 'lambdalisue/vim-pyenv'
+if exists('$VIM_PYTHON')
+  Plug 'andviro/flake8-vim'
+  Plug 'davidhalter/jedi-vim'
+  Plug 'hynek/vim-python-pep8-indent'
+  Plug 'lambdalisue/vim-django-support'
+  Plug 'lambdalisue/vim-pyenv'
+endif
 
 "Ruby
-"Plug 'vim-ruby/vim-ruby'
-"Plug 'tpope/vim-rails'
-"Plug 'yuku-t/vim-ref-ri'
+if exists('$VIM_PYTHON')
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'tpope/vim-rails'
+  Plug 'yuku-t/vim-ref-ri'
+endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 
