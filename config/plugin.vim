@@ -11,6 +11,7 @@ if s:_.IsInstall('neocomplete')
   "let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
   call neocomplete#custom#source('tag', 'disabled_filetypes', {'_': 1})
   call neocomplete#custom#source('include', 'disabled_filetypes', {'_': 1})
+
   function! VIMRC._AUTOCMDS_.Neocomplete()
     au filetype ruby NeoCompleteLock
   endfunction
@@ -44,6 +45,7 @@ endif
 if s:_.IsInstall('tern_for_vim') && (has('python3') || has('python'))
   let &rtp = join(filter(split(&rtp, ','), 'v:val !~# ''tern_for_vim.after'''), ',')
   let g:tern_show_signature_in_pum = 1
+
   function! s:TernEnable()
     let package_json = findfile('package.json', expand(expand('%:p:h').'/;'))
     if package_json !=# ''
@@ -51,8 +53,9 @@ if s:_.IsInstall('tern_for_vim') && (has('python3') || has('python'))
       setl omnifunc=tern#Complete
     endif
   endfunction
+
   function! VIMRC._AUTOCMDS_.TernEnable()
-    au filetype javascript call s:TernEnable()
+   au filetype javascript call s:TernEnable()
   endfunction
 endif
 
@@ -62,13 +65,13 @@ if s:_.IsInstall('tagbar')
   let g:tagbar_iconchars = ['+', '-']
 endif
 
-if s:_.IsInstall('gf-user-vimfn')
-  nnoremap g1 :<c-u>call gf#vimfn#open()<cr>
-endif
-
 if s:_.IsInstall('syntastic')
   let g:syntastic_aggregate_errors = 1
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 2
   let g:syntastic_loc_list_height = 4
+endif
+
+if s:_.IsInstall('nerdtree')
+  nnoremap <F10> :<C-u>NERDTreeToggle<CR>
 endif
