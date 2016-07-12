@@ -4,7 +4,7 @@ call s:_.SourceIfExists('$VIMRUNTIME/macros/matchit.vim')
 if s:_.IsInstall('neocomplete')
   let g:neocomplete#data_directory = expand('$VIMCACHEDIR/neocomplete')
   let g:neocomplete#enable_fuzzy_completion = 1
-  let g:neocomplete#enable_auto_select = 0
+  let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#force_omni_input_patterns =
   \ get(g:, 'neocomplete#force_omni_input_patterns', {})
@@ -41,7 +41,7 @@ if s:_.IsInstall('jscomplete-vim')
   let g:VIMRC.Omni.javascript = 'jscomplete#CompleteJS'
 endif
 
-if s:_.IsInstall('tern_for_vim') && has('python')
+if s:_.IsInstall('tern_for_vim') && (has('python3') || has('python'))
   let &rtp = join(filter(split(&rtp, ','), 'v:val !~# ''tern_for_vim.after'''), ',')
   let g:tern_show_signature_in_pum = 1
   function! s:TernEnable()

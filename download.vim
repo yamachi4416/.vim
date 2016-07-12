@@ -20,7 +20,6 @@ let s:save_guioptions = &guioptions
 set guioptions=
 call plug#begin($VIMPLUGDIR)
 
-Plug 'Shougo/vimproc', { 'do': has('win32') ? '.\\tools\\update-dll-mingw.bat' : 'make' }
 Plug 'Konfekt/FastFold'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
@@ -35,6 +34,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
+Plug 'jiangmiao/auto-pairs'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
