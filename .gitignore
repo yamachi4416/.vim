@@ -9,3 +9,5 @@
 !download.vim
 !globalvar.vim
 !localrc.vim
+!snippets/
+!snippets/*.snip

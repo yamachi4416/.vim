@@ -1,0 +1,22 @@
+snippet     output
+abbr        <%= %>
+alias       =
+options     word
+    <%= ${1:TARGET} %>${2}
+
+snippet     statement
+abbr        statement
+options     head
+  <% ${1} %>${2}
+
+snippet     forEach
+abbr        forEach
+options     head
+  <% ${1:TARGET}.forEach(function(${2:TARGET}){ %>
+    ${3}
+  <% } %>
+
+snippet     include
+abbr        include
+options     head
+  <% include ${1:TARGET} %>${2}

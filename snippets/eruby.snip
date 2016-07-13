@@ -1,0 +1,56 @@
+snippet     ruby_print
+abbr        <%= %>
+alias       =
+options     word
+    <%= ${1:TARGET} %>${2}
+
+snippet     ruby_code
+abbr        <% %>
+alias       %
+options     word
+    <% ${1:TARGET} %>${2}
+
+snippet     ruby_print_nonl
+abbr        <%= -%>
+alias       =-
+options     word
+    <%= ${1:TARGET} -%>${2}
+
+snippet     ruby_code_nonl
+abbr        <% -%>
+alias       %-
+options     word
+    <% ${1:TARGET} -%>${2}
+
+snippet     comment
+abbr        <%# %>
+alias       #
+options     word
+    <%# ${1:TARGET} %>${2}
+
+snippet     end
+abbr        <% end %>
+options     word
+    <% end %>
+
+snippet     else
+abbr        <% else %>
+options     head
+  <% else %>
+
+snippet     elsif
+abbr        <% elsif %>
+options     head
+  <% elsif ${1:TARGET} %>${2}
+
+snippet     if
+abbr        <% if %>
+options     head
+  <% if ${1:TARGET} %>${2}
+
+snippet     iff
+abbr        <% if %><% end %>
+options     head
+  <% if ${1:TARGET} %>
+    ${2}
+  <% end %>
