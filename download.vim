@@ -58,7 +58,6 @@ Plug 'digitaltoad/vim-pug'
 
 "Python
 if exists('$VIM_PYTHON')
-  Plug 'andviro/flake8-vim'
   Plug 'davidhalter/jedi-vim'
   Plug 'hynek/vim-python-pep8-indent'
   Plug 'lambdalisue/vim-django-support'
