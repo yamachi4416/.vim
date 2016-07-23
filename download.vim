@@ -20,7 +20,6 @@ let s:save_guioptions = &guioptions
 set guioptions=
 call plug#begin($VIMPLUGDIR)
 
-Plug 'Konfekt/FastFold'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/ctrlp-pipe'
@@ -40,6 +39,7 @@ if has('lua')
   Plug 'Shougo/neocomplete'
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
+  Plug 'Konfekt/FastFold'
 endif
 
 "Vim
@@ -50,11 +50,13 @@ Plug 'vim-jp/vital.vim'
 Plug 'https://bitbucket.org/teramako/jscomplete-vim.git'
 Plug 'hujo/jscomplete-html5API'
 
-"Node
-Plug 'moll/vim-node'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
-Plug 'briancollins/vim-jst'
-Plug 'digitaltoad/vim-pug'
+"NodeJs
+if exists('$VIM_NODEJS')
+  Plug 'moll/vim-node'
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
+  Plug 'briancollins/vim-jst'
+  Plug 'digitaltoad/vim-pug'
+endif
 
 "Python
 if exists('$VIM_PYTHON')
