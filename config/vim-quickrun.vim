@@ -13,8 +13,7 @@ let g:quickrun_config = extend(get(g:, 'quickrun_config', {}), {
 \ 'dosbatch': {'runner': 'system'},
 \ 'javascript': {
 \   'errorformat': ' %# at %m (%f:%l:%c),%f:%l',
-\   'hook/eval/template': 'console.log(%s);',
-\   'runner': 'vimproc'
+\   'hook/eval/template': 'console.log(%s);'
 \ },
 \ 'scss' : {'cmdopt': '--style expanded', 'outputter/buffer/filetype': 'quickrun.css'}
 \})
