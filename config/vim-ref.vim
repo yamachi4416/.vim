@@ -14,3 +14,5 @@ let g:ref_javadoc_cmd = 'lynx -dump -nonumbers %s'
 let g:ref_javadoc_path = expand('$REFSDIR/java/doc')
 
 let g:ref_refe_encoding = 'utf-8'
+let g:ref_detect_filetype = get(g:, 'ref_detect_filetype', {})
+let g:ref_detect_filetype['ruby'] = 'ri'

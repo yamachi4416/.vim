@@ -1,3 +1,4 @@
+set relativenumber
 set novisualbell
 set background=dark
 

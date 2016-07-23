@@ -46,7 +46,7 @@ endfunction
 function! s:RC._SetDisplayVimOptions()
   set list listchars=tab:>\ ,trail:- ambiwidth=double fillchars=
   set noshowmatch matchtime=0
-  set whichwrap=[,]
+  set whichwrap=[,],<,>
   set number ruler
   set noequalalways scrolloff=0 splitright splitbelow
   set sidescroll=1 sidescrolloff=1

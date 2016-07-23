@@ -11,10 +11,17 @@ nnoremap <C-Right> E<Right>
 vnoremap <C-Right> E<Right>
 inoremap <C-Right> <C-o>E<Right>
 
-inoremap <C-f> <C-o>l
-inoremap <C-b> <C-o>h
 inoremap <C-a> <C-o>_
-inoremap <C-l> <C-o>$
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-h> <Left>
+inoremap <C-b> <C-h>
+inoremap <C-]> <C-o>$
+
+inoremap <C-y> <C-o><C-r>
+inoremap <C-z> <C-o>u
+inoremap <C-s> <C-o>:up<CR>
 
 inoremap <silent><expr><C-Space> VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-S-Space> VIMRC._.IMode("\<Up>", "\<C-S-Space>")

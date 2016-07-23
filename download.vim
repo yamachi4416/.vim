@@ -34,7 +34,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
-Plug 'jiangmiao/auto-pairs'
+Plug 'cohama/lexima.vim'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
@@ -65,10 +65,11 @@ if exists('$VIM_PYTHON')
 endif
 
 "Ruby
-if exists('$VIM_PYTHON')
+if exists('$VIM_RUBY')
   Plug 'vim-ruby/vim-ruby'
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
+  Plug 'hujo/ctrlp-rubyrequire'
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
