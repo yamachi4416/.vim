@@ -61,9 +61,9 @@ endif
 "Python
 if exists('$VIM_PYTHON')
   Plug 'davidhalter/jedi-vim'
+  Plug 'lambdalisue/vim-pyenv'
   Plug 'hynek/vim-python-pep8-indent'
   Plug 'lambdalisue/vim-django-support'
-  Plug 'lambdalisue/vim-pyenv'
 endif
 
 "Ruby
