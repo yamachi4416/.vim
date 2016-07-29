@@ -33,6 +33,7 @@ Plug 'scrooloose/syntastic'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-fugitive'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
