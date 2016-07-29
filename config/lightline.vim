@@ -18,5 +18,7 @@ let g:lightline = {
 function! LightLineFugitive()
   if exists('*fugitive#head')
     return fugitive#statusline()
+  else
+    return ''
   endif
 endfunction
