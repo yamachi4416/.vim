@@ -1,4 +1,4 @@
-let g:ctrlp_regexp = 1
+let g:ctrlp_regexp = 0
 let g:ctrlp_reuse_window = 'unite\|vimshell\|netrw\|help\|quickfix'
 let g:ctrlp_use_caching = 1
 let g:ctrlp_cache_dir = expand('$VIMCACHEDIR/ctrlp')

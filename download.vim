@@ -27,7 +27,6 @@ Plug 'hujo/html5css3'
 Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
-Plug 'mrk21/yaml-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
@@ -60,10 +59,10 @@ endif
 
 "Python
 if exists('$VIM_PYTHON')
-  Plug 'davidhalter/jedi-vim'
-  Plug 'lambdalisue/vim-pyenv'
-  Plug 'hynek/vim-python-pep8-indent'
-  Plug 'lambdalisue/vim-django-support'
+  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+  Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
+  Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+  Plug 'lambdalisue/vim-django-support', { 'for': 'python' }
 endif
 
 "Ruby
@@ -72,6 +71,7 @@ if exists('$VIM_RUBY')
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
   Plug 'hujo/ctrlp-rubyrequire'
+  Plug 'mrk21/yaml-vim'
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
