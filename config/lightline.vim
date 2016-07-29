@@ -8,7 +8,7 @@ let g:lightline = {
 \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'separator': { 'left': '', 'right': '' },
-\ 'subseparator': { 'left': '＞', 'right': '＜' },
+\ 'subseparator': { 'left': '', 'right': '' },
 \ 'component_function': {
 \   'syntastic': 'SyntasticStatuslineFlag',
 \   'fugitive': 'LightLineFugitive'
@@ -17,8 +17,6 @@ let g:lightline = {
 
 function! LightLineFugitive()
   if exists('*fugitive#head')
-    return fugitive#head()
-  else
-    return ''
+    return fugitive#statusline()
   endif
 endfunction
