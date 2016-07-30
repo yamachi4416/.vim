@@ -47,17 +47,20 @@ function! s:RC._SetDisplayVimOptions()
   set list listchars=tab:>\ ,trail:- ambiwidth=double fillchars=
   set noshowmatch matchtime=0
   set whichwrap=[,],<,>
-  set number ruler
+  set number relativenumber ruler
+  set textwidth=80 colorcolumn=80
   set noequalalways scrolloff=0 splitright splitbelow
   set sidescroll=1 sidescrolloff=1
-  set foldopen& foldopen-=block foldopen+=jump foldlevelstart=99 foldlevel=99 foldminlines=0 foldmethod=indent
+  set foldopen& foldopen-=block foldopen+=jump foldlevelstart=99
+  set foldlevel=99 foldminlines=0 foldmethod=indent
   if exists('&breakindent')
     set wrap breakindent
     set breakindentopt& breakindentopt+=shift:4
   else
     set nowrap
   endif
-  let &g:statusline = ' %{pathshorten(getcwd())} %{expand(''%'')} %m%r%w %=%{join([&fenc,&ff])} '
+  let &g:statusline =
+  \ ' %{pathshorten(getcwd())} %{expand(''%'')} %m%r%w %=%{join([&fenc,&ff])} '
   set guioptions=ecM
 endfunction
 function! s:RC._SetCmdAndTermVimOptions()

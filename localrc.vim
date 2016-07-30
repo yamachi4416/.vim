@@ -1,6 +1,3 @@
-set relativenumber
-set number!
-set novisualbell
 set background=dark
 
 colorscheme jellybeans
