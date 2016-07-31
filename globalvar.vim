@@ -39,7 +39,7 @@ let python_space_error_highlight = 1
 
 " $VIMRUNTIME/syntax/markdown.vim
 let g:markdown_fenced_languages = [
-\ 'bash',
+\ 'sh',
 \ 'java',
 \ 'javascript',
 \ 'python',
