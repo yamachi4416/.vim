@@ -15,8 +15,10 @@ inoremap <silent><expr><C-Space> VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-S-Space> VIMRC._.IMode("\<Up>", "\<C-S-Space>")
 inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
 
-cnoremap <C-p> <UP>
-cnoremap <C-n> <DOWN>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 
 nnoremap <C-s> :<C-u>up<CR>
 inoremap <expr><C-s> pumvisible() ? '' : "\<C-o>:<C-u>up\<CR>"
