@@ -53,6 +53,7 @@ function! s:RC._SetDisplayVimOptions()
   set sidescroll=1 sidescrolloff=1
   set foldopen& foldopen-=block foldopen+=jump foldlevelstart=99
   set foldlevel=99 foldminlines=0 foldmethod=indent
+  set cursorline cursorcolumn
   if exists('&breakindent')
     set wrap breakindent
     set breakindentopt& breakindentopt+=shift:4
