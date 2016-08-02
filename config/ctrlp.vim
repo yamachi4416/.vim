@@ -10,4 +10,10 @@ let g:ctrlp_custom_ignore = {
 \ 'dir':  '\v[\/](\.git|img|images?|imgs?|vendor)$',
 \ 'file': '\v\.(exe|so|o|dll|class|jar|gz|tar|zip|cache)$'
 \ }
-nnoremap <F3> :<C-u>CtrlPBookmarkDir<CR>
+
+nmap <leader>c [CtrlP]
+nmap [CtrlP] <NOP>
+nnoremap [CtrlP]c :<C-u>CtrlPQuickfix<CR>
+nnoremap <leader>ct :<C-u>CtrlPBufTagAll<CR>
+nnoremap <leader>cb :<C-u>CtrlPBuffer<CR>
+nnoremap <leader>cl :<C-u>CtrlPLine<CR>
