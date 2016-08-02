@@ -7,8 +7,6 @@ nnoremap <silent><leader><CR> :<C-u>if glob('%') !=# ''<bar>lcd %:h<bar>endif<CR
 nnoremap <silent>{ :<C-u>keepjumps normal! {<CR>
 nnoremap <silent>} :<C-u>keepjumps normal! }<CR>
 
-inoremap <C-y> <C-o><C-r>
-inoremap <C-z> <C-o>u
 inoremap <C-s> <C-o>:up<CR>
 
 inoremap <silent><expr><C-Space> VIMRC._.IMode("\<Down>", "\<C-Space>")
