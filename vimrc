@@ -49,6 +49,7 @@ function! s:RC._SetDisplayVimOptions()
   set whichwrap=[,],<,>
   set number relativenumber ruler
   set textwidth=80 colorcolumn=80
+  set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
   set sidescroll=1 sidescrolloff=1
   set foldopen& foldopen-=block foldopen+=jump foldlevelstart=99
