@@ -20,6 +20,7 @@ let s:save_guioptions = &guioptions
 set guioptions=
 call plug#begin($VIMPLUGDIR)
 
+Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/ctrlp-pipe'
@@ -30,10 +31,11 @@ Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
+Plug 'terryma/vim-expand-region'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
-Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'FelikZ/ctrlp-py-matcher'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
