@@ -17,6 +17,7 @@ nnoremap [CtrlP]c :<C-u>CtrlPQuickfix<CR>
 nnoremap <leader>ct :<C-u>CtrlPBufTagAll<CR>
 nnoremap <leader>cb :<C-u>CtrlPBuffer<CR>
 nnoremap <leader>cl :<C-u>CtrlPLine<CR>
+nnoremap <leader>cx :<C-u>CtrlPClearCache<CR>
 nnoremap <leader>c<Space> :<C-u>CtrlPCurFile<CR>
 
 if has('python3') || has('python')
