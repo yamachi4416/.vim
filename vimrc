@@ -10,7 +10,6 @@ function! s:RC._SetEnv()
   let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/cache/')
-  let $MYVIMINFO   = $MYVIMFILES . '/' . (has('nvim') ? '.nviminfo' : '.viminfo')
   if !isdirectory($REFSDIR) | let $REFSDIR = globpath($MYVIMFILES, 'refs') | endif
   if !isdirectory($REFSDIR) | let $REFSDIR = globpath('~', 'refs') | endif
 endfunction
@@ -47,7 +46,9 @@ function! s:RC._SetDisplayVimOptions()
   set list listchars=tab:>\ ,trail:- ambiwidth=double fillchars=
   set noshowmatch matchtime=0
   set whichwrap=[,],<,>
-  set number relativenumber ruler
+  set number
+  "set relativenumber
+  set ruler
   set textwidth=80 colorcolumn=80
   set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
@@ -76,7 +77,7 @@ function! s:RC._SetCmdAndTermVimOptions()
 endfunction
 function! s:RC._SetBackupUndoVimOptions()
   set nobackup nowritebackup noswapfile
-  set history=100 viminfo='100,h,f20,<0,s0,c,n$MYVIMINFO
+  set history=100 viminfo-=!
   if has('persistent_undo')
     if !isdirectory($MYVIMFILES . '/undo')
       call mkdir(expand($MYVIMFILES . '/undo'))

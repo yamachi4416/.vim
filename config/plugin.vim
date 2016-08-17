@@ -42,24 +42,25 @@ endif
 if s:_.IsInstall('jscomplete-vim')
   let g:jscomplete_use = ['dom', 'html5API', 'webGL']
   let g:jscomplete_webgl_ns = ['gl', 'webgl']
-  let g:VIMRC.Omni.javascript = 'jscomplete#CompleteJS'
+  "let g:VIMRC.Omni.javascript = 'jscomplete#CompleteJS'
 endif
 
 if s:_.IsInstall('tern_for_vim') && (has('python3') || has('python'))
-  let &rtp = join(filter(split(&rtp, ','), 'v:val !~# ''tern_for_vim.after'''), ',')
+  "let &rtp = join(filter(split(&rtp, ','), 'v:val !~# ''tern_for_vim.after'''), ',')
   let g:tern_show_signature_in_pum = 1
+  let g:tern_show_argument_hints = 'on_hold'
 
-  function! s:TernEnable()
-    let package_json = findfile('package.json', expand(expand('%:p:h').'/;'))
-    if package_json !=# ''
-      call tern#Enable()
-      setl omnifunc=tern#Complete
-    endif
-  endfunction
+  "function! s:TernEnable()
+  "  let package_json = findfile('package.json', expand(expand('%:p:h').'/;'))
+  "  if package_json !=# ''
+  "    call tern#Enable()
+  "    setl omnifunc=tern#Complete
+  "  endif
+  "endfunction
 
-  function! VIMRC._AUTOCMDS_.TernEnable()
-   au filetype javascript call s:TernEnable()
-  endfunction
+  "function! VIMRC._AUTOCMDS_.TernEnable()
+  " au filetype javascript call s:TernEnable()
+  "endfunction
 endif
 
 if s:_.IsInstall('tagbar')
@@ -76,10 +77,20 @@ if s:_.IsInstall('syntastic')
 endif
 
 if s:_.IsInstall('nerdtree')
-  nnoremap <F10> :<C-u>NERDTreeToggle<CR>
+  if s:_.IsInstall('vim-nerdtree-tabs')
+    nnoremap <F10> :<C-u>NERDTreeTabsToggle<CR>
+  else
+    nnoremap <F10> :<C-u>NERDTreeToggle<CR>
+  endif
 endif
 
 if s:_.IsInstall('lexima.vim')
   call lexima#init()
   inoremap <expr><CR> pumvisible() ? "\<C-e><CR>" : lexima#expand('<LT>CR>', 'i')
+endif
+
+if s:_.IsInstall('ctrlp-rubyrequire')
+  function! VIMRC._AUTOCMDS_.CtrlpRubyRequire()
+    au filetype ruby nnoremap <leader>i :<C-u>CtrlPRubyRequire<CR>
+  endfunction
 endif

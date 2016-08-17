@@ -30,26 +30,28 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/syntastic'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-fugitive'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'Konfekt/FastFold'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'Konfekt/FastFold'
+endif
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'carlitux/deoplete-ternjs'
 endif
 
 "Vim
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
-
-"JS
-Plug 'https://bitbucket.org/teramako/jscomplete-vim.git'
-Plug 'hujo/jscomplete-html5API'
 
 "NodeJs
 if exists('$VIM_NODEJS')
