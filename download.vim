@@ -38,6 +38,8 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Konfekt/FastFold'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim'
 Plug 'szw/vim-tags'
 
 if has('lua')
@@ -76,6 +78,15 @@ if exists('$VIM_RUBY')
   Plug 'yuku-t/vim-ref-ri'
   Plug 'hujo/ctrlp-rubyrequire'
   Plug 'mrk21/yaml-vim'
+endif
+
+"Haskell
+if exists('$VIM_HASKELL')
+  Plug 'kana/vim-filetype-haskell'
+  Plug 'eagletmt/neco-ghc'
+  Plug 'eagletmt/ghcmod-vim'
+  Plug 'ujihisa/ref-hoogle'
+  Plug 'ujihisa/unite-haskellimport'
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')

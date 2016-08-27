@@ -94,3 +94,10 @@ if s:_.IsInstall('ctrlp-rubyrequire')
     au filetype ruby nnoremap <leader>i :<C-u>CtrlPRubyRequire<CR>
   endfunction
 endif
+
+if s:_.IsInstall('neco-ghc')
+  function! VIMRC._AUTOCMDS_.Neco_GHC()
+    au filetype haskell setlocal omnifunc=necoghc#omnifunc
+  endfunction
+endif
+
