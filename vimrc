@@ -29,7 +29,7 @@ endfunction
 function! s:RC._SetEditVimOptions()
   set mouse=a
   set modeline
-  set ignorecase infercase
+  set noignorecase infercase
   set virtualedit=block backspace=2
   set completeopt=menuone,longest
   set nojoinspaces
@@ -140,10 +140,13 @@ function! s:RC._DefineLocalFunctions()
   endfunction
   function! s:RubyAddBundlePaths() abort
     if !has('ruby') || !executable('bundle') | return | endif
-    let g:rubycomplete_gemfile_path = findfile('Gemfile', expand(expand('%:p:h').'/;'))
+    let gemfile = findfile('Gemfile', expand(expand('%:p:h').'/;'))
+    if !filereadable(gemfile) | return | endif
+    let g:rubycomplete_gemfile_path = gemfile
     let g:rubycomplete_use_bundler = g:rubycomplete_gemfile_path ==# '' ? 0 : 1
     if g:rubycomplete_use_bundler == 0 | return | endif
     let l:path = split(&l:path, ',')
+    call add(l:path, fnamemodify(gemfile, ':p:h').'/lib')
 ruby << EOF
 begin
   require 'bundler'

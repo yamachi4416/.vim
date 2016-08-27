@@ -38,6 +38,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Konfekt/FastFold'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'szw/vim-tags'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
