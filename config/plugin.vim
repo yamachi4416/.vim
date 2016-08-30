@@ -100,4 +100,3 @@ if s:_.IsInstall('neco-ghc')
     au filetype haskell setlocal omnifunc=necoghc#omnifunc
   endfunction
 endif
-
