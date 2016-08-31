@@ -11,3 +11,5 @@
 !localrc.vim
 !snippets/
 !snippets/*.snip
+!dict/
+!dict/*.txt
