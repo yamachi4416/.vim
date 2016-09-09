@@ -11,6 +11,7 @@ let g:ctrlp_custom_ignore = {
 \ 'file': '\v\.(exe|so|o|dll|class|jar|gz|tar|zip|cache)$'
 \ }
 
+nnoremap <leader><leader> :<C-u>CtrlP<Space>
 nmap <leader>c [CtrlP]
 nmap [CtrlP] <NOP>
 nnoremap [CtrlP]c :<C-u>CtrlPQuickfix<CR>

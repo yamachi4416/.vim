@@ -2,7 +2,9 @@ let g:lightline = {
 \ 'enable': { 'statusline': 1, 'tabline': 1 },
 \ 'colorscheme': 'solarized',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['fugitive', 'readonly', 'filename', 'modified']],
+\   'left':  [ [ 'mode', 'paste' ],
+\              [ 'fugitive', 'pwd', 'readonly', 'modified', 'filename' ],
+\              [ ] ],
 \   'right': [ [ 'lineinfo', 'syntastic' ],
 \              [ 'percent' ],
 \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -11,9 +13,14 @@ let g:lightline = {
 \ 'subseparator': { 'left': '', 'right': '' },
 \ 'component_function': {
 \   'syntastic': 'SyntasticStatuslineFlag',
-\   'fugitive': 'LightLineFugitive'
+\   'fugitive': 'LightLineFugitive',
+\   'pwd': 'LightLinePwd'
 \ }
 \}
+
+function! LightLinePwd()
+  return fnamemodify(getcwd(), ':~')
+endfunction
 
 function! LightLineFugitive()
   if exists('*fugitive#head')

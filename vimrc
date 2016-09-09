@@ -45,17 +45,18 @@ endfunction
 function! s:RC._SetDisplayVimOptions()
   set list listchars=tab:>\ ,trail:- ambiwidth=double fillchars=
   set noshowmatch matchtime=0
+  set hlsearch incsearch
   set whichwrap=[,],<,>
   set number
   "set relativenumber
   set ruler
-  set textwidth=80 colorcolumn=80
+  "set textwidth=80 colorcolumn=80
   set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
   set sidescroll=1 sidescrolloff=1
   set foldopen& foldopen-=block foldopen+=jump foldlevelstart=99
   set foldlevel=99 foldminlines=0 foldmethod=indent
-  set cursorline cursorcolumn
+  "set cursorline cursorcolumn
   if exists('&breakindent')
     set wrap breakindent
     set breakindentopt& breakindentopt+=shift:4
