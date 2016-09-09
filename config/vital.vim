@@ -24,6 +24,7 @@ endfunction
 
 " command! E0 J0 (GoogleTranslate)
 function! s:_.GoogleHonyaku(text, sl, tl) abort
+  if a:text ==# '' | return '' | endif
   let text = substitute(a:text, '\v(\r|\n)$', '', 'g')
   let url = printf('https://translate.google.com?sl=%s&tl=%s&ie=%s&oe=%s&text=%s', a:sl, a:tl, &enc, &enc, s:encodeURI(text))
   let ret = matchstr(s:_.Hdata(url), '\v\CTRANSLATED_TEXT\=''\zs[^'']+\ze''')
@@ -50,7 +51,9 @@ endfunction
 
 command! -nargs=* -bang -range E0 cal s:_.HonyakuAndEcho(<bang>0, <q-args>, 'en', 'ja')
 command! -nargs=* -bang -range J0 cal s:_.HonyakuAndEcho(<bang>0, <q-args>, 'ja', 'en')
+vnoremap <silent><leader>e :<C-u>E0<CR>
+nnoremap <silent><leader>e :<C-u>execute 'E0' expand('<cword>')<CR>
+
 
 command! -nargs=1 HFile call s:_.ScratchWindow(s:_.Hdata(<q-args>))
-
 command! -nargs=? -bang -complete=file Open call s:V('System.File').open(empty(<q-args>) ? expand('%') : <q-args> )

@@ -20,7 +20,7 @@ function! s:RC._SetStartingVimOptions()
   set fileencodings=ucs-bom,utf8,sjis,cp932,eucjp,default,latin
   set fileformat=
   set fileformats=unix,dos
-  set helplang=ja,en
+  set helplang=en,ja
   set autoread
   set novisualbell noerrorbells
   set clipboard& clipboard+=unnamed
