@@ -37,6 +37,7 @@ Plug 'szw/vim-tags'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/goyo.vim'
 
 "ColorSchema
 Plug 'nanotech/jellybeans.vim'
@@ -83,6 +84,7 @@ if exists('$VIM_RUBY')
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
   Plug 'mrk21/yaml-vim'
+  Plug 'hujo/ctrlp-rubyrequire'
 endif
 
 "Haskell
