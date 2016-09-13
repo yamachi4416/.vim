@@ -11,15 +11,16 @@ let g:ctrlp_custom_ignore = {
 \ 'file': '\v\.(exe|so|o|dll|class|jar|gz|tar|zip|cache)$'
 \ }
 
-nnoremap <leader><leader> :<C-u>CtrlP<Space>
+nnoremap <leader><leader> :<C-u>CtrlP
 nmap <leader>c [CtrlP]
 nmap [CtrlP] <NOP>
-nnoremap [CtrlP]c :<C-u>CtrlPQuickfix<CR>
+nnoremap [CtrlP]q :<C-u>CtrlPQuickfix<CR>
 nnoremap [CtrlP]t :<C-u>CtrlPBufTagAll<CR>
 nnoremap [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap [CtrlP]l :<C-u>CtrlPLine<CR>
-nnoremap [CtrlP]x :<C-u>CtrlPClearCache<CR>
-nnoremap [CtrlP]<Space> :<C-u>CtrlPCurFile<CR>
+nnoremap [CtrlP]d :<C-u>CtrlPClearCache<CR>
+nnoremap [CtrlP]m :<C-u>CtrlPMRUFiles<CR>
+nnoremap [CtrlP]c :<C-u>CtrlPCurFile<CR>
 
 if has('python3') || has('python')
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }

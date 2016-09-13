@@ -294,7 +294,7 @@ function! s:RC._AUTOCMDS_.Include()
   \|  endif
 
   au filetype ruby
-  \   let &l:include = '\v<require\s*\(?\s*([''"])\zs\f+\ze\1?\)?$'
+  \   let &l:include = '\v<require(?_relative)?\s*\(?\s*([''"])\zs\f+\ze\1?\)?$'
   \|  let &l:includeexpr = s:SID('IncludeExpr(v:fname)')
   \|  call s:RubyAddBundlePaths()
 
