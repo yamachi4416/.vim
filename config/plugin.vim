@@ -84,11 +84,6 @@ if s:_.IsInstall('nerdtree')
   endif
 endif
 
-if s:_.IsInstall('lexima.vim')
-  call lexima#init()
-  inoremap <expr><CR> pumvisible() ? "\<C-e><CR>" : lexima#expand('<LT>CR>', 'i')
-endif
-
 if s:_.IsInstall('ctrlp-rubyrequire')
   function! VIMRC._AUTOCMDS_.CtrlpRubyRequire()
     au filetype ruby nnoremap <leader>i :<C-u>CtrlPRubyRequire<CR>
