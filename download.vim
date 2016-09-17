@@ -36,6 +36,7 @@ Plug 'szw/vim-tags'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-endwise'
 
 "ColorSchema
 Plug 'nanotech/jellybeans.vim'
@@ -77,7 +78,7 @@ endif
 
 "Ruby
 if exists('$VIM_RUBY')
-  Plug 'hujo/vim-ruby', { 'for': 'ruby' }
+  Plug 'hujo/vim-ruby', { 'for': 'ruby', 'branch': 'add_nil_check' }
   Plug 'rhysd/unite-ruby-require.vim'
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'

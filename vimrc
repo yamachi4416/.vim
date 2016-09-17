@@ -47,10 +47,9 @@ function! s:RC._SetDisplayVimOptions()
   set noshowmatch matchtime=0
   set hlsearch incsearch
   set whichwrap=[,],<,>
+  set title
   set number
-  "set relativenumber
   set ruler
-  "set textwidth=80 colorcolumn=80
   set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
   set sidescroll=1 sidescrolloff=1
@@ -146,18 +145,21 @@ function! s:RC._DefineLocalFunctions()
     let g:rubycomplete_gemfile_path = gemfile
     let g:rubycomplete_use_bundler = g:rubycomplete_gemfile_path ==# '' ? 0 : 1
     if g:rubycomplete_use_bundler == 0 | return | endif
-    let l:path = split(&l:path, ',')
-    call add(l:path, fnamemodify(gemfile, ':p:h').'/lib')
+    let l:path = add(split(&l:path, ','), fnamemodify(gemfile, ':p:h').'/lib')
+    let save_lcd = getcwd()
+    lcd %:h
+    try
 ruby << EOF
 begin
   require 'bundler'
   VIM::command('let l:path += %s' % Bundler.bundle_path.join('gems').children.map{|p; path|
     $LOAD_PATH << path unless $LOAD_PATH.include?(path = p.join('lib').to_s); path
   }.inspect)
-rescue LoadError => e
+rescue StandardError => e
   VIM::command('echom "%s"' % e.message)
 end
 EOF
+    finally | lcd `=save_lcd` | endtry
     let &l:path = join(uniq(l:path), ',')
   endfunction
   function! s:IncludeExpr(fname) abort
@@ -225,6 +227,7 @@ function! s:RC._InitAutogroup()
     \|    setl matchpairs-=<:>
     \|    let b:match_words = substitute(b:match_words, '\V<:>,', '', 'g')
     \|  endif
+    au filetype gitconfig setl noexpandtab
     au vimenter * call s:RC._CallRegisterAutoGroups()
     au vimenter * call s:VimEnter()
   augroup END

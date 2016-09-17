@@ -29,6 +29,7 @@ alnum
 alpha
 and
 ascii
+assert_equal
 at_exit
 attr_accessor
 attr_reader
@@ -60,6 +61,7 @@ fork
 graph
 in
 include
+initialize
 instance_eval
 lambda
 load
@@ -119,4 +121,3 @@ when
 while
 xdigit
 yield
-initialize
