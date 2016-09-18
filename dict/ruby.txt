@@ -3,6 +3,7 @@
 BEGIN
 DEBUG
 END
+Exception
 FILENAME
 FIXME
 HACK
@@ -29,7 +30,21 @@ alnum
 alpha
 and
 ascii
+assert
+assert_block
 assert_equal
+assert_no_match
+assert_not_equal
+assert_not_nil
+assert_not_same
+assert_not_send
+assert_nothing_raised
+assert_nothing_thrown
+assert_raise
+assert_raise_with_message
+assert_respond_to
+assert_send
+assert_throw
 at_exit
 attr_accessor
 attr_reader
@@ -51,6 +66,7 @@ digit
 display
 else
 elsif
+ensure
 eval
 excludenl
 exit

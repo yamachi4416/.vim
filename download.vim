@@ -20,9 +20,9 @@ let s:save_guioptions = &guioptions
 set guioptions=
 call plug#begin($VIMPLUGDIR)
 
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
@@ -30,35 +30,24 @@ Plug 'hujo/html5css3'
 Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'szw/vim-tags'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
-Plug 'tpope/vim-fugitive'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
-
-"ColorSchema
-Plug 'nanotech/jellybeans.vim'
-Plug 'w0ng/vim-hybrid'
-
-Plug 'Shougo/unite.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'tsukkee/unite-tag'
+Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-jp/vital.vim'
 
 if has('lua')
   Plug 'Shougo/neocomplete'
   Plug 'Konfekt/FastFold'
 endif
-
-"NeoVim
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'carlitux/deoplete-ternjs'
-endif
-
-"Vim
-Plug 'vim-jp/vimdoc-ja'
-Plug 'vim-jp/vital.vim'
 
 "NodeJs
 if exists('$VIM_NODEJS')
@@ -73,16 +62,13 @@ if exists('$VIM_PYTHON')
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
   Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-  Plug 'lambdalisue/vim-django-support', { 'for': 'python' }
 endif
 
 "Ruby
 if exists('$VIM_RUBY')
-  Plug 'hujo/vim-ruby', { 'for': 'ruby', 'branch': 'add_nil_check' }
-  Plug 'rhysd/unite-ruby-require.vim'
+  Plug 'vim-ruby/vim-ruby'
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
-  Plug 'mrk21/yaml-vim'
   Plug 'hujo/ctrlp-rubyrequire'
 endif
 

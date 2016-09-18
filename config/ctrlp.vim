@@ -21,7 +21,3 @@ nnoremap [CtrlP]l :<C-u>CtrlPLine<CR>
 nnoremap [CtrlP]d :<C-u>CtrlPClearCache<CR>
 nnoremap [CtrlP]m :<C-u>CtrlPMRUFiles<CR>
 nnoremap [CtrlP]c :<C-u>CtrlPCurFile<CR>
-
-if has('python3') || has('python')
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-endif

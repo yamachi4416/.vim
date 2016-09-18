@@ -1,7 +1,7 @@
 let g:quickrun_config = extend(get(g:, 'quickrun_config', {}), {
 \ '_': {
-\     'runner'                   : 'system',
-\     'runner/vimproc/updatetime': 100,
+\     'runner'                   : 'job',
+\     'runner/job/interval'      : 1,
 \     'outputter'                : 'error',
 \     'outputter/split'          : '%{ winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '''' : ''vert'' }',
 \     'outputter/buffer/into'    : 0,
@@ -10,7 +10,6 @@ let g:quickrun_config = extend(get(g:, 'quickrun_config', {}), {
 \     'outputter/loclist/open_cmd': 'try | llist | catch /./ | endtry'
 \ },
 \ 'make': {'exec': &makeprg },
-\ 'dosbatch': {'runner': 'system'},
 \ 'javascript': {
 \   'errorformat': ' %# at %m (%f:%l:%c),%f:%l',
 \   'hook/eval/template': 'console.log(%s);'
