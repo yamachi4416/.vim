@@ -7,7 +7,6 @@ let g:quickrun_config = extend(get(g:, 'quickrun_config', {}), {
 \     'outputter/buffer/into'    : 0,
 \     'outputter/error/error'    : 'loclist',
 \     'outputter/error/success'  : 'buffer',
-\     'outputter/loclist/open_cmd': 'try | llist | catch /./ | endtry'
 \ },
 \ 'make': {'exec': &makeprg },
 \ 'javascript': {

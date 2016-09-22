@@ -4,3 +4,10 @@ options     head
   test '${0:TARGET}' do
     ${0:TARGET}
   end
+
+snippet     init
+abbr        init
+options     head
+  def initialize${1}
+    ${0:TARGET}
+  end
