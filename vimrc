@@ -48,14 +48,13 @@ function! s:RC._SetDisplayVimOptions()
   set hlsearch incsearch
   set whichwrap=[,],<,>
   set title
-  set nonumber relativenumber
+  set number relativenumber
   set ruler
   set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
   set sidescroll=1 sidescrolloff=1
   set foldopen& foldopen-=block foldopen+=jump foldlevelstart=99
   set foldlevel=99 foldminlines=0 foldmethod=indent
-  "set cursorline cursorcolumn
   if exists('&breakindent')
     set wrap breakindent
     set breakindentopt& breakindentopt+=shift:4
@@ -141,14 +140,9 @@ function! s:RC._DefineLocalFunctions()
   function! s:RubyAddBundlePaths() abort
     if !has('ruby') || !executable('bundle') | return | endif
     let gemfile = findfile('Gemfile', expand(expand('%:p:h').'/;'))
-    if !filereadable(gemfile) | return | endif
     let g:rubycomplete_gemfile_path = gemfile
     let g:rubycomplete_use_bundler = g:rubycomplete_gemfile_path ==# '' ? 0 : 1
-    if g:rubycomplete_use_bundler == 0 | return | endif
     let l:path = add(split(&l:path, ','), fnamemodify(gemfile, ':p:h').'/lib')
-    let save_lcd = getcwd()
-    lcd %:h
-    try
 ruby << EOF
 begin
   require 'bundler'
@@ -159,7 +153,6 @@ rescue StandardError => e
   VIM::command('echom "%s"' % e.message)
 end
 EOF
-    finally | lcd `=save_lcd` | endtry
     let &l:path = join(uniq(l:path), ',')
   endfunction
   function! s:IncludeExpr(fname) abort
@@ -297,7 +290,7 @@ function! s:RC._AUTOCMDS_.Include()
   \|  endif
 
   au filetype ruby
-  \   let &l:include = '\v<require(?_relative)?\s*\(?\s*([''"])\zs\f+\ze\1?\)?$'
+  \   let &l:include = '\v<require%(_relative)?\s*\(?\s*([''"])\zs\f+\ze\1?\)?$'
   \|  let &l:includeexpr = s:SID('IncludeExpr(v:fname)')
   \|  call s:RubyAddBundlePaths()
 

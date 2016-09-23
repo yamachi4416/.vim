@@ -79,7 +79,6 @@ if exists('$VIM_HASKELL')
   Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
   Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
   Plug 'ujihisa/ref-hoogle'
-  Plug 'eagletmt/unite-haddock'
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
