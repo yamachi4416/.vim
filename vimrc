@@ -29,7 +29,8 @@ endfunction
 function! s:RC._SetEditVimOptions()
   set mouse=a
   set modeline
-  set noignorecase infercase
+  set ignorecase smartcase
+  set tagcase=match
   set virtualedit=block backspace=2
   set completeopt=menuone,longest
   set nojoinspaces
@@ -215,6 +216,7 @@ function! s:RC._InitAutogroup()
     au filetype *               setl formatoptions-=o cindent
     au filetype vim             setl keywordprg=:help foldmethod=syntax
     au filetype css,scss,less   setl iskeyword+=-
+    au filetype sql             setl autoindent nocindent indentexpr=
     au filetype html,xhtml,jsp  setl iskeyword+=-
     \|  if exists('b:match_words')
     \|    setl matchpairs-=<:>
@@ -266,7 +268,7 @@ function! s:RC.LoadCommand()
   call s:SourceIfExists('$MYVIMFILES/command.vim')
 endfunction
 function! s:RC.Init()
-  let self.Omni = {'sql' : ''}
+  let self.Omni = {}
   let self.IsWindows = has('win32')
   let self.IsUnix = has('unix')
   call self._DefineLocalFunctions()
