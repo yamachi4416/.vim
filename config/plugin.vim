@@ -39,41 +39,10 @@ if s:_.IsInstall('vim-asterisk')
   map # <Plug>(asterisk-#)
 endif
 
-if s:_.IsInstall('jscomplete-vim')
-  let g:jscomplete_use = ['dom', 'html5API', 'webGL']
-  let g:jscomplete_webgl_ns = ['gl', 'webgl']
-  "let g:VIMRC.Omni.javascript = 'jscomplete#CompleteJS'
-endif
-
-if s:_.IsInstall('tern_for_vim') && (has('python3') || has('python'))
-  "let &rtp = join(filter(split(&rtp, ','), 'v:val !~# ''tern_for_vim.after'''), ',')
-  let g:tern_show_signature_in_pum = 1
-  let g:tern_show_argument_hints = 'on_hold'
-
-  "function! s:TernEnable()
-  "  let package_json = findfile('package.json', expand(expand('%:p:h').'/;'))
-  "  if package_json !=# ''
-  "    call tern#Enable()
-  "    setl omnifunc=tern#Complete
-  "  endif
-  "endfunction
-
-  "function! VIMRC._AUTOCMDS_.TernEnable()
-  " au filetype javascript call s:TernEnable()
-  "endfunction
-endif
-
 if s:_.IsInstall('tagbar')
   nnoremap <F8> :<C-u>TagbarToggle<CR>
   let g:tagbar_autofocus = 1
   let g:tagbar_iconchars = ['+', '-']
-endif
-
-if s:_.IsInstall('syntastic')
-  let g:syntastic_aggregate_errors = 1
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 2
-  let g:syntastic_loc_list_height = 4
 endif
 
 if s:_.IsInstall('nerdtree')
@@ -95,3 +64,16 @@ if s:_.IsInstall('neco-ghc')
     au filetype haskell setlocal omnifunc=necoghc#omnifunc
   endfunction
 endif
+
+" tern_for_vim
+let g:tern_show_signature_in_pum = 1
+let g:tern_show_argument_hints = 'on_hold'
+
+" syntastic
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_loc_list_height = 4
+
+" vim-tags
+let g:vim_tags_auto_generate = 0
