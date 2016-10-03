@@ -216,6 +216,7 @@ function! s:RC._InitAutogroup()
     au filetype *               setl formatoptions-=o cindent
     au filetype vim             setl keywordprg=:help foldmethod=syntax
     au filetype css,scss,less   setl iskeyword+=-
+    au filetype scss            setl iskeyword+=$
     au filetype sql             setl autoindent nocindent indentexpr=
     au filetype html,xhtml,jsp  setl iskeyword+=-
     \|  if exists('b:match_words')

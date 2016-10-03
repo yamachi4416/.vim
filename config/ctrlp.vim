@@ -1,6 +1,7 @@
 let g:ctrlp_regexp = 0
 let g:ctrlp_reuse_window = 'unite\|vimshell\|netrw\|help\|quickfix'
-let g:ctrlp_use_caching = 1
+let g:ctrlp_use_caching = 0
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cache_dir = expand('$VIMCACHEDIR/ctrlp')
 let g:ctrlp_mruf_max = 50
 let g:ctrlp_mruf_save_on_update = 1
@@ -20,4 +21,5 @@ nnoremap [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap [CtrlP]l :<C-u>CtrlPLine<CR>
 nnoremap [CtrlP]d :<C-u>CtrlPClearCache<CR>
 nnoremap [CtrlP]m :<C-u>CtrlPMRUFiles<CR>
-nnoremap [CtrlP]c :<C-u>CtrlPCurFile<CR>
+nnoremap [CtrlP]f :<C-u>CtrlPCurFile<CR>
+nnoremap [CtrlP]c :<C-u>CtrlPCurWD<CR>
