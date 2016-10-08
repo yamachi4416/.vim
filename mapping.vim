@@ -10,6 +10,8 @@ nnoremap <silent>} :<C-u>keepjumps normal! }<CR>
 inoremap <silent><expr><C-Space> VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-S-Space> VIMRC._.IMode("\<Up>", "\<C-S-Space>")
 inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
+inoremap <silent><expr><C-o> pumvisible() ? "\<C-n>" : "\<C-o>"
+
 
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>

@@ -10,7 +10,7 @@ let g:matchparen_insert_timeout = 200
 let g:xml_syntax_folding = 1
 
 " $VIMRUNTIME/indent/html.vim
-let g:html_indent_inctags = 'html,body,head,tbody'
+let g:html_indent_inctags = ''
 let g:html_indent_autotags = 'th,td,tr,tfoot,thead'
 
 " $VIMRUNTIME/indent/vim.vim
