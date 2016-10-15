@@ -49,7 +49,7 @@ function! s:RC._SetDisplayVimOptions()
   set hlsearch incsearch
   set whichwrap=[,],<,>
   set title
-  set number relativenumber
+  set number
   set ruler
   set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
@@ -119,6 +119,7 @@ function! s:RC._DefineLocalFunctions()
   endfunction
   function! s:CreateDictUseSyntax() abort
     if &l:syntax ==# '' | return | endif
+    if &l:syntax ==# 'text' | return | endif
     let file = expand('$MYVIMFILES/dict/' . &l:syntax . '.txt')
     if !filereadable(file)
       let words = {}
@@ -132,7 +133,7 @@ function! s:RC._DefineLocalFunctions()
   endfunction
   function! s:ScratchWindow(...) abort
     call s:WinSplit('new')
-    setl buftype=nofile bufhidden=hide noswapfile nobuflisted
+    setl buftype=nofile bufhidden=wipe noswapfile nobuflisted
     if a:0 && type(a:1) is type('') | call append(line('$') - 1, s:Splitn(a:1)) | endif
     if a:0 && type(a:1) is type([]) | call append(line('$') - 1, a:1)           | endif
     keepjumps normal! gg
