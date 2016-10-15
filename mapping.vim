@@ -1,4 +1,4 @@
-nnoremap <silent><F12> :<C-u>call VIMRC._.CreateDictUseSyntax()<CR>
+nnoremap <silent><leader><F2> :<C-u>call VIMRC._.CreateDictUseSyntax()<CR>
 
 map  <silent><F1> <ESC>:<C-u>nohlsearch<CR>
 map! <silent><F1> <ESC>:<C-u>nohlsearch<CR>

@@ -13,7 +13,8 @@ let g:quickrun_config = extend(get(g:, 'quickrun_config', {}), {
 \   'errorformat': ' %# at %m (%f:%l:%c),%f:%l',
 \   'hook/eval/template': 'console.log(%s);'
 \ },
-\ 'scss' : {'cmdopt': '--style expanded', 'outputter/buffer/filetype': 'quickrun.css'}
+\ 'cs': { 'type': 'cs/mcs' },
+\ 'scss': {'cmdopt': '--style expanded', 'outputter/buffer/filetype': 'quickrun.css'}
 \})
 
 nmap <leader>r <Plug>(quickrun)

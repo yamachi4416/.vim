@@ -14,6 +14,7 @@ if s:_.IsInstall('neocomplete')
   let g:neocomplete#force_omni_input_patterns =
   \ get(g:, 'neocomplete#force_omni_input_patterns', {})
   let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
 
   function! VIMRC._AUTOCMDS_.Neocomplete()
     au filetype ruby NeoCompleteLock
@@ -26,12 +27,6 @@ if s:_.IsInstall('neosnippet')
   imap <C-k><C-l> <Plug>(neosnippet_expand_or_jump)
   smap <C-k><C-l> <Plug>(neosnippet_expand_or_jump)
   xmap <C-k><C-l> <Plug>(neosnippet_expand_target)
-endif
-
-if s:_.IsInstall('caw.vim')
-  let g:caw_no_default_keymappings = 1
-  nmap gct <Plug>(caw:I:toggle)
-  vmap gct <Plug>(caw:I:toggle)
 endif
 
 if s:_.IsInstall('vim-asterisk')

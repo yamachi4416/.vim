@@ -1,4 +1,4 @@
 snippet     Plug
 abbr        Plug
 options     head
-  Plug '${1:`getreg(v:register)`}'
+  Plug '`substitute(getreg(v:register), '\v\r\n|\n|\r', '', '')`'

@@ -195,6 +195,20 @@ EOF
     endif
     return &rtp =~# '\v[\\/]' . a:dirname . ',?'
   endfunction
+  function! s:FileTypeAutoCommand()
+    setlocal formatoptions-=o cindent
+    setlocal complete-=i complete-=t
+    if &l:path ==# ''
+      setlocal path<
+    endif
+    if filereadable(expand('$REFSDIR/' . expand('<amatch>') . '/tags'))
+      let &l:tags = &tags . ',' . expand('$REFSDIR/' . expand('<amatch>') . '/tags')
+    endif
+    if filereadable(expand('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt'))
+      let &l:dict = glob('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt')
+      let &l:complete .= ',k' . &l:dict
+    endif
+  endfunction
   call extend(self._, {
   \ 'SID': function('s:SID'),
   \ 'IMode': function('s:IMode'),
@@ -204,26 +218,19 @@ EOF
   \ 'GetFileFromUrl': function('s:GetFileFromUrl'),
   \ 'SourceIfExists': function('s:SourceIfExists'),
   \ 'GetSelectText': function('s:GetSelectText'),
-  \ 'IsInstall': function('s:IsInstall')
+  \ 'IsInstall': function('s:IsInstall'),
+  \ 'AddRefPath': function('s:AddRefPath'),
+  \ 'RubyAddBundlePaths': function('s:RubyAddBundlePaths'),
   \})
 endfunction
+
 function! s:RC._InitAutogroup()
   augroup Vimrc
     au!
     au bufnewfile *             setl fileencoding=utf8
     au bufnewfile *.{bat,cmd}   setl fileencoding=cp932 fileformat=dos
     au bufnewfile,bufreadpost *.jade setl filetype=pug
-    au filetype *               setl formatoptions-=o cindent
-    au filetype vim             setl keywordprg=:help foldmethod=syntax
-    au filetype css,scss,less   setl iskeyword+=-
-    au filetype scss            setl iskeyword+=$
-    au filetype sql             setl autoindent nocindent indentexpr=
-    au filetype html,xhtml,jsp  setl iskeyword+=-
-    \|  if exists('b:match_words')
-    \|    setl matchpairs-=<:>
-    \|    let b:match_words = substitute(b:match_words, '\V<:>,', '', 'g')
-    \|  endif
-    au filetype gitconfig setl noexpandtab
+    au filetype *               call s:FileTypeAutoCommand()
     au vimenter * call s:RC._CallRegisterAutoGroups()
     au vimenter * call s:VimEnter()
   augroup END
@@ -269,7 +276,6 @@ function! s:RC.LoadCommand()
   call s:SourceIfExists('$MYVIMFILES/command.vim')
 endfunction
 function! s:RC.Init()
-  let self.Omni = {}
   let self.IsWindows = has('win32')
   let self.IsUnix = has('unix')
   call self._DefineLocalFunctions()
@@ -282,45 +288,6 @@ function! s:RC.Init()
 endfunction
 function! s:RC.LoadLocalrc()
   call s:SourceIfExists('$MYVIMFILES/localrc.vim')
-endfunction
-
-function! s:RC._AUTOCMDS_.Include()
-  au filetype * if &l:path ==# '' | setl path< | endif
-
-  au filetype *
-  \   if filereadable(expand('$REFSDIR/' . expand('<amatch>') . '/tags'))
-  \|    let &l:tags = &tags . ',' . expand('$REFSDIR/' . expand('<amatch>') . '/tags')
-  \|  endif
-
-  au filetype ruby
-  \   let &l:include = '\v<require%(_relative)?\s*\(?\s*([''"])\zs\f+\ze\1?\)?$'
-  \|  let &l:includeexpr = s:SID('IncludeExpr(v:fname)')
-  \|  call s:RubyAddBundlePaths()
-
-  au filetype java
-  \   let &l:path        = s:AddRefPath('java/src', &l:path)
-  \|  let &l:includeexpr = s:SID('IncludeExpr(tr(v:fname,''.'',''/''))')
-  \|  let &l:include     = '\v^import\s+'
-  \|  let &l:suffixesadd = '.java'
-
-  au filetype javascript
-  \   let &l:include = '\v<require\s*\(\s*([''"])\zs\f+\ze\1?\)'
-  \|  let &l:suffixesadd = '.js'
-  \|  let &l:path        = s:AddRefPath('javascript/node/lib', &l:path)
-  \|  let &l:includeexpr = s:SID('IncludeExpr(v:fname)')
-endfunction
-function! s:RC._AUTOCMDS_.Complete()
-  au filetype * setl complete-=i complete-=t
-  au filetype * let &l:ofu = get(s:RC.Omni, expand('<amatch>'), &l:ofu)
-
-  au filetype *
-  \   if filereadable(expand('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt'))
-  \|    let &l:dict = glob('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt')
-  \|    let &l:complete .= ',k' . &l:dict
-  \|  endif
-
-  au filetype eruby let &l:ofu = b:eruby_subtype =~ 'html' ? 'htmlcomplete#CompleteTags' : &l:ofu
-  au filetype jst   let &l:ofu = 'htmlcomplete#CompleteTags'
 endfunction
 
 let VIMRC = s:RC.Init()

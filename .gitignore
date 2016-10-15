@@ -13,3 +13,6 @@
 !snippets/*.snip
 !dict/
 !dict/*.txt
+!after/
+!after/**/
+!after/**/*.vim
