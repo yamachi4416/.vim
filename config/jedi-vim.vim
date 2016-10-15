@@ -7,8 +7,8 @@ let g:jedi#rename_command = '[jedi]r'
 let g:jedi#usages_command = '[jedi]n'
 
 functio! s:JediKeyMap()
-  nmap <leader>j [jedi]
-  xmap <leader>j [jedi]
+  nmap <buffer> <leader>j [jedi]
+  xmap <buffer> <leader>j [jedi]
 endfunctio
 
 function! VIMRC._AUTOCMDS_.Jedi()
