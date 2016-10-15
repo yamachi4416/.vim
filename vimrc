@@ -133,7 +133,7 @@ function! s:RC._DefineLocalFunctions()
   endfunction
   function! s:ScratchWindow(...) abort
     call s:WinSplit('new')
-    setl buftype=nofile bufhidden=wipe noswapfile nobuflisted
+    setl buftype=nofile bufhidden=wipe noswapfile
     if a:0 && type(a:1) is type('') | call append(line('$') - 1, s:Splitn(a:1)) | endif
     if a:0 && type(a:1) is type([]) | call append(line('$') - 1, a:1)           | endif
     keepjumps normal! gg
