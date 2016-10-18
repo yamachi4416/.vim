@@ -27,6 +27,8 @@ if exists('*wildmenumode')
   cnoremap <expr><Tab> wildmenumode() ? "\<C-n>" : "\<Tab>"
 endif
 
+nnoremap <C-w><S-s> :<C-u>ScratchWindow<CR>
+
 finish
 
 " Note: xterm
