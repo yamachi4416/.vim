@@ -1,3 +1,8 @@
+setlocal expandtab
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+
 nnoremap <silent> <buffer> <F12> :OmniSharpGotoDefinition<CR>
 nnoremap <silent> <buffer> <S-F12> :OmniSharpFindUsages<CR>
 
