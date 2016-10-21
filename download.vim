@@ -22,8 +22,6 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimshell.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/html5css3'

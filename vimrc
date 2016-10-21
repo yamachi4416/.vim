@@ -20,7 +20,7 @@ function! s:RC._SetStartingVimOptions()
   set fileencodings=ucs-bom,utf8,sjis,cp932,eucjp,default,latin
   set fileformat=
   set fileformats=unix,dos
-  set helplang=en,ja
+  set helplang=ja,en
   set autoread
   set novisualbell noerrorbells
   set clipboard& clipboard+=unnamed
@@ -133,7 +133,7 @@ function! s:RC._DefineLocalFunctions()
   endfunction
   function! s:ScratchWindow(...) abort
     call s:WinSplit('new')
-    setl buftype=nofile bufhidden=wipe noswapfile
+    setlocal buftype=nofile bufhidden=wipe noswapfile
     if a:0 && type(a:1) is type('') | call append(line('$') - 1, s:Splitn(a:1)) | endif
     if a:0 && type(a:1) is type([]) | call append(line('$') - 1, a:1)           | endif
     keepjumps normal! gg
@@ -228,9 +228,9 @@ endfunction
 function! s:RC._InitAutogroup()
   augroup Vimrc
     au!
-    au bufnewfile *             setl fileencoding=utf8
-    au bufnewfile *.{bat,cmd}   setl fileencoding=cp932 fileformat=dos
-    au bufnewfile,bufreadpost *.jade setl filetype=pug
+    au bufnewfile *             setlocal fileencoding=utf8
+    au bufnewfile *.{bat,cmd}   setlocal fileencoding=cp932 fileformat=dos
+    au bufnewfile,bufreadpost *.jade setlocal filetype=pug
     au filetype *               call s:FileTypeAutoCommand()
     au vimenter * call s:RC._CallRegisterAutoGroups()
     au vimenter * call s:VimEnter()
