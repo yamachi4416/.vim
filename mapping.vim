@@ -28,7 +28,6 @@ if exists('*wildmenumode')
 endif
 
 nnoremap <C-w><S-s> :<C-u>ScratchWindow<CR>
-set pastetoggle=<leader>p
 finish
 
 " Note: xterm
