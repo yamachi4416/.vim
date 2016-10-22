@@ -34,6 +34,7 @@ function! s:RC._SetEditVimOptions()
   set virtualedit=block backspace=2
   set completeopt=menuone,longest
   set nojoinspaces
+  set pastetoggle=<f3>
   set iminsert=0 formatoptions=cqrj nolinebreak
   set copyindent preserveindent
 endfunction
@@ -291,7 +292,7 @@ function! s:RC.LoadLocalrc()
   call s:SourceIfExists('$MYVIMFILES/localrc.vim')
 endfunction
 
-let VIMRC = s:RC.Init()
+let g:VIMRC = s:RC.Init()
 call s:RC.SetPluginEnable()
 call s:RC.LoadPluginConfig()
 call s:RC.LoadCommand()
