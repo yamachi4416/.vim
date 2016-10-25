@@ -13,6 +13,7 @@ function! s:RC._SetEnv()
   if !isdirectory($REFSDIR) | let $REFSDIR = globpath($MYVIMFILES, 'refs') | endif
   if !isdirectory($REFSDIR) | let $REFSDIR = globpath('~', 'refs') | endif
 endfunction
+
 function! s:RC._SetStartingVimOptions()
   if !has('vim_starting') | return | endif
   set nobomb
@@ -26,6 +27,7 @@ function! s:RC._SetStartingVimOptions()
   set clipboard& clipboard+=unnamed
   set softtabstop=-1 shiftwidth=0 tabstop=2 expandtab
 endfunction
+
 function! s:RC._SetEditVimOptions()
   set mouse=a
   set modeline
@@ -38,12 +40,14 @@ function! s:RC._SetEditVimOptions()
   set iminsert=0 formatoptions=cqrj nolinebreak
   set copyindent preserveindent
 endfunction
+
 function! s:RC._SetBufFileVimOptions()
   set isfname& isfname-== isfname-=!
   set hidden
   set wildignorecase wildignore& wildignore+=.git,.hg,.svn
   set tags=tags;
 endfunction
+
 function! s:RC._SetDisplayVimOptions()
   set list listchars=tab:>\ ,trail:- ambiwidth=double fillchars=
   set noshowmatch matchtime=0
@@ -66,7 +70,9 @@ function! s:RC._SetDisplayVimOptions()
   let &g:statusline =
   \ ' %{pathshorten(getcwd())} %{expand(''%'')} %m%r%w %=%{join([&fenc,&ff])} '
   set guioptions=ecM
+  set showtabline=2
 endfunction
+
 function! s:RC._SetCmdAndTermVimOptions()
   set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
   set wildmenu wildmode=longest:full
@@ -76,6 +82,7 @@ function! s:RC._SetCmdAndTermVimOptions()
     let $PROMPT = get(v:, 'servername', 'VIM') . ' $P$_$S$G$S'
   endif
 endfunction
+
 function! s:RC._SetBackupUndoVimOptions()
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
@@ -87,37 +94,45 @@ function! s:RC._SetBackupUndoVimOptions()
     let &wildignore .= ',' . &undodir
   endif
 endfunction
+
 function! s:RC._DefineGlobalVariables()
   call s:SourceIfExists('$MYVIMFILES/globalvar.vim')
 endfunction
+
 function! s:RC._DefineLocalFunctions()
   function! s:SID(...)
     let id = matchstr(string(function('s:SID')), '\C\v\<SNR\>\d+_')
     return a:0 < 1 ? id : id . a:1
   endfunction
+
   function! s:VimEnter() abort
     if &ft !=# ''
       exe 'doautocmd filetype' &ft
     endif
   endfunction
+
   function! s:AddRefPath(path, paths) abort
     if isdirectory(glob(printf('$REFSDIR/%s', a:path)))
       return join(add(split(a:paths, ','), glob(printf('$REFSDIR/%s', a:path))), ',')
     endif
     return a:path
   endfunction
+
   function! s:Splitn(str) abort
     return split(a:str, '\v\r\n|\n|\r')
   endfunction
+
   function! s:WinSplit(cmd) abort
     exe (winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '' : 'vert ') . a:cmd
   endfunction
+
   function! s:IMode(...) abort
     if pumvisible()       | return get(a:000, 0, '')    | endif
     if &l:omnifunc !=# '' | return "\<C-x>\<C-o>\<C-p>" | endif
     if !empty(tagfiles()) | return "\<C-x>\<C-]>"       | endif
     return "\<C-p>"
   endfunction
+
   function! s:CreateDictUseSyntax() abort
     if &l:syntax ==# '' | return | endif
     if &l:syntax ==# 'text' | return | endif
@@ -132,6 +147,7 @@ function! s:RC._DefineLocalFunctions()
     tabe `=file`
     nnoremap <buffer><silent><F12> :<C-u>silent keeppatterns g/\v^.?$/d<CR>:%sort u<CR>:wq<CR>
   endfunction
+
   function! s:ScratchWindow(...) abort
     call s:WinSplit('new')
     setlocal buftype=nofile bufhidden=wipe noswapfile
@@ -140,6 +156,7 @@ function! s:RC._DefineLocalFunctions()
     keepjumps normal! gg
     nnoremap <buffer><silent><C-l> :<C-u>%d _ <Bar>redraw<CR>
   endfunction
+
   function! s:RubyAddBundlePaths() abort
     if !has('ruby') || !executable('bundle') | return | endif
     let gemfile = findfile('Gemfile', expand(expand('%:p:h').'/;'))
@@ -158,6 +175,7 @@ end
 EOF
     let &l:path = join(uniq(l:path), ',')
   endfunction
+
   function! s:IncludeExpr(fname) abort
     let suff = &l:suffixesadd
     let file = fnamemodify(a:fname, ':e') ==# '' ? a:fname . suff : a:fname
@@ -168,6 +186,7 @@ EOF
     endif
     return filereadable(ret[0]) ? ret[0] : v:fname
   endfunction
+
   function! s:GetFileFromUrl(url, file) abort
     if executable('powershell')
       let command = '(New-Object System.Net.WebClient).downloadFile(''%s'', ''%s'')'
@@ -178,6 +197,7 @@ EOF
       call system(printf(command, shellescape(a:file), a:url))
     endif
   endfunction
+
   function! s:SourceIfExists(path) abort
     let filepath = expand(a:path)
     if filereadable(filepath)
@@ -185,18 +205,21 @@ EOF
       return 1
     endif
   endfunction
+
   function! s:GetSelectText() abort
     let save = @@
     silent normal! gvy
     let [ret, @@] = [@@, save]
     return ret
   endfunction
+
   function! s:IsInstall(dirname)
     if exists('g:plugs')
       return has_key(g:plugs, a:dirname) || has_key(g:plugs, a:dirname . '.vim')
     endif
     return &rtp =~# '\v[\\/]' . a:dirname . ',?'
   endfunction
+
   function! s:FileTypeAutoCommand()
     setlocal formatoptions-=o cindent
     setlocal complete-=i complete-=t
@@ -211,6 +234,7 @@ EOF
       let &l:complete .= ',k' . &l:dict
     endif
   endfunction
+
   call extend(self._, {
   \ 'SID': function('s:SID'),
   \ 'IMode': function('s:IMode'),
@@ -237,6 +261,7 @@ function! s:RC._InitAutogroup()
     au vimenter * call s:VimEnter()
   augroup END
 endfunction
+
 function! s:RC._CallRegisterAutoGroups()
   let obj = self._AUTOCMDS_
   augroup Vimrc
@@ -248,9 +273,13 @@ function! s:RC._CallRegisterAutoGroups()
     endfor
   augroup END
 endfunction
+
+
+
 function! s:RC.RegisterAutoCmd(callObj)
   call extend(self._AUTOCMDS_, a:callObj)
 endfunction
+
 function! s:RC.SetVimOptions()
   call self._SetStartingVimOptions()
   call self._SetEditVimOptions()
@@ -259,10 +288,12 @@ function! s:RC.SetVimOptions()
   call self._SetCmdAndTermVimOptions()
   call self._SetBackupUndoVimOptions()
 endfunction
+
 function! s:RC.SetPluginEnable()
   if !has('vim_starting') | return | endif
   call s:SourceIfExists('$MYVIMFILES/download.vim')
 endfunction
+
 function! s:RC.LoadPluginConfig()
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
   for config in split(globpath($MYVIMFILES, '/config/*.vim', 1), "\n")
@@ -271,12 +302,15 @@ function! s:RC.LoadPluginConfig()
     endif
   endfor
 endfunction
+
 function! s:RC.LoadKeyMap()
   call s:SourceIfExists('$MYVIMFILES/mapping.vim')
 endfunction
+
 function! s:RC.LoadCommand()
   call s:SourceIfExists('$MYVIMFILES/command.vim')
 endfunction
+
 function! s:RC.Init()
   let self.IsWindows = has('win32')
   let self.IsUnix = has('unix')
@@ -288,6 +322,7 @@ function! s:RC.Init()
   call self.SetVimOptions()
   return self
 endfunction
+
 function! s:RC.LoadLocalrc()
   call s:SourceIfExists('$MYVIMFILES/localrc.vim')
 endfunction
