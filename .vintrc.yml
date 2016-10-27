@@ -1,0 +1,5 @@
+cmdargs:
+
+policies:
+  ProhibitImplicitScopeVariable:
+    enabled: false

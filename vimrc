@@ -106,8 +106,8 @@ function! s:RC._DefineLocalFunctions()
   endfunction
 
   function! s:VimEnter() abort
-    if &ft !=# ''
-      exe 'doautocmd filetype' &ft
+    if &filetype !=# ''
+      exe 'doautocmd filetype' &filetype
     endif
   endfunction
 
@@ -217,7 +217,7 @@ EOF
     if exists('g:plugs')
       return has_key(g:plugs, a:dirname) || has_key(g:plugs, a:dirname . '.vim')
     endif
-    return &rtp =~# '\v[\\/]' . a:dirname . ',?'
+    return &runtimepath =~# '\v[\\/]' . a:dirname . ',?'
   endfunction
 
   function! s:FileTypeAutoCommand()

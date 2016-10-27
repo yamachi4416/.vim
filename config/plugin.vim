@@ -1,4 +1,4 @@
-let s:_ = VIMRC._
+let s:_ = g:VIMRC._
 call s:_.SourceIfExists('$VIMRUNTIME/macros/matchit.vim')
 
 if s:_.IsInstall('neocomplete')
@@ -17,7 +17,7 @@ if s:_.IsInstall('neocomplete')
   let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
   let g:neocomplete#force_omni_input_patterns.coffee = '[^.]\.\%(\u\{2,}\)\?'
 
-  function! VIMRC._AUTOCMDS_.Neocomplete()
+  function! g:VIMRC._AUTOCMDS_.Neocomplete()
     au filetype ruby NeoCompleteLock
   endfunction
 endif
@@ -50,26 +50,33 @@ if s:_.IsInstall('nerdtree')
 endif
 
 if s:_.IsInstall('ctrlp-rubyrequire')
-  function! VIMRC._AUTOCMDS_.CtrlpRubyRequire()
+  function! g:VIMRC._AUTOCMDS_.CtrlpRubyRequire()
     au filetype ruby nnoremap <leader>i :<C-u>CtrlPRubyRequire<CR>
   endfunction
 endif
 
 if s:_.IsInstall('neco-ghc')
-  function! VIMRC._AUTOCMDS_.Neco_GHC()
+  function! g:VIMRC._AUTOCMDS_.Neco_GHC()
     au filetype haskell setlocal omnifunc=necoghc#omnifunc
   endfunction
+endif
+
+if s:_.IsInstall('neomake')
+  let g:neomake_error_sign   = {'text': '>>', 'texthl': 'ErrorMsg'}
+  let g:neomake_warning_sign = {'text': '>>', 'texthl': 'WarningMsg'}
+  let g:neomake_message_sign = {'text': '~', 'texthl': 'MoreMsg' }
+  let g:neomake_info_sign    = {'text': '~', 'texthl': 'ModeMsg'}
+  let g:neomake_open_list = 1
+  let g:neomake_list_height = 5
+  augroup neomake_buffer_post
+    autocmd!
+    autocmd bufwritepost * Neomake
+  augroup END
 endif
 
 " tern_for_vim
 let g:tern_show_signature_in_pum = 1
 let g:tern_show_argument_hints = 'on_hold'
-
-" syntastic
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_loc_list_height = 4
 
 " vim-tags
 let g:vim_tags_auto_generate = 0

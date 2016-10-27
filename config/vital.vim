@@ -1,6 +1,6 @@
 let g:loaded_vitalizer = 1
 let s:_V = {}
-let s:_ = VIMRC._
+let s:_ = g:VIMRC._
 let s:USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0'
 
 function! s:V(ns)
@@ -26,7 +26,8 @@ endfunction
 function! s:_.GoogleHonyaku(text, sl, tl) abort
   if a:text ==# '' | return '' | endif
   let text = substitute(a:text, '\v(\r|\n)$', '', 'g')
-  let url = printf('https://translate.google.com?sl=%s&tl=%s&ie=%s&oe=%s&text=%s', a:sl, a:tl, &enc, &enc, s:encodeURI(text))
+  let url = printf('https://translate.google.com?sl=%s&tl=%s&ie=%s&oe=%s&text=%s',
+  \ a:sl, a:tl, &encoding, &encoding, s:encodeURI(text))
   let ret = matchstr(s:_.Hdata(url), '\v\CTRANSLATED_TEXT\=''\zs[^'']+\ze''')
   let ret = substitute(ret, '\v\\x(\x\x)','\=nr2char(str2nr(submatch(1), 16))', 'g')
   return join(split(s:decodeHTMLEntities(ret), '\V<br>'), "\n")
@@ -46,7 +47,7 @@ function! s:_.Hdata(...) abort
   let type = get(resp.header, 'Content-Type', '')
   let char = tr(matchstr(type, '\v\ccharset\=\zs[a-z0-9\-_]+$'), '_', '-')
   let cnte = has_key(resp, 'content') ? remove(resp, 'content') : ''
-  return &enc != char ? iconv(cnte, char, &enc) : cnte
+  return &encoding != char ? iconv(cnte, char, &encoding) : cnte
 endfunction
 
 command! -nargs=* -bang -range E0 cal s:_.HonyakuAndEcho(<bang>0, <q-args>, 'en', 'ja')
