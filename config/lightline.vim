@@ -3,7 +3,7 @@ let g:lightline = {
 \ 'colorscheme': 'solarized',
 \ 'active': {
 \   'left':  [ [ 'mode', 'paste' ],
-\              [ 'fugitive', 'pwd', 'readonly', 'modified', 'filename' ],
+\              [ 'fugitive', 'pwd', 'readonly', 'modified', 'filename', 'neomake' ],
 \              [ ] ],
 \   'right': [ [ 'lineinfo', 'syntastic' ],
 \              [ 'percent' ],
@@ -12,7 +12,7 @@ let g:lightline = {
 \ 'separator': { 'left': '', 'right': '' },
 \ 'subseparator': { 'left': '', 'right': '' },
 \ 'component_function': {
-\   'syntastic': 'SyntasticStatuslineFlag',
+\   'neomake': 'neomake#statusline#LoclistStatus',
 \   'fugitive': 'LightLineFugitive',
 \   'pwd': 'LightLinePwd'
 \ }
