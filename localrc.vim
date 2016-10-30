@@ -16,7 +16,7 @@ set belloff=all
 try
   colorscheme iceberg
 catch /.*/
-  colorscheme default
+  colorscheme delek
 endtry
 
 set fillchars=vert:\|
