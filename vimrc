@@ -53,7 +53,6 @@ function! s:RC._SetDisplayVimOptions()
   set noshowmatch matchtime=0
   set hlsearch incsearch
   set whichwrap=[,],<,>
-  set title
   set number
   set ruler
   set synmaxcol=0
