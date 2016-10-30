@@ -1,4 +1,4 @@
-let s:_ = VIMRC._
+let s:_ = g:VIMRC._
 
 set browsedir=current
 set showtabline=2

@@ -12,6 +12,6 @@ function! s:Haskell_Keymap()
 
 endfunction
 
-function! VIMRC._AUTOCMDS_.GHCMOD()
+function! g:VIMRC._AUTOCMDS_.GHCMOD()
   au filetype haskell call s:Haskell_Keymap()
 endfunction

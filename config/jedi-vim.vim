@@ -11,7 +11,7 @@ functio! s:JediKeyMap()
   xmap <buffer> <leader>j [jedi]
 endfunctio
 
-function! VIMRC._AUTOCMDS_.Jedi()
+function! g:VIMRC._AUTOCMDS_.Jedi()
   au filetype python call s:JediKeyMap()
 endfunction
 

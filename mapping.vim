@@ -1,4 +1,4 @@
-nnoremap <silent><leader><F2> :<C-u>call VIMRC._.CreateDictUseSyntax()<CR>
+nnoremap <silent><leader><F2> :<C-u>call g:VIMRC._.CreateDictUseSyntax()<CR>
 
 map  <silent><F1> <ESC>:<C-u>nohlsearch<CR>
 map! <silent><F1> <ESC>:<C-u>nohlsearch<CR>
@@ -7,8 +7,8 @@ nnoremap <silent><leader><CR> :<C-u>if glob('%') !=# ''<bar>lcd %:h<bar>endif<CR
 nnoremap <silent>{ :<C-u>keepjumps normal! {<CR>
 nnoremap <silent>} :<C-u>keepjumps normal! }<CR>
 
-inoremap <silent><expr><C-Space> VIMRC._.IMode("\<Down>", "\<C-Space>")
-inoremap <silent><expr><C-S-Space> VIMRC._.IMode("\<Up>", "\<C-S-Space>")
+inoremap <silent><expr><C-Space> g:VIMRC._.IMode("\<Down>", "\<C-Space>")
+inoremap <silent><expr><C-S-Space> g:VIMRC._.IMode("\<Up>", "\<C-S-Space>")
 inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
 inoremap <silent><expr><C-o> pumvisible() ? "\<C-n>" : "\<C-o>"
 

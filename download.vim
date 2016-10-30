@@ -1,4 +1,4 @@
-let s:_ = VIMRC._
+let s:_ = g:VIMRC._
 
 function! s:DownloadPlugVim(plugvim) abort
   if filereadable(a:plugvim) | return 1 | endif
