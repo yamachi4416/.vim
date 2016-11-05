@@ -1,6 +1,7 @@
 let &t_SI .= "\<Esc>]50;CursorShape=1\x7"
 let &t_EI .= "\<Esc>]50;CursorShape=0\x7"
 
+imap OA <UP>
 imap <nowait><ESC> <ESC>
 imap <C-@> <C-Space>
 nnoremap <S-Tab> gt
@@ -19,10 +20,3 @@ try
 catch /.*/
   colorscheme delek
 endtry
-
-let &t_SI .= "\<Esc>]50;CursorShape=1\x7"
-let &t_EI .= "\<Esc>]50;CursorShape=0\x7"
-
-imap OA <UP>
-imap <nowait><ESC> <ESC>
-imap <C-@> <C-Space>
