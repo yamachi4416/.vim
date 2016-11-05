@@ -10,14 +10,13 @@ nnoremap <silent>} :<C-u>keepjumps normal! }<CR>
 inoremap <silent><expr><C-Space> g:VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-S-Space> g:VIMRC._.IMode("\<Up>", "\<C-S-Space>")
 inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
-inoremap <silent><expr><C-o> pumvisible() ? "\<C-n>" : "\<C-o>"
-
 
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+nnoremap <S-Tab> gt
 nnoremap <C-s> :<C-u>up<CR>
 inoremap <expr><C-s> pumvisible() ? '' : "\<C-o>:<C-u>up\<CR>"
 
@@ -28,7 +27,3 @@ if exists('*wildmenumode')
 endif
 
 nnoremap <C-w><S-s> :<C-u>ScratchWindow<CR>
-finish
-
-" Note: xterm
-imap <Nul> <C-Space>
