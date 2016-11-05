@@ -8,7 +8,7 @@
 !command.vim
 !download.vim
 !globalvar.vim
-!localrc.vim
+!_localrc.vim
 !snippets/
 !snippets/*.snip
 !dict/
