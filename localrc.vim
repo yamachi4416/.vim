@@ -16,4 +16,4 @@ augroup END
 
 set belloff=all
 
-call g:VIMRC._.SourceIfExists('_localrc.vim')
+call g:VIMRC._.SourceIfExists('$MYVIMFILES/_localrc.vim')
