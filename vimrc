@@ -156,25 +156,6 @@ function! s:RC._DefineLocalFunctions()
     nnoremap <buffer><silent><C-l> :<C-u>%d _ <Bar>redraw<CR>
   endfunction
 
-  function! s:RubyAddBundlePaths() abort
-    if !has('ruby') || !executable('bundle') | return | endif
-    let gemfile = findfile('Gemfile', expand(expand('%:p:h').'/;'))
-    let g:rubycomplete_gemfile_path = gemfile
-    let g:rubycomplete_use_bundler = g:rubycomplete_gemfile_path ==# '' ? 0 : 1
-    let l:path = add(split(&l:path, ','), fnamemodify(gemfile, ':p:h').'/lib')
-ruby << EOF
-begin
-  require 'bundler'
-  VIM::command('let l:path += %s' % Bundler.bundle_path.join('gems').children.map{|p; path|
-    $LOAD_PATH << path unless $LOAD_PATH.include?(path = p.join('lib').to_s); path
-  }.inspect)
-rescue StandardError => e
-  VIM::command('echom "%s"' % e.message)
-end
-EOF
-    let &l:path = join(uniq(l:path), ',')
-  endfunction
-
   function! s:IncludeExpr(fname) abort
     let suff = &l:suffixesadd
     let file = fnamemodify(a:fname, ':e') ==# '' ? a:fname . suff : a:fname
@@ -245,7 +226,6 @@ EOF
   \ 'GetSelectText': function('s:GetSelectText'),
   \ 'IsInstall': function('s:IsInstall'),
   \ 'AddRefPath': function('s:AddRefPath'),
-  \ 'RubyAddBundlePaths': function('s:RubyAddBundlePaths'),
   \})
 endfunction
 
