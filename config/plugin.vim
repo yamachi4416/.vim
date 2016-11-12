@@ -1,27 +1,6 @@
 let s:_ = g:VIMRC._
 call s:_.SourceIfExists('$VIMRUNTIME/macros/matchit.vim')
 
-if s:_.IsInstall('neocomplete')
-  let g:neocomplete#data_directory = expand('$VIMCACHEDIR/neocomplete')
-  let g:neocomplete#enable_fuzzy_completion = 1
-  let g:neocomplete#enable_auto_select = 1
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_auto_delimiter = 1
-
-  call neocomplete#custom#source('tag', 'disabled_filetypes', {'_': 1})
-  call neocomplete#custom#source('include', 'disabled_filetypes', {'_': 1})
-
-  let g:neocomplete#force_omni_input_patterns =
-  \ get(g:, 'neocomplete#force_omni_input_patterns', {})
-  let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
-  let g:neocomplete#force_omni_input_patterns.coffee = '[^.]\.\%(\u\{2,}\)\?'
-
-  function! g:VIMRC._AUTOCMDS_.Neocomplete()
-    au filetype ruby NeoCompleteLock
-  endfunction
-endif
-
 if s:_.IsInstall('neosnippet')
   let g:neosnippet#data_directory = expand('$VIMCACHEDIR/neosnippet')
   let g:neosnippet#snippets_directory = expand('$MYVIMFILES/snippets')
@@ -61,17 +40,9 @@ if s:_.IsInstall('neco-ghc')
   endfunction
 endif
 
-if s:_.IsInstall('neomake')
-  let g:neomake_error_sign   = {'text': '>>', 'texthl': 'ErrorMsg'}
-  let g:neomake_warning_sign = {'text': '>>', 'texthl': 'WarningMsg'}
-  let g:neomake_message_sign = {'text': '~', 'texthl': 'MoreMsg' }
-  let g:neomake_info_sign    = {'text': '~', 'texthl': 'ModeMsg'}
-  let g:neomake_open_list = 0
-  let g:neomake_list_height = 5
-  augroup neomake_buffer_post
-    autocmd!
-    autocmd bufwritepost * Neomake
-  augroup END
+if s:_.IsInstall('vim-easy-align')
+  xmap <leader>ga <Plug>(EasyAlign)
+  nmap <leader>ga <Plug>(EasyAlign)
 endif
 
 " tern_for_vim
