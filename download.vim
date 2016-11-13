@@ -67,7 +67,7 @@ endif
 
 "Ruby
 if exists('$VIM_RUBY')
-  Plug 'vim-ruby/vim-ruby'
+  Plug '~/.vim/bundle/vim-ruby'
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
   Plug 'hujo/ctrlp-rubyrequire'
