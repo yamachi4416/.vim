@@ -9,7 +9,7 @@ call neocomplete#custom#source('include', 'disabled_filetypes', {'_': 1})
 
 let g:neocomplete#force_omni_input_patterns =
 \ get(g:, 'neocomplete#force_omni_input_patterns', {})
-let g:neocomplete#force_omni_input_patterns.ruby = '[^.]\.\%(\u\{2,}\)\?\|\h\w*::\|\h\w\{2,}'
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.]\.\%(\u\{2,}\)\?\|\h\w*::'
 let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
 let g:neocomplete#force_omni_input_patterns.coffee = '[^.]\.\%(\u\{2,}\)\?'
 
