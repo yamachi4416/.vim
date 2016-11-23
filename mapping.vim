@@ -3,10 +3,6 @@ nnoremap <silent><leader><F2> :<C-u>call g:VIMRC._.CreateDictUseSyntax()<CR>
 map  <silent><F1> <ESC>:<C-u>nohlsearch<CR>
 map! <silent><F1> <ESC>:<C-u>nohlsearch<CR>
 
-nnoremap <silent><leader><CR> :<C-u>if glob('%') !=# ''<bar>lcd %:h<bar>endif<CR>
-nnoremap <silent>{ :<C-u>keepjumps normal! {<CR>
-nnoremap <silent>} :<C-u>keepjumps normal! }<CR>
-
 inoremap <silent><expr><C-Space> g:VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-S-Space> g:VIMRC._.IMode("\<Up>", "\<C-S-Space>")
 inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
@@ -17,13 +13,9 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
 nnoremap <S-Tab> gt
-nnoremap <C-s> :<C-u>up<CR>
-inoremap <expr><C-s> pumvisible() ? '' : "\<C-o>:<C-u>up\<CR>"
 
 if exists('*wildmenumode')
   set wildmenu
   set wildcharm=<Tab>
   cnoremap <expr><Tab> wildmenumode() ? "\<C-n>" : "\<Tab>"
 endif
-
-nnoremap <C-w><S-s> :<C-u>ScratchWindow<CR>
