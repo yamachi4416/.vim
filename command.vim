@@ -34,3 +34,5 @@ function! s:git_grep(search_string)
 endfunction
 
 command! -nargs=? GitGrepQuickfix call s:git_grep(<q-args>)
+
+command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()
