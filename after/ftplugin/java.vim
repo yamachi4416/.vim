@@ -5,6 +5,8 @@ let &l:suffixesadd = '.java'
 
 let s:_ = g:VIMRC._
 
-if s:_.IsInstall('javacomplete2')
+if s:_.IsInstall('vim-javacomplete2')
   setlocal omnifunc=javacomplete#Complete
 endif
+
+setlocal noexpandtab
