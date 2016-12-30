@@ -53,7 +53,7 @@ function! s:RC._SetDisplayVimOptions()
   set noshowmatch matchtime=0
   set hlsearch incsearch
   set whichwrap=[,],<,>
-  set nonumber
+  set number
   set ruler
   set synmaxcol=0
   set noequalalways scrolloff=0 splitright splitbelow
