@@ -8,7 +8,8 @@ let &l:suffixesadd = '.java'
 let java_ignore_javadoc  = 1
 let java_comment_strings = 1
 
-setlocal noexpandtab
+"setlocal noexpandtab
+setlocal shiftwidth=4
 setlocal foldmethod=syntax
 setlocal makeprg=ant
 
