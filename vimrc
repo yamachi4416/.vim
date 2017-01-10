@@ -255,10 +255,6 @@ endfunction
 
 
 
-function! s:RC.RegisterAutoCmd(callObj)
-  call extend(self._AUTOCMDS_, a:callObj)
-endfunction
-
 function! s:RC.SetVimOptions()
   call self._SetStartingVimOptions()
   call self._SetEditVimOptions()
