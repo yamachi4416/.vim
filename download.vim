@@ -22,7 +22,6 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'

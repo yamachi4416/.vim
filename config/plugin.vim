@@ -51,7 +51,3 @@ let g:tern_show_argument_hints = 'on_hold'
 
 " vim-tags
 let g:vim_tags_auto_generate = 0
-
-" indent line
-let g:indentLine_fileTypeExclude = ['json']
-
