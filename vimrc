@@ -32,7 +32,7 @@ function! s:RC._SetEditVimOptions()
   set mouse=a
   set modeline
   set ignorecase smartcase
-  set tagcase=match
+  "set tagcase=match
   set virtualedit=block backspace=2
   set completeopt=menuone,longest
   set nojoinspaces
