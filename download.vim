@@ -16,8 +16,6 @@ if !exists(':PlugInstall')
   endif
 endif
 
-let s:save_guioptions = &guioptions
-set guioptions=
 call plug#begin($VIMPLUGDIR)
 
 Plug 'Shougo/neosnippet'
@@ -37,9 +35,7 @@ Plug 'szw/vim-tags'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tsukkee/unite-tag'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
 
@@ -84,5 +80,3 @@ endif
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 
 call plug#end()
-let &guioptions = s:save_guioptions
-unlet! s:save_guioptions
