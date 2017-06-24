@@ -23,7 +23,7 @@ function! s:RC._SetStartingVimOptions()
   set fileformats=unix,dos
   set helplang=ja,en
   set autoread
-  set novisualbell noerrorbells
+  set visualbell noerrorbells
   set clipboard& clipboard+=unnamed
   set softtabstop=-1 shiftwidth=0 tabstop=2 expandtab
 endfunction
