@@ -11,7 +11,7 @@ let g:plug_home = $VIMPLUGDIR
 let g:plug_url_format = 'https://github.com/%s.git'
 if !exists(':PlugInstall')
   call s:DownloadPlugVim(expand('$VIMPLUGDIR/plug.vim'))
-  if (!s:_.SourceIfExists('$VIMPLUGDIR/plug.vim'))
+  if !s:_.SourceIfExists('$VIMPLUGDIR/plug.vim')
     finish
   endif
 endif
@@ -30,7 +30,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'neomake/neomake'
-Plug 'scrooloose/nerdtree'
 Plug 'szw/vim-tags'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
@@ -63,7 +62,7 @@ endif
 
 "Ruby
 if exists('$VIM_RUBY')
-  Plug '~/.vim/bundle/vim-ruby'
+  Plug 'vim-ruby/vim-ruby'
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
   Plug 'hujo/ctrlp-rubyrequire'

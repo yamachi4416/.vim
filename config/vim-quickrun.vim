@@ -1,6 +1,6 @@
 let g:quickrun_config = extend(get(g:, 'quickrun_config', {}), {
 \ '_': {
-\     'runner'                   : 'job',
+\     'runner'                   : exists('*ch_close_in') ? 'job' : 'system',
 \     'runner/job/interval'      : 1,
 \     'outputter'                : 'error',
 \     'outputter/split'          : '%{ winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '''' : ''vert'' }',
