@@ -76,6 +76,12 @@ if exists('$VIM_HASKELL')
   Plug 'ujihisa/ref-hoogle'
 endif
 
+"Windows
+if has('win32')
+  Plug 'hujo/dosdos-complete-vim'
+  Plug 'hujo/ref-doshelp'
+endif
+
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 
 call plug#end()
