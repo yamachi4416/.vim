@@ -36,3 +36,13 @@ endfunction
 command! -nargs=? GitGrepQuickfix call s:git_grep(<q-args>)
 
 command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()
+
+function! s:CopyToTermClip(value) abort
+  if executable('base64')
+    let val = substitute(system('base64', a:value), '\n', '', 'g')
+    exe printf('silent! !echo -ne "\e]52;c;%s\x07"', val)
+    redraw!
+  endif
+endfunction
+
+command! -nargs=1 -complete=function CopyToTermClip call s:CopyToTermClip(<args>)
