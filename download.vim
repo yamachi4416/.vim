@@ -25,18 +25,19 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/html5css3'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
-Plug 'nanotech/jellybeans.vim'
 Plug 'neomake/neomake'
-Plug 'szw/vim-tags'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
+
+if executable('ctags')
+  Plug 'majutsushi/tagbar'
+  Plug 'szw/vim-tags'
+endif
 
 if has('lua')
   Plug 'Shougo/neocomplete'
@@ -49,8 +50,6 @@ if exists('$VIM_NODEJS')
   Plug 'ternjs/tern_for_vim', { 'do': 'npm i && npm i tern-coffee' }
   Plug 'othree/tern_for_vim_coffee'
   Plug 'kchmck/vim-coffee-script'
-  Plug 'briancollins/vim-jst'
-  Plug 'digitaltoad/vim-pug'
 endif
 
 "Python
@@ -66,14 +65,6 @@ if exists('$VIM_RUBY')
   Plug 'tpope/vim-rails'
   Plug 'yuku-t/vim-ref-ri'
   Plug 'hujo/ctrlp-rubyrequire'
-endif
-
-"Haskell
-if exists('$VIM_HASKELL')
-  Plug 'kana/vim-filetype-haskell'
-  Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
-  Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
-  Plug 'ujihisa/ref-hoogle'
 endif
 
 "Windows
