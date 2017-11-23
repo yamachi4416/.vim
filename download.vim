@@ -33,6 +33,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
+Plug 'chr4/nginx.vim'
 
 if executable('ctags')
   Plug 'majutsushi/tagbar'
