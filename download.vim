@@ -56,8 +56,10 @@ endif
 "Python
 if exists('$VIM_PYTHON')
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-  Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
   Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+  if executable('pyenv')
+    Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
+  endif
 endif
 
 "Ruby
