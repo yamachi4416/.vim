@@ -46,3 +46,4 @@ function! s:CopyToTermClip(value) abort
 endfunction
 
 command! -nargs=1 -complete=function CopyToTermClip call s:CopyToTermClip(<args>)
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
