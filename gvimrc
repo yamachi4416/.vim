@@ -19,9 +19,14 @@ function! s:SaveWinPosAndFont()
   endfor
   call add(ret, printf('winpos %d %d', getwinposx(), getwinposy()))
   call add(ret, printf('colorscheme %s', get(g:, 'colors_name', 'default')))
+
+  call add(ret, 'augroup MYGVIMRC')
+  call add(ret, 'autocmd!')
   if exists('&transparency') && &transparency > 0
-    call add(ret, printf('let &transparency = %s', &transparency))
+    call add(ret, printf('autocmd guienter * let &transparency = %s', &transparency))
   endif
+  call add(ret, 'augroup END')
+
   if &enc !=? 'utf-8'
     call map(ret, 'iconv(v:val, &enc, ''utf-8'')')
   endif
