@@ -1,7 +1,10 @@
 let s:_ = g:VIMRC._
 
+let g:no_gvimrc_example = 1
+
 set browsedir=current
 set showtabline=2
+
 call s:_.SourceIfExists('$MYVIMFILES/.vim_style.vim')
 
 command! -nargs=0 SaveWinPosAndFont call s:SaveWinPosAndFont()
