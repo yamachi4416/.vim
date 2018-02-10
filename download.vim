@@ -47,10 +47,8 @@ endif
 
 "NodeJs
 if exists('$VIM_NODEJS')
-  Plug 'moll/vim-node', { 'for': ['javascript', 'coffee'] }
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm i && npm i tern-coffee' }
-  Plug 'othree/tern_for_vim_coffee'
-  Plug 'kchmck/vim-coffee-script'
+  Plug 'moll/vim-node', { 'for': ['javascript'] }
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
 endif
 
 "Python
