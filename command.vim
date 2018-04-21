@@ -33,6 +33,8 @@ function! s:git_grep(search_string)
   endif
 endfunction
 
+command! -nargs=? QfGitDiff if s:_.QfGitDiff(<q-args>) | copen | endif
+
 command! -nargs=? GitGrepQuickfix call s:git_grep(<q-args>)
 
 command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()

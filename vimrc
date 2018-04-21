@@ -217,6 +217,38 @@ function! s:RC._DefineLocalFunctions()
     endif
   endfunction
 
+  function! s:QfGitDiff(...)
+    let [l:lnum, ret] = [0, []]
+    let dir = matchstr(system('git rev-parse --show-toplevel'), '\v^\f+\ze[\r\n]')
+
+    if empty(dir) | return | endif
+
+    for line in split(system(printf('git diff %s', a:0 ? a:1 : '')), '\v\r\n|\n|\r')
+      if line[:3] ==# 'diff'
+        let [l:lnum, fname] = [0, dir . '/' . matchstr(line, '\v\sb/\zs\f+$')]
+        continue
+      endif
+      let char = line[0]
+      if char ==# '@'
+        let l:lnum = str2nr(matchstr(line, '\v\+\d+'))
+        continue
+      endif
+      if l:lnum
+        if char ==# '+' || char ==# '-'
+          call add(ret, {
+          \ 'filename': fname, 'type': 'i', 'lnum': l:lnum, 'col': 1, 'text': line})
+        endif
+        let l:lnum = stridx('-\', char) + 1 ? l:lnum : l:lnum + 1
+      endif
+    endfor
+
+    call setqflist(ret, 'r')
+
+    if len(ret)
+      return 1
+    endif
+  endfunction
+
   call extend(self._, {
   \ 'SID': function('s:SID'),
   \ 'IMode': function('s:IMode'),
@@ -228,6 +260,7 @@ function! s:RC._DefineLocalFunctions()
   \ 'GetSelectText': function('s:GetSelectText'),
   \ 'IsInstall': function('s:IsInstall'),
   \ 'AddRefPath': function('s:AddRefPath'),
+  \ 'QfGitDiff': function('s:QfGitDiff'),
   \})
 endfunction
 
