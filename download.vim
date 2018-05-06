@@ -20,7 +20,6 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'cocopon/iceberg.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/html5css3'
@@ -30,7 +29,6 @@ Plug 'neomake/neomake'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
 Plug 'chr4/nginx.vim'
@@ -47,7 +45,7 @@ endif
 
 "NodeJs
 if exists('$VIM_NODEJS')
-  Plug 'moll/vim-node', { 'for': ['javascript'] }
+  Plug 'moll/vim-node', { 'for': 'javascript' }
   Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
 endif
 
