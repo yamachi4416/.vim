@@ -20,8 +20,8 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'chr4/nginx.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'haya14busa/vim-asterisk'
 Plug 'hujo/html5css3'
 Plug 'itchyny/lightline.vim'
 Plug 'mattn/emmet-vim'
@@ -29,9 +29,7 @@ Plug 'neomake/neomake'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-endwise'
-Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
-Plug 'chr4/nginx.vim'
 
 if executable('ctags')
   Plug 'majutsushi/tagbar'
@@ -60,16 +58,10 @@ endif
 
 "Ruby
 if exists('$VIM_RUBY')
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'tpope/vim-rails'
-  Plug 'yuku-t/vim-ref-ri'
-  Plug 'hujo/ctrlp-rubyrequire'
-endif
-
-"Windows
-if has('win32')
-  Plug 'hujo/dosdos-complete-vim'
-  Plug 'hujo/ref-doshelp'
+  Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+  Plug 'tpope/vim-rails', { 'for': 'ruby' }
+  Plug 'yuku-t/vim-ref-ri', { 'for': 'ruby' }
+  Plug 'hujo/ctrlp-rubyrequire', { 'for': 'ruby' }
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
