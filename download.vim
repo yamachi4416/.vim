@@ -59,9 +59,9 @@ endif
 "Ruby
 if exists('$VIM_RUBY')
   Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-  Plug 'tpope/vim-rails', { 'for': 'ruby' }
-  Plug 'yuku-t/vim-ref-ri', { 'for': 'ruby' }
-  Plug 'hujo/ctrlp-rubyrequire', { 'for': 'ruby' }
+  Plug 'yuku-t/vim-ref-ri'
+  Plug 'tpope/vim-rails'
+  Plug 'hujo/ctrlp-rubyrequire'
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
