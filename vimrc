@@ -41,6 +41,9 @@ function! s:RC._SetEditVimOptions()
   set pastetoggle=<f3>
   set iminsert=0 formatoptions=cqrj nolinebreak
   set copyindent preserveindent
+  if exists('&fixendofline')
+    set nofixendofline
+  endif
 endfunction
 
 function! s:RC._SetBufFileVimOptions()
