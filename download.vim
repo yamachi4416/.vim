@@ -24,17 +24,11 @@ Plug 'chr4/nginx.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'hujo/html5css3'
 Plug 'itchyny/lightline.vim'
-Plug 'mattn/emmet-vim'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'tpope/vim-endwise'
 Plug 'vim-jp/vital.vim'
-
-if executable('ctags')
-  Plug 'majutsushi/tagbar'
-  Plug 'szw/vim-tags'
-endif
 
 if has('lua')
   Plug 'Shougo/neocomplete'
@@ -42,13 +36,13 @@ if has('lua')
 endif
 
 "NodeJs
-if exists('$VIM_NODEJS')
+if executable('node')
   Plug 'moll/vim-node', { 'for': 'javascript' }
   Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
 endif
 
 "Python
-if exists('$VIM_PYTHON')
+if executable('python')
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
   if executable('pyenv')
@@ -57,7 +51,7 @@ if exists('$VIM_PYTHON')
 endif
 
 "Ruby
-if exists('$VIM_RUBY')
+if executable('ruby')
   Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
   Plug 'yuku-t/vim-ref-ri'
   Plug 'tpope/vim-rails'
