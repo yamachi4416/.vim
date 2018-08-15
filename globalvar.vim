@@ -46,3 +46,6 @@ let g:markdown_fenced_languages = [
 \ 'python',
 \ 'ruby',
 \]
+
+" $MYVIMFILES/bundle/plug.vim
+let g:plug_pwindow = 'tab new'
