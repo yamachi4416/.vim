@@ -20,7 +20,7 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'chr4/nginx.vim'
+Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'hujo/html5css3'
 Plug 'itchyny/lightline.vim'
@@ -42,7 +42,7 @@ if executable('node')
 endif
 
 "Python
-if executable('python')
+if executable('python') || executable('python3')
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
   if executable('pyenv')
