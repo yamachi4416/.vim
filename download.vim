@@ -22,7 +22,7 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'hujo/html5css3'
+Plug 'hujo/html5css3', { 'for': ['html', 'css'] }
 Plug 'itchyny/lightline.vim'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-quickrun'
@@ -38,24 +38,21 @@ endif
 "NodeJs
 if executable('node')
   Plug 'moll/vim-node', { 'for': 'javascript' }
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm i', 'for': 'javascript' }
 endif
 
 "Python
-if executable('python') || executable('python3')
+if executable('python') || executable('py')
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-  if executable('pyenv')
-    Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
-  endif
 endif
 
 "Ruby
 if executable('ruby')
   Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-  Plug 'yuku-t/vim-ref-ri'
-  Plug 'tpope/vim-rails'
-  Plug 'hujo/ctrlp-rubyrequire'
+  Plug 'yuku-t/vim-ref-ri', { 'for': 'ruby' }
+  Plug 'hujo/ctrlp-rubyrequire', { 'for': 'ruby' }
+  Plug 'tpope/vim-rails', { 'for': 'ruby' }
 endif
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
