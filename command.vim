@@ -14,11 +14,14 @@ endfunction
 
 function! s:activate_venv(env_dir) abort
   let env_path = fnamemodify(expand(a:env_dir), ':p')
-  echo env_path
   if isdirectory(env_path)
-    let $VIRTUAL_ENV = env_path
-    let $PYTHONHOME = ''
-    let $PATH = $VIRTUAL_ENV . '\Scripts;' . s:OLD_VIRTUAL_PATH
+    let $VIRTUAL_ENV = fnamemodify(env_path, ':s?/$??')
+    if has('win32')
+      let $PATH = env_path . 'Scripts;' . s:OLD_VIRTUAL_PATH
+    else
+      let $PATH = env_path . 'bin:' . s:OLD_VIRTUAL_PATH
+    endif
+    call s:_.DelEnv('PYTHONHOME')
     call s:setpython_dll()
   else
     throw a:env_dir . ' is not directory'
@@ -28,7 +31,7 @@ endfunction
 function! s:deactivate_venv() abort
   let $PATH = s:OLD_VIRTUAL_PATH
   let $PYTHONHOME = s:OLD_PYTHON_HOME
-  unlet! $VIRTUAL_ENV
+  call s:_.DelEnv('VIRTUAL_ENV')
   call s:setpython_dll()
 endfunction
 

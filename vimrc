@@ -256,6 +256,20 @@ function! s:RC._DefineLocalFunctions()
     endif
   endfunction
 
+  function s:DelEnv(env_name)
+    if !exists('$' . a:env_name)
+      return
+    endif
+
+    if has('perl')
+      silent! exe "perl delete $ENV{'" . a:env_name . "'}"
+    elseif has('ruby')
+      silent! exe "ruby ENV.delete('" . a:env_name . "')"
+    else
+      silent! exe 'unlet! $' . a:env_name
+    endif
+  endfunction
+
   call extend(self._, {
   \ 'SID': function('s:SID'),
   \ 'IMode': function('s:IMode'),
@@ -268,6 +282,7 @@ function! s:RC._DefineLocalFunctions()
   \ 'IsInstall': function('s:IsInstall'),
   \ 'AddRefPath': function('s:AddRefPath'),
   \ 'QfGitDiff': function('s:QfGitDiff'),
+  \ 'DelEnv': function('s:DelEnv'),
   \})
 endfunction
 
