@@ -1,5 +1,42 @@
 let s:_ = g:VIMRC._
 
+let s:OLD_PYTHON_HOME = $PYTHONHOME
+let s:OLD_VIRTUAL_PATH = $PATH
+
+function! s:setpython_dll() abort
+  if !exists('&pythonthreedll') | return | endif
+  if executable('python')
+    let &pythonthreedll = expand(fnamemodify(exepath('python'), ':p:h') . '/python3?.dll')
+  else
+    let &pythonthreedll = ''
+  endif
+endfunction
+
+function! s:activate_venv(env_dir) abort
+  let env_path = fnamemodify(expand(a:env_dir), ':p')
+  echo env_path
+  if isdirectory(env_path)
+    let $VIRTUAL_ENV = env_path
+    let $PYTHONHOME = ''
+    let $PATH = $VIRTUAL_ENV . '\Scripts;' . s:OLD_VIRTUAL_PATH
+    call s:setpython_dll()
+  else
+    throw a:env_dir . ' is not directory'
+  endif
+endfunction
+
+function! s:deactivate_venv() abort
+  let $PATH = s:OLD_VIRTUAL_PATH
+  let $PYTHONHOME = s:OLD_PYTHON_HOME
+  unlet! $VIRTUAL_ENV
+  call s:setpython_dll()
+endfunction
+
+call s:setpython_dll()
+
+command! -complete=dir -nargs=1  VenvActivate call s:activate_venv(<q-args>)
+command! VenvDeactivate call s:deactivate_venv()
+
 command! -nargs=? -bang -complete=function
 \ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
 

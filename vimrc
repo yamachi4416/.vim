@@ -7,11 +7,15 @@ let s:RC = {'_AUTOCMDS_': {}, '_': {}}
 
 function! s:RC._SetEnv()
   if !has('vim_starting') | return | endif
+  let g:skip_defaults_vim = 1
   let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/cache/')
   if !isdirectory($REFSDIR) | let $REFSDIR = globpath($MYVIMFILES, 'refs') | endif
   if !isdirectory($REFSDIR) | let $REFSDIR = globpath('~', 'refs') | endif
+  if exists('&pyxversion')
+    set pyxversion=3
+  endif
 endfunction
 
 function! s:RC._SetStartingVimOptions()
