@@ -48,7 +48,7 @@ if executable('python') || executable('py')
 endif
 
 "Ruby
-if executable('ruby')
+if has('ruby') && executable('ruby')
   Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
   Plug 'yuku-t/vim-ref-ri', { 'for': 'ruby' }
   Plug 'hujo/ctrlp-rubyrequire', { 'for': 'ruby' }
