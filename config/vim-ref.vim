@@ -1,7 +1,7 @@
 nmap K <plug>(ref-keyword)
 let g:ref_cache_dir = expand('$VIMCACHEDIR/vim-ref')
 let g:ref_source_webdict_sites = {
-\   'wikipedia': {'url': 'https://ja.wikipedia.org/wiki/%s'}
+\   'wikipedia': {'url': 'https://ja.wikipedia.org/wiki/%s'},
 \   'ej': {
 \     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
 \     'line': 19,
