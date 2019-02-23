@@ -11,7 +11,7 @@ command! -nargs=0 SaveWinPosAndFont call s:SaveWinPosAndFont()
 
 function! s:SaveWinPosAndFont()
   let ret = ['scriptencoding utf-8']
-  for name in ['guifont', 'columns', 'lines', 'linespace', 'background', 'cursorline']
+  for name in ['guifont', 'columns', 'lines', 'linespace', 'background', 'cursorline', 'guifontwide']
     let opt = '&' . name
     if exists(opt)
       let val = string(eval(opt))
