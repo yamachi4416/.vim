@@ -97,10 +97,10 @@ function! s:RC._SetBackupUndoVimOptions()
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
   if has('persistent_undo')
-    if !isdirectory($MYVIMFILES . '/undo')
-      call mkdir(expand($MYVIMFILES . '/undo'))
+    if !isdirectory($VIMCACHEDIR . '/undo')
+      call mkdir(expand($VIMCACHEDIR  . '/undo'))
     endif
-    set undofile undodir=$MYVIMFILES/undo
+    set undofile undodir=$VIMCACHEDIR/undo
     let &wildignore .= ',' . &undodir
   endif
 endfunction
