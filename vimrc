@@ -48,6 +48,7 @@ function! s:RC._SetEditVimOptions()
   if exists('&fixendofline')
     set nofixendofline
   endif
+  set spell
   set spelllang=en,cjk
 endfunction
 
