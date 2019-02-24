@@ -49,7 +49,7 @@ function! s:RC._SetEditVimOptions()
     set nofixendofline
   endif
   set spell
-  set spelllang=en,cjk
+  set spelllang=en_us,cjk
 endfunction
 
 function! s:RC._SetBufFileVimOptions()
