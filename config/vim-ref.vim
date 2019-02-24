@@ -15,6 +15,7 @@ function! s:Webdict(mode, site)
     let tmp = @@
     silent! normal gvy
     let [word, @@] = [@@, tmp]
+    silent! normal gv
   else
     let word = expand('<cword>')
   endif
