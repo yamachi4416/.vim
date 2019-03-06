@@ -4,7 +4,7 @@ let g:ref_source_webdict_sites = {
 \   'wikipedia': {'url': 'https://ja.wikipedia.org/wiki/%s'},
 \   'ejword': {
 \     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
-\     'line': 19,
+\     'line': 29,
 \   },
 \ }
 
@@ -27,3 +27,4 @@ vnoremap <silent> <C-K>j :<C-u>call <SID>Webdict('v', 'ejword')<CR>
 
 let g:ref_refe_encoding = 'utf-8'
 let g:ref_detect_filetype = get(g:, 'ref_detect_filetype', {})
+let g:ref_source_webdict_encoding = &encoding

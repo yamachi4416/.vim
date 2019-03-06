@@ -23,6 +23,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/wwwrenderer-vim'
 Plug 'tpope/vim-endwise'
 Plug 'vim-jp/vital.vim'
 
