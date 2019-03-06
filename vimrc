@@ -1,4 +1,4 @@
-set encoding&vim
+set encoding=utf8
 scriptencoding utf-8
 
 if !1 | finish | endif
@@ -27,7 +27,7 @@ function! s:RC._SetStartingVimOptions()
   set fileformats=unix,dos
   set helplang=en,ja
   set autoread
-  set visualbell noerrorbells
+  set novisualbell noerrorbells belloff=all
   set clipboard& clipboard+=unnamed
   set softtabstop=-1 shiftwidth=0 tabstop=2 expandtab
 endfunction
