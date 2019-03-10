@@ -48,7 +48,7 @@ function! s:RC._SetEditVimOptions()
   if exists('&fixendofline')
     set nofixendofline
   endif
-  set spell
+  set nospell
   set spelllang=en_us,cjk
 endfunction
 
@@ -98,7 +98,7 @@ function! s:RC._SetBackupUndoVimOptions()
   set history=100 viminfo-=!
   if has('persistent_undo')
     if !isdirectory($VIMCACHEDIR . '/undo')
-      call mkdir(expand($VIMCACHEDIR  . '/undo'))
+      call mkdir(expand($VIMCACHEDIR  . '/undo'), 'p')
     endif
     set undofile undodir=$VIMCACHEDIR/undo
     let &wildignore .= ',' . &undodir
