@@ -20,16 +20,11 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'neomake/neomake'
 Plug 'thinca/vim-quickrun'
-Plug 'thinca/vim-ref'
-Plug 'mattn/webapi-vim'
-Plug 'mattn/wwwrenderer-vim'
-Plug 'tpope/vim-endwise'
 Plug 'vim-jp/vital.vim'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 

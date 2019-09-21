@@ -368,4 +368,6 @@ call s:RC.LoadCommand()
 call s:RC.LoadKeyMap()
 call s:RC.LoadLocalrc()
 
+syntax enable
+
 set secure
