@@ -3,7 +3,7 @@ let g:lightline = {
 \ 'colorscheme': 'solarized',
 \ 'active': {
 \   'left':  [ [ 'mode', 'paste' ],
-\              [ 'fugitive', 'pwd', 'readonly', 'modified', 'filename', 'neomake' ],
+\              [ 'pwd', 'readonly', 'modified', 'filename' ],
 \              [ ] ],
 \   'right': [ [ 'lineinfo', 'time' ],
 \              [ 'percent' ],
@@ -12,8 +12,6 @@ let g:lightline = {
 \ 'separator': { 'left': '', 'right': '' },
 \ 'subseparator': { 'left': '', 'right': '' },
 \ 'component_function': {
-\   'neomake': 'neomake#statusline#LoclistStatus',
-\   'fugitive': 'LightLineFugitive',
 \   'pwd': 'LightLinePwd',
 \   'time': 'LightLineTime',
 \ }
@@ -24,13 +22,6 @@ function! LightLinePwd()
 endfunction
 
 function! LightLineTime()
-  return strftime('%H:%M:%S')
+  return strftime('%H:%M')
 endfunction
 
-function! LightLineFugitive()
-  if exists('*fugitive#head')
-    return fugitive#statusline()
-  else
-    return ''
-  endif
-endfunction
