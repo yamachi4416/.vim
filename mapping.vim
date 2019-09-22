@@ -12,6 +12,12 @@ cnoremap <C-n> <Down>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+inoremap <silent> <C-k> <C-n>
+inoremap <silent> <C-b> <Left>
+inoremap <silent> <C-f> <Right>
+inoremap <silent> <C-p> <Up>
+inoremap <silent> <C-n> <Down>
+
 nnoremap <S-Tab> gt
 
 if exists('*wildmenumode')
@@ -22,3 +28,4 @@ endif
 
 inoremap <silent> <C-s> <C-o>:w<CR>
 inoremap <silent> <C-l> <C-o>dd
+
