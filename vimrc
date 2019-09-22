@@ -179,9 +179,10 @@ function! s:RC._DefineLocalFunctions()
   endfunction
 
   function! s:GetFileFromUrl(url, file) abort
-    if executable('powershell')
+    if executable('powershell') || executable('pwsh')
+      let powershell = executable('pwsh') ? 'pwsh' : 'powershell'
+      let powershell .= ' -NoLog -NoProfile -ExecutionPolicy RemoteSiged -Command '
       let command = '(New-Object System.Net.WebClient).DownloadFile(''%s'', ''%s'')'
-      let powershell = 'powershell -nologo -command '
       call system(powershell . shellescape(printf(command, a:url, a:file)))
     elseif executable('curl')
       let command = 'curl -fLo %s %s'
