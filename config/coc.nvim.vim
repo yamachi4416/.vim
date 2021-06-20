@@ -1,6 +1,6 @@
 function! g:VIMRC._AUTOCMDS_.COC()
   "Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode.
-  inoremap <silent><expr> <tab>
+  inoremap <nowait><silent><expr> <tab>
   \ pumvisible() ? coc#_select_confirm() :
   \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
   \ <SID>check_back_space() ? "\<tab>" :
@@ -18,7 +18,7 @@ function! g:VIMRC._AUTOCMDS_.COC()
   inoremap <silent><expr> <c-space> coc#refresh()
 
   "To make <CR> auto-select the first completion item and notify coc.nvim to format on enter, use: >
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+  inoremap <nowait><silent><expr> <cr> pumvisible() ? coc#_select_confirm()
   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
   " Use `[g` and `]g` to navigate diagnostics
