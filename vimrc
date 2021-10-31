@@ -14,6 +14,11 @@ function! s:RC._SetEnv() abort
   if exists('&pyxversion')
     set pyxversion=3
   endif
+
+  if self.IsWindows && isdirectory(expand('$SCOOP'))
+    let l:scoop = expand('$SCOOP/shims/')
+    let $PATH = l:scoop . ';' . $PATH
+  endif
 endfunction
 
 function! s:RC._SetStartingVimOptions() abort
