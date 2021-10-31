@@ -11,8 +11,6 @@ function! s:RC._SetEnv()
   let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/cache/')
-  if !isdirectory($REFSDIR) | let $REFSDIR = globpath($MYVIMFILES, 'refs') | endif
-  if !isdirectory($REFSDIR) | let $REFSDIR = globpath('~', 'refs') | endif
   if exists('&pyxversion')
     set pyxversion=3
   endif
@@ -133,27 +131,36 @@ function! s:RC._DefineLocalFunctions()
   endfunction
 
   function! s:WinSplit(cmd) abort
-    exe (winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '' : 'vert ') . a:cmd
+    execute (winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '' : 'vert ') . a:cmd
   endfunction
 
   function! s:IMode(...) abort
-    if pumvisible()       | return get(a:000, 0, '')    | endif
-    if &l:omnifunc !=# '' | return "\<C-x>\<C-o>\<C-p>" | endif
-    if !empty(tagfiles()) | return "\<C-x>\<C-]>"       | endif
+    if pumvisible()
+      return get(a:000, 0, '')
+    elseif &l:omnifunc !=# ''
+      return "\<C-x>\<C-o>\<C-p>"
+    elseif !empty(tagfiles())
+      return "\<C-x>\<C-]>"
+    endif
     return "\<C-p>"
   endfunction
 
   function! s:CreateDictUseSyntax() abort
-    if &l:syntax ==# '' | return | endif
-    if &l:syntax ==# 'text' | return | endif
+    if &l:syntax ==# '' || &l:syntax ==# 'text'
+      return
+    endif
+
     let file = expand('$MYVIMFILES/dict/' . &l:syntax . '.txt')
     if !filereadable(file)
       let words = {}
-      for word in syntaxcomplete#OmniSyntaxList() | let words[word] = 0 | endfor
+      for word in syntaxcomplete#OmniSyntaxList()
+        let words[word] = 0
+      endfor
       if writefile(sort(keys(words)), file) == -1
         echoh ErrorMsg | echom 'Error' | echoh Normal | return
       endif
     endif
+
     tabe `=file`
     nnoremap <buffer><silent><F12> :<C-u>silent keeppatterns g/\v^.?$/d<CR>:%sort u<CR>:wq<CR>
   endfunction
@@ -161,8 +168,13 @@ function! s:RC._DefineLocalFunctions()
   function! s:ScratchWindow(...) abort
     call s:WinSplit('new')
     setlocal buftype=nofile bufhidden=wipe noswapfile
-    if a:0 && type(a:1) is type('') | call append(line('$') - 1, s:Splitn(a:1)) | endif
-    if a:0 && type(a:1) is type([]) | call append(line('$') - 1, a:1)           | endif
+    if a:0
+      if type(a:1) is type('')
+        call append(line('$') - 1, s:Splitn(a:1))
+      elseif type(a:1) is type([])
+        call append(line('$') - 1, a:1)
+      endif
+    endif
     keepjumps normal! gg
     nnoremap <buffer><silent><C-l> :<C-u>%d _ <Bar>redraw<CR>
   endfunction
@@ -196,6 +208,7 @@ function! s:RC._DefineLocalFunctions()
       source `=filepath`
       return 1
     endif
+    return 0
   endfunction
 
   function! s:GetSelectText() abort
@@ -205,7 +218,7 @@ function! s:RC._DefineLocalFunctions()
     return ret
   endfunction
 
-  function! s:IsInstall(dirname)
+  function! s:IsInstalled(dirname)
     if exists('g:plugs')
       return has_key(g:plugs, a:dirname) || has_key(g:plugs, a:dirname . '.vim')
     endif
@@ -282,7 +295,7 @@ function! s:RC._DefineLocalFunctions()
   \ 'GetFileFromUrl': function('s:GetFileFromUrl'),
   \ 'SourceIfExists': function('s:SourceIfExists'),
   \ 'GetSelectText': function('s:GetSelectText'),
-  \ 'IsInstall': function('s:IsInstall'),
+  \ 'IsInstalled': function('s:IsInstalled'),
   \ 'AddRefPath': function('s:AddRefPath'),
   \ 'QfGitDiff': function('s:QfGitDiff'),
   \ 'DelEnv': function('s:DelEnv'),
@@ -292,12 +305,18 @@ endfunction
 function! s:RC._InitAutogroup()
   augroup Vimrc
     au!
-    au bufnewfile *             setlocal fileencoding=utf8
-    au bufnewfile *.{bat,cmd}   setlocal fileencoding=cp932 fileformat=dos
-    au bufnewfile,bufreadpost *.jade setlocal filetype=pug
-    au filetype *               call s:FileTypeAutoCommand()
-    au vimenter * call s:RC._CallRegisterAutoGroups()
-    au vimenter * call s:VimEnter()
+    au bufnewfile *
+    \ setlocal fileencoding=utf8
+    au bufnewfile *.{bat,cmd}
+    \ setlocal fileencoding=cp932 fileformat=dos
+    au bufnewfile,bufreadpost *.jade
+    \ setlocal filetype=pug
+    au filetype *
+    \ call s:FileTypeAutoCommand()
+    au vimenter *
+    \ call s:RC._CallRegisterAutoGroups()
+    au vimenter *
+    \ call s:VimEnter()
   augroup END
 endfunction
 
@@ -332,7 +351,7 @@ endfunction
 function! s:RC.LoadPluginConfig()
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
   for config in split(globpath($MYVIMFILES, '/config/*.vim', 1), "\n")
-    if s:IsInstall(matchstr(config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
+    if s:IsInstalled(matchstr(config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
       source `=config`
     endif
   endfor
@@ -372,3 +391,4 @@ call s:RC.LoadLocalrc()
 syntax enable
 
 set secure
+

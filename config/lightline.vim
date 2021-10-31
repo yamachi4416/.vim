@@ -13,15 +13,10 @@ let g:lightline = {
 \ 'subseparator': { 'left': '', 'right': '' },
 \ 'component_function': {
 \   'pwd': 'LightLinePwd',
-\   'time': 'LightLineTime',
 \ }
 \}
 
-function! LightLinePwd()
+function! g:LightLinePwd() abort
   return fnamemodify(getcwd(), ':~')
-endfunction
-
-function! LightLineTime()
-  return strftime('%H:%M')
 endfunction
 

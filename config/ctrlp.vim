@@ -24,3 +24,4 @@ nnoremap [CtrlP]d :<C-u>CtrlPClearCache<CR>
 nnoremap [CtrlP]m :<C-u>CtrlPMRUFiles<CR>
 nnoremap [CtrlP]f :<C-u>CtrlPCurFile<CR>
 nnoremap [CtrlP]c :<C-u>CtrlPCurWD<CR>
+

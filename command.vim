@@ -84,6 +84,8 @@ function! s:CopyToTermClip(value) abort
     let val = substitute(system('base64', a:value), '\n', '', 'g')
     exe printf('silent! !echo -ne "\e]52;c;%s\x07"', val)
     redraw!
+  else
+    echom 'not work this command need base64'
   endif
 endfunction
 
