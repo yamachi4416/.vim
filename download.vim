@@ -2,9 +2,11 @@ let s:_ = g:VIMRC._
 
 function! s:DownloadPlugVim(plugvim) abort
   if filereadable(a:plugvim) | return 1 | endif
-  if !isdirectory($VIMPLUGDIR) | call mkdir($VIMPLUGDIR) | endif
-  let repo = 'junegunn/vim-plug/master/plug.vim'
-  call s:_.GetFileFromUrl('https://raw.githubusercontent.com/' . repo, a:plugvim)
+  if !isdirectory($VIMPLUGDIR)
+    call mkdir($VIMPLUGDIR)
+  endif
+  let l:repo = 'junegunn/vim-plug/master/plug.vim'
+  call s:_.GetFileFromUrl('https://raw.githubusercontent.com/' . l:repo, a:plugvim)
 endfunction
 
 let g:plug_home = $VIMPLUGDIR

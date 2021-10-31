@@ -1,9 +1,14 @@
 let s:_ = g:VIMRC._
 
+command! -nargs=? QfGitDiff if s:_.QfGitDiff(<q-args>) | copen | endif
+command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()
+command! -nargs=? -bang -complete=function
+\ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
+
 let s:OLD_PYTHON_HOME = $PYTHONHOME
 let s:OLD_VIRTUAL_PATH = $PATH
 
-function! s:setpython_dll() abort
+function! s:SetpythonDll() abort
   if !exists('&pythonthreedll') | return | endif
   if executable('python')
     let &pythonthreedll = expand(fnamemodify(exepath('python'), ':p:h') . '/python3?.dll')
@@ -11,8 +16,9 @@ function! s:setpython_dll() abort
     let &pythonthreedll = ''
   endif
 endfunction
+call s:SetpythonDll()
 
-function! s:activate_venv(env_dir) abort
+function! s:ActivateVenv(env_dir) abort
   let l:env_path = fnamemodify(expand(a:env_dir), ':p')
   if isdirectory(l:env_path)
     let $VIRTUAL_ENV = fnamemodify(l:env_path, ':s?/$??')
@@ -22,38 +28,31 @@ function! s:activate_venv(env_dir) abort
       let $PATH = l:env_path . 'bin:' . s:OLD_VIRTUAL_PATH
     endif
     call s:_.DelEnv('PYTHONHOME')
-    call s:setpython_dll()
+    call s:SetpythonDll()
   else
     throw a:env_dir . ' is not directory'
   endif
 endfunction
+command! -complete=dir -nargs=1 VenvActivate call s:ActivateVenv(<q-args>)
 
-function! s:deactivate_venv() abort
+function! s:DeactivateVenv() abort
   let $PATH = s:OLD_VIRTUAL_PATH
   let $PYTHONHOME = s:OLD_PYTHON_HOME
   call s:_.DelEnv('VIRTUAL_ENV')
-  call s:setpython_dll()
+  call s:SetpythonDll()
 endfunction
+command! VenvDeactivate call s:DeactivateVenv()
 
-call s:setpython_dll()
-
-command! -complete=dir -nargs=1  VenvActivate call s:activate_venv(<q-args>)
-command! VenvDeactivate call s:deactivate_venv()
-
-command! -nargs=? -bang -complete=function
-\ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
-
-function! s:vim_startup_log()
+function! s:StartupTimeLog() abort
   let l:logfile = tempname()
   let l:vim_command = "vim --startuptime %s -c %s"
   let l:start_command = shellescape(printf(':edit %s', l:logfile))
   let l:vim_command = printf(l:vim_command, l:logfile, l:start_command)
   execute '!' . l:vim_command
 endfunction
+command! StartupTimeLog call s:StartupTimeLog()
 
-command! StartupTime call s:vim_startup_log()
-
-function! s:git_grep(search_string)
+function! s:GitGrepQuickfix(search_string) abort
   let l:search_string = a:search_string
   if l:search_string ==# ''
     let l:search_string = expand('<cfile>')
@@ -72,22 +71,16 @@ function! s:git_grep(search_string)
     copen
   endif
 endfunction
+command! -nargs=? GitGrepQuickfix call s:GitGrepQuickfix(<q-args>)
 
-command! -nargs=? QfGitDiff if s:_.QfGitDiff(<q-args>) | copen | endif
-
-command! -nargs=? GitGrepQuickfix call s:git_grep(<q-args>)
-
-command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()
-
-function! s:CopyToTermClip(value) abort
-  if executable('base64')
-    let l:val = substitute(system('base64', a:value), '\n', '', 'g')
-    exe printf('silent! !echo -ne "\e]52;c;%s\x07"', l:val)
-    redraw!
-  else
-    echom 'not work this command need base64'
-  endif
+function! s:DiffOrigin() abort
+  vert new
+  setlocal buftype=nofile
+  r ++edit #
+  0d_
+  diffthis
+  wincmd p
+  diffthis
 endfunction
+command! DiffOrig call s:DiffOrigin()
 
-command! -nargs=1 -complete=function CopyToTermClip call s:CopyToTermClip(<args>)
-command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
