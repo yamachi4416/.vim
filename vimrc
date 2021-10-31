@@ -337,7 +337,7 @@ endfunction
 
 function! s:RC.LoadPluginConfig() abort
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
-  for l:config in split(globpath($MYVIMFILES, '/config/*.vim', 1), "\n")
+  for l:config in split(globpath($MYVIMFILES, 'config/*.vim', 1), "\n")
     if s:IsInstalled(matchstr(config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
       source `=config`
     endif
