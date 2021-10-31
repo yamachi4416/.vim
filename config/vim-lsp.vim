@@ -1,10 +1,12 @@
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
 
-  if &l:filetype !=# 'vim'
-    setlocal foldmethod=expr
-    setlocal foldexpr=lsp#ui#vim#folding#foldexpr()
-    setlocal foldtext=lsp#ui#vim#folding#foldtext()
+  if !&l:diff
+    if &l:filetype !=# 'vim'
+      setlocal foldmethod=expr
+      setlocal foldexpr=lsp#ui#vim#folding#foldexpr()
+      setlocal foldtext=lsp#ui#vim#folding#foldtext()
+    endif
   endif
 
   if exists(':sign')

@@ -1,2 +1,5 @@
 setlocal keywordprg=:help
-setlocal foldmethod=syntax
+if !&l:diff
+  setlocal foldmethod=syntax
+endif
+
