@@ -375,14 +375,19 @@ function! s:RC.LoadLocalrc() abort
   call s:SourceIfExists('$MYVIMFILES/localrc.vim')
 endfunction
 
-let g:VIMRC = s:RC.Init()
-call s:RC.SetPluginEnable()
-call s:RC.LoadPluginConfig()
-call s:RC.LoadCommand()
-call s:RC.LoadKeyMap()
-call s:RC.LoadLocalrc()
+function! s:RC.Startup() abort
+  let g:VIMRC = s:RC.Init()
 
-syntax enable
+  call s:RC.SetPluginEnable()
+  call s:RC.LoadPluginConfig()
+  call s:RC.LoadCommand()
+  call s:RC.LoadKeyMap()
+  call s:RC.LoadLocalrc()
+
+  syntax enable
+endfunction
+
+call s:RC.Startup()
 
 set secure
 
