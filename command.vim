@@ -13,13 +13,13 @@ function! s:setpython_dll() abort
 endfunction
 
 function! s:activate_venv(env_dir) abort
-  let env_path = fnamemodify(expand(a:env_dir), ':p')
-  if isdirectory(env_path)
-    let $VIRTUAL_ENV = fnamemodify(env_path, ':s?/$??')
+  let l:env_path = fnamemodify(expand(a:env_dir), ':p')
+  if isdirectory(l:env_path)
+    let $VIRTUAL_ENV = fnamemodify(l:env_path, ':s?/$??')
     if has('win32')
-      let $PATH = env_path . 'Scripts;' . s:OLD_VIRTUAL_PATH
+      let $PATH = l:env_path . 'Scripts;' . s:OLD_VIRTUAL_PATH
     else
-      let $PATH = env_path . 'bin:' . s:OLD_VIRTUAL_PATH
+      let $PATH = l:env_path . 'bin:' . s:OLD_VIRTUAL_PATH
     endif
     call s:_.DelEnv('PYTHONHOME')
     call s:setpython_dll()
@@ -44,31 +44,31 @@ command! -nargs=? -bang -complete=function
 \ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
 
 function! s:vim_startup_log()
-  let logfile = tempname()
-  let vim_command = "vim --startuptime %s -c %s"
-  let start_command = shellescape(printf(':edit %s', logfile))
-  let vim_command = printf(vim_command, logfile, start_command)
-  execute '!' . vim_command
+  let l:logfile = tempname()
+  let l:vim_command = "vim --startuptime %s -c %s"
+  let l:start_command = shellescape(printf(':edit %s', l:logfile))
+  let l:vim_command = printf(l:vim_command, l:logfile, l:start_command)
+  execute '!' . l:vim_command
 endfunction
 
 command! StartupTime call s:vim_startup_log()
 
 function! s:git_grep(search_string)
-  let search_string = a:search_string
-  if search_string ==# ''
-    let search_string = expand('<cfile>')
+  let l:search_string = a:search_string
+  if l:search_string ==# ''
+    let l:search_string = expand('<cfile>')
   endif
-  let command = printf('git grep -n %s', shellescape(search_string))
-  let save_errorformat = &l:errorformat
+  let l:command = printf('git grep -n %s', shellescape(l:search_string))
+  let l:save_errorformat = &l:errorformat
   let &l:errorformat = '%f:%l%m'
-  let success = 0
+  let l:success = 0
   try
-    cgetexpr system(command)
-    let success = 1
+    cgetexpr system(l:command)
+    let l:success = 1
   finally
-    let &l:errorformat = save_errorformat
+    let &l:errorformat = l:save_errorformat
   endtry
-  if success && !empty(getqflist())
+  if l:success && !empty(getqflist())
     copen
   endif
 endfunction
@@ -81,8 +81,8 @@ command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()
 
 function! s:CopyToTermClip(value) abort
   if executable('base64')
-    let val = substitute(system('base64', a:value), '\n', '', 'g')
-    exe printf('silent! !echo -ne "\e]52;c;%s\x07"', val)
+    let l:val = substitute(system('base64', a:value), '\n', '', 'g')
+    exe printf('silent! !echo -ne "\e]52;c;%s\x07"', l:val)
     redraw!
   else
     echom 'not work this command need base64'

@@ -109,21 +109,14 @@ endfunction
 
 function! s:RC._DefineLocalFunctions()
   function! s:SID(...)
-    let id = matchstr(string(function('s:SID')), '\C\v\<SNR\>\d+_')
-    return a:0 < 1 ? id : id . a:1
+    let l:id = matchstr(string(function('s:SID')), '\C\v\<SNR\>\d+_')
+    return a:0 < 1 ? l:id : l:id . a:1
   endfunction
 
   function! s:VimEnter() abort
     if &filetype !=# ''
       exe 'doautocmd filetype' &filetype
     endif
-  endfunction
-
-  function! s:AddRefPath(path, paths) abort
-    if isdirectory(glob(printf('$REFSDIR/%s', a:path)))
-      return join(add(split(a:paths, ','), glob(printf('$REFSDIR/%s', a:path))), ',')
-    endif
-    return a:path
   endfunction
 
   function! s:Splitn(str) abort
@@ -150,18 +143,18 @@ function! s:RC._DefineLocalFunctions()
       return
     endif
 
-    let file = expand('$MYVIMFILES/dict/' . &l:syntax . '.txt')
-    if !filereadable(file)
-      let words = {}
-      for word in syntaxcomplete#OmniSyntaxList()
-        let words[word] = 0
+    let l:file = expand('$MYVIMFILES/dict/' . &l:syntax . '.txt')
+    if !filereadable(l:file)
+      let l:words = {}
+      for l:word in syntaxcomplete#OmniSyntaxList()
+        let l:words[l:word] = 0
       endfor
-      if writefile(sort(keys(words)), file) == -1
+      if writefile(sort(keys(l:words)), l:file) == -1
         echoh ErrorMsg | echom 'Error' | echoh Normal | return
       endif
     endif
 
-    tabe `=file`
+    tabe `=l:file`
     nnoremap <buffer><silent><F12> :<C-u>silent keeppatterns g/\v^.?$/d<CR>:%sort u<CR>:wq<CR>
   endfunction
 
@@ -180,59 +173,56 @@ function! s:RC._DefineLocalFunctions()
   endfunction
 
   function! s:IncludeExpr(fname) abort
-    let suff = &l:suffixesadd
-    let file = fnamemodify(a:fname, ':e') ==# '' ? a:fname . suff : a:fname
-    let base = join(add(split(&l:path, ','), get(b:, 'base_path', '')), ',')
-    let ret = s:Splitn(globpath(base, file, 0)) + [file]
-    if len(ret) == 0
-      let ret = glob('./**/' . file)
+    let l:suff = &l:suffixesadd
+    let l:file = fnamemodify(a:fname, ':e') ==# '' ? a:fname . suff : a:fname
+    let l:base = join(add(split(&l:path, ','), get(b:, 'base_path', '')), ',')
+    let l:ret = s:Splitn(globpath(l:base, l:file, 0)) + [l:file]
+    if len(l:ret) == 0
+      let l:ret = glob('./**/' . l:file)
     endif
-    return filereadable(ret[0]) ? ret[0] : v:fname
+    return filereadable(l:ret[0]) ? l:ret[0] : v:fname
   endfunction
 
   function! s:GetFileFromUrl(url, file) abort
     if executable('powershell') || executable('pwsh')
-      let powershell = executable('pwsh') ? 'pwsh' : 'powershell'
-      let powershell .= ' -NoLog -NoProfile -ExecutionPolicy RemoteSiged -Command '
-      let command = '(New-Object System.Net.WebClient).DownloadFile(''%s'', ''%s'')'
-      call system(powershell . shellescape(printf(command, a:url, a:file)))
+      let l:powershell = executable('pwsh') ? 'pwsh' : 'powershell'
+      let l:powershell .= ' -NoLog -NoProfile -ExecutionPolicy RemoteSiged -Command '
+      let l:command = '(New-Object System.Net.WebClient).DownloadFile(''%s'', ''%s'')'
+      call system(l:powershell . shellescape(printf(l:command, a:url, a:file)))
     elseif executable('curl')
-      let command = 'curl -fLo %s %s'
-      call system(printf(command, shellescape(a:file), a:url))
+      let l:command = 'curl -fLo %s %s'
+      call system(printf(l:command, shellescape(a:file), a:url))
     endif
   endfunction
 
   function! s:SourceIfExists(path) abort
-    let filepath = expand(a:path)
-    if filereadable(filepath)
-      source `=filepath`
+    let l:filepath = expand(a:path)
+    if filereadable(l:filepath)
+      source `=l:filepath`
       return 1
     endif
     return 0
   endfunction
 
   function! s:GetSelectText() abort
-    let save = @@
+    let l:save = @@
     silent normal! gvy
-    let [ret, @@] = [@@, save]
-    return ret
+    let [l:ret, @@] = [@@, l:save]
+    return l:ret
   endfunction
 
-  function! s:IsInstalled(dirname)
+  function! s:IsInstalled(dirname) abort
     if exists('g:plugs')
       return has_key(g:plugs, a:dirname) || has_key(g:plugs, a:dirname . '.vim')
     endif
     return &runtimepath =~# '\v[\\/]' . a:dirname . ',?'
   endfunction
 
-  function! s:FileTypeAutoCommand()
+  function! s:FileTypeAutoCommand() abort
     setlocal formatoptions-=o cindent
     setlocal complete-=i complete-=t
     if &l:path ==# ''
       setlocal path<
-    endif
-    if filereadable(expand('$REFSDIR/' . expand('<amatch>') . '/tags'))
-      let &l:tags = &tags . ',' . expand('$REFSDIR/' . expand('<amatch>') . '/tags')
     endif
     if filereadable(expand('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt'))
       let &l:dict = glob('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt')
@@ -240,49 +230,47 @@ function! s:RC._DefineLocalFunctions()
     endif
   endfunction
 
-  function! s:QfGitDiff(...)
-    let [l:lnum, ret] = [0, []]
-    let dir = matchstr(system('git rev-parse --show-toplevel'), '\v^\f+\ze[\r\n]')
+  function! s:QfGitDiff(...) abort
+    let [l:lnum, l:ret] = [0, []]
+    let l:dir = matchstr(system('git rev-parse --show-toplevel'), '\v^\f+\ze[\r\n]')
 
-    if empty(dir) | return | endif
+    if empty(l:dir) | return | endif
 
-    for line in split(system(printf('git diff %s', a:0 ? a:1 : '')), '\v\r\n|\n|\r')
-      if line[:3] ==# 'diff'
-        let [l:lnum, fname] = [0, dir . '/' . matchstr(line, '\v\sb/\zs\f+$')]
+    for l:line in split(system(printf('git diff %s', a:0 ? a:1 : '')), '\v\r\n|\n|\r')
+      if l:line[:3] ==# 'diff'
+        let [l:lnum, l:fname] = [0, l:dir . '/' . matchstr(l:line, '\v\sb/\zs\f+$')]
         continue
       endif
-      let char = line[0]
-      if char ==# '@'
-        let l:lnum = str2nr(matchstr(line, '\v\+\d+'))
+      let l:char = l:line[0]
+      if l:char ==# '@'
+        let l:lnum = str2nr(matchstr(l:line, '\v\+\d+'))
         continue
       endif
       if l:lnum
-        if char ==# '+' || char ==# '-'
-          call add(ret, {
-          \ 'filename': fname, 'type': 'i', 'lnum': l:lnum, 'col': 1, 'text': line})
+        if l:char ==# '+' || l:char ==# '-'
+          call add(l:ret, {
+          \ 'filename': l:fname, 'type': 'i', 'lnum': l:lnum, 'col': 1, 'text': l:line})
         endif
-        let l:lnum = stridx('-\', char) + 1 ? l:lnum : l:lnum + 1
+        let l:lnum = stridx('-\', l:char) + 1 ? l:lnum : l:lnum + 1
       endif
     endfor
 
-    call setqflist(ret, 'r')
+    call setqflist(l:ret, 'r')
 
-    if len(ret)
-      return 1
-    endif
+    return len(l:ret) ? 1 : 0
   endfunction
 
-  function s:DelEnv(env_name)
+  function s:DelEnv(env_name) abort
     if !exists('$' . a:env_name)
       return
     endif
 
     if has('perl')
-      silent! exe "perl delete $ENV{'" . a:env_name . "'}"
+      silent! execute "perl delete $ENV{'" . a:env_name . "'}"
     elseif has('ruby')
-      silent! exe "ruby ENV.delete('" . a:env_name . "')"
+      silent! execute "ruby ENV.delete('" . a:env_name . "')"
     else
-      silent! exe 'unlet! $' . a:env_name
+      silent! execute 'unlet! $' . a:env_name
     endif
   endfunction
 
@@ -296,13 +284,12 @@ function! s:RC._DefineLocalFunctions()
   \ 'SourceIfExists': function('s:SourceIfExists'),
   \ 'GetSelectText': function('s:GetSelectText'),
   \ 'IsInstalled': function('s:IsInstalled'),
-  \ 'AddRefPath': function('s:AddRefPath'),
   \ 'QfGitDiff': function('s:QfGitDiff'),
   \ 'DelEnv': function('s:DelEnv'),
   \})
 endfunction
 
-function! s:RC._InitAutogroup()
+function! s:RC._InitAutogroup() abort
   augroup Vimrc
     au!
     au bufnewfile *
@@ -320,13 +307,13 @@ function! s:RC._InitAutogroup()
   augroup END
 endfunction
 
-function! s:RC._CallRegisterAutoGroups()
-  let obj = self._AUTOCMDS_
+function! s:RC._CallRegisterAutoGroups() abort
+  let l:obj = self._AUTOCMDS_
   augroup Vimrc
-    for prop in keys(obj)
-      let F = obj[prop]
-      if type(F) is type(function('tr'))
-        call call(F, [], obj)
+    for l:prop in keys(obj)
+      let l:f = l:obj[l:prop]
+      if type(l:f) is type(function('tr'))
+        call call(l:f, [], l:obj)
       endif
     endfor
   augroup END
@@ -334,7 +321,7 @@ endfunction
 
 
 
-function! s:RC.SetVimOptions()
+function! s:RC.SetVimOptions() abort
   call self._SetStartingVimOptions()
   call self._SetEditVimOptions()
   call self._SetBufFileVimOptions()
@@ -343,29 +330,29 @@ function! s:RC.SetVimOptions()
   call self._SetBackupUndoVimOptions()
 endfunction
 
-function! s:RC.SetPluginEnable()
+function! s:RC.SetPluginEnable() abort
   if !has('vim_starting') | return | endif
   call s:SourceIfExists('$MYVIMFILES/download.vim')
 endfunction
 
-function! s:RC.LoadPluginConfig()
+function! s:RC.LoadPluginConfig() abort
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
-  for config in split(globpath($MYVIMFILES, '/config/*.vim', 1), "\n")
+  for l:config in split(globpath($MYVIMFILES, '/config/*.vim', 1), "\n")
     if s:IsInstalled(matchstr(config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
       source `=config`
     endif
   endfor
 endfunction
 
-function! s:RC.LoadKeyMap()
+function! s:RC.LoadKeyMap() abort
   call s:SourceIfExists('$MYVIMFILES/mapping.vim')
 endfunction
 
-function! s:RC.LoadCommand()
+function! s:RC.LoadCommand() abort
   call s:SourceIfExists('$MYVIMFILES/command.vim')
 endfunction
 
-function! s:RC.Init()
+function! s:RC.Init() abort
   let self.IsWindows = has('win32')
   let self.IsUnix = has('unix')
   call self._DefineLocalFunctions()
@@ -377,7 +364,7 @@ function! s:RC.Init()
   return self
 endfunction
 
-function! s:RC.LoadLocalrc()
+function! s:RC.LoadLocalrc() abort
   call s:SourceIfExists('$MYVIMFILES/localrc.vim')
 endfunction
 
