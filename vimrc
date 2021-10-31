@@ -40,7 +40,6 @@ function! s:RC._SetEditVimOptions()
   set virtualedit=block backspace=2
   set completeopt=menuone,longest
   set nojoinspaces
-  set pastetoggle=<f3>
   set iminsert=0 formatoptions=cqrj nolinebreak
   set copyindent preserveindent
   if exists('&fixendofline')
