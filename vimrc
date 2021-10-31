@@ -79,6 +79,9 @@ function! s:RC._SetDisplayVimOptions()
   \ ' %{pathshorten(getcwd())} %{expand(''%'')} %m%r%w %=%{join([&fenc,&ff])} '
   set guioptions=ecM
   set showtabline=2
+  if exists(':sign')
+    set signcolumn=yes
+  endif
 endfunction
 
 function! s:RC._SetCmdAndTermVimOptions()
