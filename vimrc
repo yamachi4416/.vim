@@ -5,7 +5,7 @@ if !1 | finish | endif
 
 let s:RC = {'_AUTOCMDS_': {}, '_': {}}
 
-function! s:RC._SetEnv()
+function! s:RC._SetEnv() abort
   if !has('vim_starting') | return | endif
   let g:skip_defaults_vim = 1
   let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
@@ -16,7 +16,7 @@ function! s:RC._SetEnv()
   endif
 endfunction
 
-function! s:RC._SetStartingVimOptions()
+function! s:RC._SetStartingVimOptions() abort
   if !has('vim_starting') | return | endif
   set nobomb
   set fileencoding=
@@ -30,7 +30,7 @@ function! s:RC._SetStartingVimOptions()
   set softtabstop=-1 shiftwidth=0 tabstop=2 expandtab
 endfunction
 
-function! s:RC._SetEditVimOptions()
+function! s:RC._SetEditVimOptions() abort
   set mouse=a
   set modeline
   set ignorecase smartcase
@@ -49,14 +49,14 @@ function! s:RC._SetEditVimOptions()
   set spelllang=en_us,cjk
 endfunction
 
-function! s:RC._SetBufFileVimOptions()
+function! s:RC._SetBufFileVimOptions() abort
   set isfname& isfname-== isfname-=!
   set hidden
   set wildignorecase wildignore& wildignore+=.git,.hg,.svn
   set tags=tags;
 endfunction
 
-function! s:RC._SetDisplayVimOptions()
+function! s:RC._SetDisplayVimOptions() abort
   set list listchars=tab:>\ ,trail:- ambiwidth=double fillchars=
   set noshowmatch matchtime=0
   set hlsearch incsearch
@@ -83,7 +83,7 @@ function! s:RC._SetDisplayVimOptions()
   endif
 endfunction
 
-function! s:RC._SetCmdAndTermVimOptions()
+function! s:RC._SetCmdAndTermVimOptions() abort
   set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
   set wildmenu wildmode=longest:full
   set cmdwinheight=5
@@ -93,7 +93,7 @@ function! s:RC._SetCmdAndTermVimOptions()
   endif
 endfunction
 
-function! s:RC._SetBackupUndoVimOptions()
+function! s:RC._SetBackupUndoVimOptions() abort
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
   if has('persistent_undo')
@@ -105,11 +105,11 @@ function! s:RC._SetBackupUndoVimOptions()
   endif
 endfunction
 
-function! s:RC._DefineGlobalVariables()
+function! s:RC._DefineGlobalVariables() abort
   call s:SourceIfExists('$MYVIMFILES/globalvar.vim')
 endfunction
 
-function! s:RC._DefineLocalFunctions()
+function! s:RC._DefineLocalFunctions() abort
   function! s:SID(...)
     let l:id = matchstr(string(function('s:SID')), '\C\v\<SNR\>\d+_')
     return a:0 < 1 ? l:id : l:id . a:1
