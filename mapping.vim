@@ -15,6 +15,6 @@ inoremap <silent> <C-n> <Down>
 if exists('*wildmenumode')
   set wildmenu
   set wildcharm=<Tab>
-  cnoremap <expr><expr><Tab> wildmenumode() ? "\<C-n>" : "\<Tab>"
+  cnoremap <expr><Tab> wildmenumode() ? "\<C-n>" : "\<Tab>"
 endif
 
