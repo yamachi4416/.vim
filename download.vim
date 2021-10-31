@@ -20,7 +20,8 @@ endif
 
 call plug#begin($VIMPLUGDIR)
 
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'vim-jp/vital.vim'
