@@ -1,12 +1,62 @@
 let s:_ = g:VIMRC._
 
-command! -nargs=? QfGitDiff if s:_.QfGitDiff(<q-args>) | copen | endif
-command! -nargs=? CreateDictUseSyntax call s:_.CreateDictUseSyntax()
 command! -nargs=? -bang -complete=function
 \ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
 
-let s:OLD_PYTHON_HOME = $PYTHONHOME
-let s:OLD_VIRTUAL_PATH = $PATH
+function! s:CreateDictUseSyntax() abort
+  if &l:syntax ==# '' || &l:syntax ==# 'text'
+    return
+  endif
+
+  let l:file = expand('$MYVIMFILES/dict/' . &l:syntax . '.txt')
+  if !filereadable(l:file)
+    let l:words = {}
+    for l:word in syntaxcomplete#OmniSyntaxList()
+      let l:words[l:word] = 0
+    endfor
+    if writefile(sort(keys(l:words)), l:file) == -1
+      echoh ErrorMsg | echom 'Error' | echoh Normal | return
+    endif
+  endif
+
+  tabe `=l:file`
+  nnoremap <buffer><silent><F12> :<C-u>silent keeppatterns g/\v^.?$/d<CR>:%sort u<CR>:wq<CR>
+endfunction
+command! -nargs=? CreateDictUseSyntax call s:CreateDictUseSyntax()
+
+function! s:QfGitDiff(...) abort
+  let [l:lnum, l:ret] = [0, []]
+  let l:dir = matchstr(system('git rev-parse --show-toplevel'), '\v^\f+\ze[\r\n]')
+
+  if empty(l:dir) | return | endif
+
+  for l:line in split(system(printf('git diff %s', a:0 ? a:1 : '')), '\v\r\n|\n|\r')
+    if l:line[:3] ==# 'diff'
+      let [l:lnum, l:fname] = [0, l:dir . '/' . matchstr(l:line, '\v\sb/\zs\f+$')]
+      continue
+    endif
+    let l:char = l:line[0]
+    if l:char ==# '@'
+      let l:lnum = str2nr(matchstr(l:line, '\v\+\d+'))
+      continue
+    endif
+    if l:lnum
+      if l:char ==# '+' || l:char ==# '-'
+        call add(l:ret, {
+        \ 'filename': l:fname, 'type': 'i', 'lnum': l:lnum, 'col': 1, 'text': l:line})
+      endif
+      let l:lnum = stridx('-\', l:char) + 1 ? l:lnum : l:lnum + 1
+    endif
+  endfor
+
+  call setqflist(l:ret, 'r')
+
+  return len(l:ret) ? 1 : 0
+endfunction
+command! -nargs=? QfGitDiff if s:QfGitDiff(<q-args>) | copen | endif
+
+const s:OLD_PYTHON_HOME = $PYTHONHOME
+const s:OLD_VIRTUAL_PATH = $PATH
 
 function! s:SetpythonDll() abort
   if !exists('&pythonthreedll') | return | endif
