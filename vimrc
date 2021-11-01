@@ -163,9 +163,11 @@ function! s:RC._DefineLocalFunctions() abort
     let l:suff = &l:suffixesadd
     let l:file = fnamemodify(a:fname, ':e') ==# '' ? a:fname . suff : a:fname
     let l:base = join(add(split(&l:path, ','), get(b:, 'base_path', '')), ',')
-    let l:ret = s:Splitn(globpath(l:base, l:file, 0)) + [l:file]
+    let l:ret = s:Splitn(globpath(l:base, l:file, 0))
     if len(l:ret) == 0
       let l:ret = glob('./**/' . l:file)
+    else
+      let l:ret += [l:file]
     endif
     return filereadable(l:ret[0]) ? l:ret[0] : v:fname
   endfunction
