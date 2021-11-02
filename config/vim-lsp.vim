@@ -10,7 +10,9 @@ function! s:on_lsp_buffer_enabled() abort
   endif
 
   if exists(':sign')
-    setlocal signcolumn=yes
+    if &l:signcolumn !=# 'yes'
+      setlocal signcolumn=yes
+    endif
   endif
 
   if exists('+tagfunc')
