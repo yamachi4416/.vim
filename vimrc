@@ -122,7 +122,7 @@ function! s:RC._DefineLocalFunctions() abort
 
   function! s:VimEnter() abort
     if &filetype !=# ''
-      exe 'doautocmd filetype' &filetype
+      execute 'doautocmd filetype' &filetype
     endif
   endfunction
 
@@ -131,7 +131,8 @@ function! s:RC._DefineLocalFunctions() abort
   endfunction
 
   function! s:WinSplit(cmd) abort
-    execute (winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '' : 'vert ') . a:cmd
+    let l:wincmd = (winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '' : 'vert ') . a:cmd
+    execute l:wincmd
   endfunction
 
   function! s:IMode(...) abort
@@ -248,16 +249,16 @@ endfunction
 
 function! s:RC._InitAutogroup() abort
   augroup Vimrc
-    au!
-    au bufnewfile *
+    autocmd!
+    autocmd bufnewfile *
     \ setlocal fileencoding=utf8
-    au bufnewfile *.{bat,cmd}
+    autocmd bufnewfile *.{bat,cmd}
     \ setlocal fileencoding=cp932 fileformat=dos
-    au bufnewfile,bufreadpost *.jade
+    autocmd bufnewfile,bufreadpost *.jade
     \ setlocal filetype=pug
-    au filetype *
+    autocmd filetype *
     \ call s:FileTypeAutoCommand()
-    au vimenter *
+    autocmd vimenter *
     \ call s:VimEnter()
   augroup END
 endfunction
