@@ -316,11 +316,10 @@ function! s:RC.Startup() abort
 
   call s:RC.SetPluginEnable()
   call s:RC.LoadPluginConfig()
+  syntax enable
   call s:RC.LoadCommand()
   call s:RC.LoadKeyMap()
   call s:RC.LoadLocalrc()
-
-  syntax enable
 endfunction
 
 call s:RC.Startup()
