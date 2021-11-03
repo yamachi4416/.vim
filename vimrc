@@ -3,7 +3,7 @@ scriptencoding utf-8
 
 if !1 | finish | endif
 
-let s:RC = {'_AUTOCMDS_': {}, '_': {}}
+let s:RC = {'_': {}}
 
 function! s:RC._SetEnv() abort
   if !has('vim_starting') | return | endif
@@ -258,24 +258,9 @@ function! s:RC._InitAutogroup() abort
     au filetype *
     \ call s:FileTypeAutoCommand()
     au vimenter *
-    \ call s:RC._CallRegisterAutoGroups()
-    au vimenter *
     \ call s:VimEnter()
   augroup END
 endfunction
-
-function! s:RC._CallRegisterAutoGroups() abort
-  let l:obj = self._AUTOCMDS_
-  augroup Vimrc
-    for l:prop in keys(obj)
-      let l:f = l:obj[l:prop]
-      if type(l:f) is type(function('tr'))
-        call call(l:f, [], l:obj)
-      endif
-    endfor
-  augroup END
-endfunction
-
 
 
 function! s:RC.SetVimOptions() abort
