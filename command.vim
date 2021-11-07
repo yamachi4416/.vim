@@ -126,10 +126,10 @@ command! -nargs=? GitGrepQuickfix call s:GitGrepQuickfix(<q-args>)
 function! s:DiffOrigin() abort
   let l:syntax = &l:syntax
   vert new
-  setlocal buftype=nofile
   let &l:syntax = l:syntax
-  r ++edit #
-  0d_
+  read ++edit #
+  undojoin | 0d_
+  setlocal buftype=nofile nobuflisted nomodifiable
   diffthis
   wincmd p
   diffthis
