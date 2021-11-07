@@ -97,7 +97,7 @@ function! s:StartupTimeLog() abort
   let l:logfile = tempname()
   let l:vim_command = "vim --startuptime %s -c %s"
   let l:start_command = shellescape(printf(':edit %s', l:logfile))
-  let l:vim_command = printf(l:vim_command, l:logfile, l:start_command)
+  let l:vim_command = printf(l:vim_command, fnameescape(l:logfile), l:start_command)
   execute '!' . l:vim_command
 endfunction
 command! StartupTimeLog call s:StartupTimeLog()
