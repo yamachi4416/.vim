@@ -32,7 +32,7 @@ function! s:RC._SetStartingVimOptions() abort
   set autoread
   set novisualbell noerrorbells belloff=all
   set clipboard& clipboard+=unnamed
-  set softtabstop=-1 shiftwidth=0 tabstop=2 expandtab
+  set softtabstop=-1 shiftwidth=0 tabstop=4 expandtab
 endfunction
 
 function! s:RC._SetEditVimOptions() abort
