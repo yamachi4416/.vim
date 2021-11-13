@@ -127,9 +127,9 @@ function! s:DiffOrigin() abort
   let l:syntax = &l:syntax
   vert new
   let &l:syntax = l:syntax
+  setlocal buftype=nofile nobuflisted undolevels=-1
   read ++edit #
   undojoin | 0d_
-  setlocal buftype=nofile nobuflisted nomodifiable
   diffthis
   wincmd p
   diffthis
