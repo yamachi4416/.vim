@@ -10,7 +10,7 @@ function! s:RC._SetEnv() abort
   let g:skip_defaults_vim = 1
   let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
-  let $VIMCACHEDIR = expand('$MYVIMFILES/cache/')
+  let $VIMCACHEDIR = expand('$MYVIMFILES/.cache/')
   if exists('&pyxversion')
     set pyxversion=3
   endif
