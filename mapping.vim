@@ -1,3 +1,4 @@
+inoremap <silent><expr><C-@> g:VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-Space> g:VIMRC._.IMode("\<Down>", "\<C-Space>")
 inoremap <silent><expr><C-S-Space> g:VIMRC._.IMode("\<Up>", "\<C-S-Space>")
 inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
