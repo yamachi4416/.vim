@@ -18,10 +18,15 @@ function! s:on_lsp_buffer_enabled() abort
   if exists('+tagfunc')
     setlocal tagfunc=lsp#tagfunc
   endif
+
+  nmap <buffer> <A-S-F> <plug>(lsp-document-format)
+  vmap <buffer> <A-S-F> <plug>(lsp-document-range-format)
 endfunction
 
 augroup my_lsp_installed
   autocmd!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let g:lsp_diagnostics_echo_cursor = 1
 
