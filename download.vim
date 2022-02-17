@@ -23,6 +23,7 @@ call plug#begin($VIMPLUGDIR)
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-ref'
 Plug 'vim-jp/vital.vim'
 
 Plug 'prabirshrestha/vim-lsp'
