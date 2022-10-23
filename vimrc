@@ -90,7 +90,7 @@ endfunction
 
 function! s:RC._SetCmdAndTermVimOptions() abort
   set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
-  set wildmenu wildmode=list:full
+  set wildmenu wildmode=longest:full
   set cmdwinheight=5
   if &term =~? '^win' && has('vim_starting')
     set termencoding=cp932
