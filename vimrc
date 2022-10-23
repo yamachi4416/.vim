@@ -43,7 +43,7 @@ function! s:RC._SetEditVimOptions() abort
     set tagcase=match
   endif
   set virtualedit=block backspace=2
-  set completeopt=menuone,longest
+  set completeopt=menuone,longest,preview
   set nojoinspaces
   set iminsert=0 formatoptions=cqrj nolinebreak
   set copyindent preserveindent
@@ -90,7 +90,7 @@ endfunction
 
 function! s:RC._SetCmdAndTermVimOptions() abort
   set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
-  set wildmenu wildmode=longest:full
+  set wildmenu wildmode=list:full
   set cmdwinheight=5
   if &term =~? '^win' && has('vim_starting')
     set termencoding=cp932
@@ -281,8 +281,8 @@ endfunction
 function! s:RC.LoadPluginConfig() abort
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
   for l:config in split(globpath($MYVIMFILES, 'config/*.vim', 1), "\n")
-    if s:IsInstalled(matchstr(config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
-      source `=config`
+    if s:IsInstalled(matchstr(l:config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
+      source `=l:config`
     endif
   endfor
 endfunction
