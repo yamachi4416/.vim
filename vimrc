@@ -10,7 +10,7 @@ function! s:RC._SetEnv() abort
   let g:skip_defaults_vim = 1
   let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
-  let $VIMCACHEDIR = expand('$MYVIMFILES/.cache/')
+  let $VIMCACHEDIR = expand('$MYVIMFILES/.cache')
   if exists('&pyxversion')
     set pyxversion=3
   endif
@@ -102,10 +102,16 @@ function! s:RC._SetBackupUndoVimOptions() abort
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
   if has('persistent_undo')
-    if !isdirectory($VIMCACHEDIR . '/undo')
-      call mkdir(expand($VIMCACHEDIR  . '/undo'), 'p')
+    if !has('nvim')
+      let l:undodir = expand('$VIMCACHEDIR/undo/vim')
+    else
+      let l:undodir = expand('$VIMCACHEDIR/undo/nvim')
     endif
-    set undofile undodir=$VIMCACHEDIR/undo
+    if !isdirectory(l:undodir)
+      call mkdir(expand(l:undodir), 'p')
+    endif
+    set undofile
+    let &undodir = l:undodir
     let &wildignore .= ',' . &undodir
   endif
 endfunction
