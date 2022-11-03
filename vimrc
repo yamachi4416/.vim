@@ -220,13 +220,18 @@ function! s:RC._DefineLocalFunctions() abort
   endfunction
 
   function! s:FileTypeAutoCommand() abort
-    setlocal formatoptions-=o cindent
+    let l:filetype = expand('<amatch>')
+    setlocal formatoptions-=o
+    setlocal smartindent
     setlocal complete-=i complete-=t
     if &l:path ==# ''
       setlocal path<
     endif
-    if filereadable(expand('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt'))
-      let &l:dict = glob('$MYVIMFILES/dict/' . expand('<amatch>') . '.txt')
+    if l:filetype ==# 'help'
+      setlocal signcolumn=no
+    endif
+    if filereadable(expand('$MYVIMFILES/dict/' . l:filetype . '.txt'))
+      let &l:dict = glob('$MYVIMFILES/dict/' . l:filetype . '.txt')
       let &l:complete .= ',k' . &l:dict
     endif
   endfunction
