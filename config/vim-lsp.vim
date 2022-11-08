@@ -1,4 +1,6 @@
 let g:lsp_async_completion = 1
+let g:lsp_fold_enabled = 0
+let g:lsp_document_highlight_enabled = 0
 
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_float_cursor = 0
@@ -8,9 +10,7 @@ let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
 
 function! s:on_lsp_buffer_enabled() abort
-  if &l:filetype !=# 'scss'
-    setlocal omnifunc=lsp#complete
-  endif
+  setlocal omnifunc=lsp#complete
 
   if exists('+tagfunc')
     setlocal tagfunc=lsp#tagfunc
