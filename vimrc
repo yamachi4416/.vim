@@ -57,7 +57,7 @@ endfunction
 function! s:RC._SetBufFileVimOptions() abort
   set isfname& isfname-== isfname-=!
   set hidden
-  set wildignorecase wildignore& wildignore+=.git,.hg,.svn
+  set wildignorecase wildignore& wildignore+=.git,.hg,.svn,node_modules
   set tags=tags;
 endfunction
 
