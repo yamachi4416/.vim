@@ -22,16 +22,12 @@ call plug#begin($VIMPLUGDIR)
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'vim-jp/vital.vim'
 Plug 'vim-jp/vimdoc-ja'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 

@@ -150,7 +150,7 @@ function! s:RC._DefineLocalFunctions() abort
     if pumvisible()
       return get(a:000, 0, '')
     elseif &l:omnifunc !=# ''
-      return "\<C-x>\<C-o>\<C-p>"
+      return "\<C-x>\<C-o>"
     elseif !empty(tagfiles())
       return "\<C-x>\<C-]>"
     endif
