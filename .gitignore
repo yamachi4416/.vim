@@ -1,6 +1,8 @@
 *
 !config/
 !config/*.vim
+!config/efm-langserver/
+!config/efm-langserver/*.yaml
 !.gitignore
 !vimrc
 !gvimrc

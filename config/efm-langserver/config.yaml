@@ -1,0 +1,30 @@
+version: 2
+root-markers:
+  - .git/
+
+tools:
+  stylelint: &stylelint
+    prefix: stylelint
+    lint-command: 'npx --no-install stylelint --stdin --stdin-filename ${INPUT}'
+    lint-ignore-exit-code: false
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m [%t%*[a-z]]'
+
+  prettier: &prettier
+    format-command: 'npx --no-install prettier --stdin-filepath ${INPUT}'
+    format-stdin: true
+
+languages:
+  javascript:
+    - <<: *prettier
+  typescript:
+    - <<: *prettier
+  css:
+    - <<: *stylelint
+    - <<: *prettier
+  scss:
+    - <<: *stylelint
+    - <<: *prettier
+  vue:
+    - <<: *prettier
