@@ -93,9 +93,11 @@ function! s:RC._SetCmdAndTermVimOptions() abort
   set wildmenu wildmode=longest:full
   set cmdwinheight=5
   if has('vim_starting')
-    let &t_SI .= "\e[5 q" "SI = INSERT mode
-    let &t_SR .= "\e[4 q" "SR = REPLACE mode
-    let &t_EI .= "\e[1 q" "EI = NORMAL mode (ELSE)
+    if !has('gui_running')
+      let &t_SI .= "\e[5 q" "SI = INSERT mode
+      let &t_SR .= "\e[4 q" "SR = REPLACE mode
+      let &t_EI .= "\e[1 q" "EI = NORMAL mode (ELSE)
+    endif
     if &term =~? '^win'
       set termencoding=cp932
       let $PROMPT = get(v:, 'servername', 'VIM') . ' $P$_$S$G$S'
