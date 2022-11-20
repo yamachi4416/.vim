@@ -306,6 +306,10 @@ function! s:RC.LoadKeyMap() abort
   call s:SourceIfExists('$MYVIMFILES/mapping.vim')
 endfunction
 
+function! s:RC.LoadMenu() abort
+  call s:SourceIfExists('$MYVIMFILES/menu.vim')
+endfunction
+
 function! s:RC.LoadCommand() abort
   call s:SourceIfExists('$MYVIMFILES/command.vim')
 endfunction
@@ -334,6 +338,7 @@ function! s:RC.Startup() abort
   syntax enable
   call s:RC.LoadCommand()
   call s:RC.LoadKeyMap()
+  call s:RC.LoadMenu()
   call s:RC.LoadLocalrc()
 endfunction
 
