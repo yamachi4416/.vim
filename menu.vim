@@ -13,7 +13,7 @@ function! s:GitLogGraph() abort
   let l:cmdline = s:BuildCommand(
   \'git log --oneline --graph --all', {
   \ '--date': 'short',
-  \ '--decorate': 'full',
+  \ '--decorate': 'short',
   \ '--format': "%h\t%ad\t%d\t%s",
   \}, '=')
   let l:out = systemlist(l:cmdline)
