@@ -1,14 +1,22 @@
 let s:_ = g:VIMRC._
 
-function! s:SystemOut(cmd, filetype)
-  let l:out = system(a:cmd)
-  call s:_.ScratchWindow(l:out)
-  let &l:filetype = a:filetype
+function! s:BuildCommand(cmd, opts, sep) abort
+  let l:cmdline = a:cmd
+  for l:key in keys(a:opts)
+    let l:val = a:opts[l:key]
+    let l:cmdline = l:cmdline . ' ' . l:key . a:sep . shellescape(l:val)
+  endfor
+  return l:cmdline
 endfunction
 
-function! s:GitLogGraph()
-  let l:cmd = "git log --oneline --graph --all --date=short --decorate=full --format='%h\t%ad\t%d\t%s'"
-  let l:out = systemlist(l:cmd)
+function! s:GitLogGraph() abort
+  let l:cmdline = s:BuildCommand(
+  \'git log --oneline --graph --all', {
+  \ '--date': 'short',
+  \ '--decorate': 'full',
+  \ '--format': "%h\t%ad\t%d\t%s",
+  \}, '=')
+  let l:out = systemlist(l:cmdline)
   call s:_.ScratchWindow(l:out)
   setlocal filetype=gitrebase
 endfunction
