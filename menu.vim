@@ -7,7 +7,7 @@ function! s:SystemOut(cmd, filetype)
 endfunction
 
 function! s:GitLogGraph()
-  let l:cmd = "git log --oneline --graph --all --date=short --decorate=full --format='%h\t%ad\t%d\t%s'"
+  let l:cmd = "git log --oneline --graph --all --date=short --decorate=short --format='%h\t%ad\t%d\t%s'"
   let l:out = systemlist(l:cmd)
   call s:_.ScratchWindow(l:out)
   setlocal filetype=gitrebase
