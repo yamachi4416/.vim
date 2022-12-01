@@ -28,6 +28,8 @@ Plug 'vim-jp/vimdoc-ja'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 
