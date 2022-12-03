@@ -3,6 +3,9 @@ let s:_ = g:VIMRC._
 command! -nargs=? -bang -complete=function
 \ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
 
+command! -nargs=? -complete=shellcmd
+\ ShellOutput call s:_.ScratchWindow(system(<q-args>))
+
 function! s:CreateDictUseSyntax() abort
   if &l:syntax ==# '' || &l:syntax ==# 'text'
     return
