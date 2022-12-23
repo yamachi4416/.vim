@@ -1,6 +1,7 @@
 let g:lsp_async_completion = 1
 let g:lsp_fold_enabled = 1
 let g:lsp_document_highlight_enabled = 1
+let g:lsp_use_native_client = 1
 
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_float_cursor = 0
