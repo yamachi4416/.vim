@@ -52,6 +52,7 @@ function! s:RC._SetEditVimOptions() abort
   endif
   set nospell
   set spelllang=en_us,cjk
+  set spelloptions=camel
 endfunction
 
 function! s:RC._SetBufFileVimOptions() abort
