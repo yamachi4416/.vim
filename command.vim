@@ -3,8 +3,33 @@ let s:_ = g:VIMRC._
 command! -nargs=? -bang -complete=function
 \ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
 
-command! -nargs=? -complete=shellcmd
-\ ShellOutput call s:_.ScratchWindow(system(<q-args>))
+function! s:ShellOutput(range, cmd) abort
+  let l:cmd = a:cmd
+
+  if a:range
+    if empty(l:cmd)
+      let l:cmd = get(matchlist(getline(1), '\v^#!\s*(.+)'), 1, '')
+      if empty(l:cmd)
+        throw 'E:ShellOutput: command arg or shebang is required.'
+      endif
+    endif
+    call s:_.ScratchWindow(s:_.GetSelectText())
+    execute '1,$!' . l:cmd
+    return
+  endif
+
+  if empty(l:cmd)
+    let l:cmd = expand('%:p')
+    if !executable(l:cmd)
+      throw 'E:ShellOutput: ' . l:file . 'is not executable.'
+    endif
+  endif
+
+  call s:_.ScratchWindow(system(l:cmd))
+endfunction
+
+command! -nargs=? -range=0 -complete=shellcmd
+\ ShellOutput call s:ShellOutput(<count>, <q-args>)
 
 function! s:CreateDictUseSyntax() abort
   if &l:syntax ==# '' || &l:syntax ==# 'text'
