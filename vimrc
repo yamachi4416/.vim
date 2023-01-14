@@ -146,9 +146,13 @@ function! s:RC._DefineLocalFunctions() abort
     return split(a:str, '\v\r\n|\n|\r')
   endfunction
 
-  function! s:WinSplit(cmd) abort
+  function! s:WinSplit(cmd, name) abort
     let l:wincmd = (winwidth(0) * 1.0 / winheight(0) <= 4.0 ? '' : 'vert ') . a:cmd
-    execute l:wincmd
+    if empty(a:name)
+      execute l:wincmd
+    else
+      execute printf('%s %s', a:cmd, fnameescape(a:name))
+    endif
   endfunction
 
   function! s:IMode(...) abort
@@ -162,18 +166,23 @@ function! s:RC._DefineLocalFunctions() abort
     return "\<C-p>"
   endfunction
 
-  function! s:ScratchWindow(...) abort
-    call s:WinSplit('new')
+  function! s:ScratchWindowWithName(name, args) abort
+    call s:WinSplit('new', a:name)
     setlocal buftype=nofile bufhidden=wipe noswapfile
-    if a:0
-      if type(a:1) is type('')
-        call append(line('$') - 1, s:Splitn(a:1))
-      elseif type(a:1) is type([])
-        call append(line('$') - 1, a:1)
+    if len(a:args)
+      let l:arg = a:args[0]
+      if type(l:arg) is type('')
+        call append(line('$') - 1, s:Splitn(l:arg))
+      elseif type(l:arg) is type([])
+        call append(line('$') - 1, l:arg)
       endif
     endif
     keepjumps normal! gg
     nnoremap <buffer><silent><C-l> :<C-u>%d _ <Bar>redraw<CR>
+  endfunction
+
+  function! s:ScratchWindow(...) abort
+    call s:ScratchWindowWithName('', a:000)
   endfunction
 
   function! s:IncludeExpr(fname) abort
@@ -255,6 +264,7 @@ function! s:RC._DefineLocalFunctions() abort
   call extend(self._, {
   \ 'SID': function('s:SID'),
   \ 'IMode': function('s:IMode'),
+  \ 'ScratchWindowWithName': function('s:ScratchWindowWithName'),
   \ 'ScratchWindow': function('s:ScratchWindow'),
   \ 'IncludeExpr': function('s:IncludeExpr'),
   \ 'GetFileFromUrl': function('s:GetFileFromUrl'),
