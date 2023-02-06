@@ -20,6 +20,12 @@ function! s:on_lsp_buffer_enabled() abort
 
   nmap <buffer> <A-S-F> <plug>(lsp-document-format)
   vmap <buffer> <A-S-F> <plug>(lsp-document-range-format)
+
+  if !&l:diff
+    setlocal foldmethod=expr
+      \ foldexpr=lsp#ui#vim#folding#foldexpr()
+      \ foldtext=lsp#ui#vim#folding#foldtext()
+  endif
 endfunction
 
 augroup my_lsp_installed
