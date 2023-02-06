@@ -1,7 +1,7 @@
 let g:lsp_async_completion = 1
-let g:lsp_fold_enabled = 1
-let g:lsp_document_highlight_enabled = 1
-let g:lsp_semantic_enabled = 1
+let g:lsp_fold_enabled = 0
+let g:lsp_document_highlight_enabled = 0
+let g:lsp_semantic_enabled = 0
 "let g:lsp_use_native_client = 1
 
 let g:lsp_diagnostics_echo_cursor = 1
@@ -10,6 +10,9 @@ let g:lsp_diagnostics_signs_enabled = 1
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
+
+let g:lsp_log_file = ''
+let g:lsp_log_verbose = 0
 
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
@@ -21,7 +24,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <A-S-F> <plug>(lsp-document-format)
   vmap <buffer> <A-S-F> <plug>(lsp-document-range-format)
 
-  if !&l:diff
+  if !&l:diff && g:lsp_fold_enabled
     setlocal foldmethod=expr
       \ foldexpr=lsp#ui#vim#folding#foldexpr()
       \ foldtext=lsp#ui#vim#folding#foldtext()
