@@ -97,9 +97,9 @@ function! s:RC._SetCmdAndTermVimOptions() abort
   set cmdwinheight=5
   if has('vim_starting')
     if !has('gui_running')
-      let &t_SI .= "\e[5 q" "SI = INSERT mode
-      let &t_SR .= "\e[4 q" "SR = REPLACE mode
-      let &t_EI .= "\e[1 q" "EI = NORMAL mode (ELSE)
+      let &t_SI = "\<Esc>[5 q" "SI = INSERT mode
+      let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
+      let &t_EI = "\<Esc>[1 q" "EI = NORMAL mode (ELSE)
     endif
     if &term =~? '^win'
       set termencoding=cp932
