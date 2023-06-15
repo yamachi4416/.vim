@@ -21,8 +21,10 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal tagfunc=lsp#tagfunc
   endif
 
-  nmap <buffer> <A-S-F> <plug>(lsp-document-format)
-  vmap <buffer> <A-S-F> <plug>(lsp-document-range-format)
+  nmap <buffer> <leader>f <plug>(lsp-document-format)
+  vmap <buffer> <leader>f <plug>(lsp-document-range-format)
+  nmap <buffer> <leader>h <plug>(lsp-hover)
+
 
   if !&l:diff && g:lsp_fold_enabled
     setlocal foldmethod=expr
