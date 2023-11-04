@@ -2,13 +2,14 @@ let g:lsp_async_completion = 1
 let g:lsp_fold_enabled = 0
 let g:lsp_document_highlight_enabled = 0
 let g:lsp_semantic_enabled = 0
-"let g:lsp_use_native_client = 1
+let g:lsp_use_native_client = 1
 
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_float_cursor = 0
 let g:lsp_diagnostics_signs_enabled = 1
 let g:lsp_diagnostics_virtual_text_enabled = 0
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
 
 let g:lsp_log_file = ''
