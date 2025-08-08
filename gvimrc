@@ -2,6 +2,7 @@ let s:_ = g:VIMRC._
 
 let g:no_gvimrc_example = 1
 
+set guioptions=ecM
 set browsedir=current
 set showtabline=2
 

@@ -26,7 +26,7 @@ function! s:RC._SetStartingVimOptions() abort
   set nobomb
   set fileencoding=
   set fileencodings=ucs-bom,utf8,sjis,cp932,eucjp,default,latin
-  set fileformat=
+  "set fileformat=
   set fileformats=unix,dos
   set helplang=en,ja
   set autoread
@@ -84,7 +84,6 @@ function! s:RC._SetDisplayVimOptions() abort
   endif
   let &g:statusline =
   \ ' %{pathshorten(getcwd())} %{expand(''%'')} %m%r%w %=%{join([&fenc,&ff])} '
-  set guioptions=ecM
   set showtabline=2
   if exists(':sign')
     set signcolumn=yes
