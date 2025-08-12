@@ -30,8 +30,6 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
-Plug 'github/copilot.vim'
-
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 
 call plug#end()
