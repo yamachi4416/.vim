@@ -15,6 +15,8 @@ let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
 let g:lsp_log_file = ''
 let g:lsp_log_verbose = 0
 
+let g:lsp_settings_filetype_vue = ['vtsls']
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
 
