@@ -110,6 +110,7 @@ endfunction
 function! s:RC._SetBackupUndoVimOptions() abort
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
+  let &viminfofile = expand('$MYVIMFILES/.viminfo')
   if has('persistent_undo')
     if !has('nvim')
       let l:undodir = expand('$VIMCACHEDIR/undo/vim')
