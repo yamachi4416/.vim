@@ -100,13 +100,6 @@ function! s:RC._SetCmdAndTermVimOptions() abort
       let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
       let &t_EI = "\<Esc>[1 q" "EI = NORMAL mode (ELSE)
     endif
-    if self.IsWindows
-      if executable('pwsh')
-        set shell=pwsh
-      else
-        set shell=powershell
-      endif
-    endif
   endif
 endfunction
 
