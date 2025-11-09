@@ -274,8 +274,6 @@ endfunction
 function! s:RC._InitAutogroup() abort
   augroup Vimrc
     autocmd!
-    autocmd bufnewfile *
-    \ setlocal fileencoding=utf8
     autocmd bufnewfile *.{bat,cmd}
     \ setlocal fileencoding=cp932 fileformat=dos
     autocmd bufnewfile,bufreadpost *.jade
