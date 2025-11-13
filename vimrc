@@ -197,7 +197,7 @@ function! s:RC._DefineLocalFunctions() abort
   function! s:GetFileFromUrl(url, file) abort
     if executable('powershell') || executable('pwsh')
       let l:powershell = executable('pwsh') ? 'pwsh' : 'powershell'
-      let l:powershell .= ' -NoLog -NoProfile -ExecutionPolicy RemoteSiged -Command '
+      let l:powershell .= ' -NoLog -NoProfile -ExecutionPolicy RemoteSigned -Command '
       let l:command = '(New-Object System.Net.WebClient).DownloadFile(''%s'', ''%s'')'
       call system(l:powershell . shellescape(printf(l:command, a:url, a:file)))
     elseif executable('curl')
