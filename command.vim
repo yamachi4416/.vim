@@ -31,6 +31,13 @@ endfunction
 command! -nargs=? -range=0 -complete=shellcmd
 \ ShellOutput call s:ShellOutput(<count>, <q-args>)
 
+function! s:GitDiffScrachWindow() abort
+  call s:ShellOutput(0, "git diff --cached")
+  setlocal filetype=diff
+endfunction
+
+command! GitDiffScrachWindow call s:GitDiffScrachWindow()
+
 function! s:CreateDictUseSyntax() abort
   if &l:syntax ==# '' || &l:syntax ==# 'text'
     return
