@@ -19,6 +19,12 @@ function! s:RC._SetEnv() abort
     let l:scoop = expand('$SCOOP/shims/')
     let $PATH = l:scoop . ';' . $PATH
   endif
+
+  if isdirectory(expand('~/.proto'))
+    let $PROTO_HOME = expand('~/.proto')
+    let l:proto = expand('$PROTO_HOME/shims') . ';' . expand('$PROTO_HOME/bin')
+    let $PATH = l:proto . ';' . $PATH
+  endif
 endfunction
 
 function! s:RC._SetStartingVimOptions() abort

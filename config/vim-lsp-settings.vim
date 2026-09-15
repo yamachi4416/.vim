@@ -4,4 +4,13 @@ let g:lsp_settings = {
 \   'args': ['-c', expand('$MYVIMFILES/config/efm-langserver/config.yaml')]
 \ },
 \}
-let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
+
+let g:lsp_settings_filetype_typescript = [
+\ 'typescript-language-server',
+\ 'eslint-language-server'
+\]
+let g:lsp_settings_filetype_vue = [
+\ 'vtsls',
+\ 'volar-server',
+\ 'eslint-language-server'
+\]
