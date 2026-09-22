@@ -21,14 +21,20 @@ endif
 call plug#begin($VIMPLUGDIR)
 
 Plug 'itchyny/lightline.vim'
-
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-Plug 'mattn/vim-lsp-settings'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+
+Plug 'prabirshrestha/vim-lsp', has('nvim') ? { 'on': [] } : {}
+Plug 'prabirshrestha/asyncomplete.vim', has('nvim') ? { 'on': [] } : {}
+Plug 'prabirshrestha/asyncomplete-lsp.vim', has('nvim') ? { 'on': [] } : {}
+Plug 'mattn/vim-lsp-settings', has('nvim') ? { 'on': [] } : {}
+
+Plug 'neovim/nvim-lspconfig', has('nvim') ? {} : { 'on': [] }
+Plug 'williamboman/mason.nvim', has('nvim') ? {} : { 'on': [] }
+Plug 'williamboman/mason-lspconfig.nvim', has('nvim') ? {} : { 'on': [] }
+Plug 'hrsh7th/nvim-cmp', has('nvim') ? {} : { 'on': [] }
+Plug 'hrsh7th/cmp-nvim-lsp', has('nvim') ? {} : { 'on': [] }
+Plug 'folke/lazydev.nvim', has('nvim') ? {} : { 'on': [] }
 
 call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
 

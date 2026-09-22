@@ -15,6 +15,8 @@ let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
 let g:lsp_log_file = ''
 let g:lsp_log_verbose = 0
 
+let g:lsp_experimental_workspace_folders = 1
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
 
@@ -24,6 +26,7 @@ function! s:on_lsp_buffer_enabled() abort
 
   nmap <buffer> <leader>f <plug>(lsp-document-format)
   vmap <buffer> <leader>f <plug>(lsp-document-range-format)
+  nmap <buffer> <leader>w <plug>(lsp-document-diagnostics)
   nmap <buffer> <leader>h <plug>(lsp-hover)
 
 

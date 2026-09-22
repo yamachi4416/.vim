@@ -16,16 +16,10 @@ tools:
     format-stdin: true
 
 languages:
-  javascript:
-    - <<: *prettier
-  typescript:
-    - <<: *prettier
   css:
     - <<: *stylelint
     - <<: *prettier
   scss:
     - <<: *stylelint
     - <<: *prettier
-  vue:
-    - <<: *stylelint
-    - <<: *prettier
+

@@ -98,10 +98,10 @@ endfunction
 
 function! s:RC._SetCmdAndTermVimOptions() abort
   set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
-  set wildmenu wildmode=longest:full
+  set wildmenu wildmode=longest:full wildoptions=
   set cmdwinheight=5
   if has('vim_starting')
-    if !has('gui_running')
+    if !has('nvim') && !has('gui_running')
       let &t_SI = "\<Esc>[5 q" "SI = INSERT mode
       let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
       let &t_EI = "\<Esc>[1 q" "EI = NORMAL mode (ELSE)
@@ -112,19 +112,25 @@ endfunction
 function! s:RC._SetBackupUndoVimOptions() abort
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
-  let &viminfofile = expand('$MYVIMFILES/.viminfo')
+
+  if has('nvim')
+    let &viminfofile = expand('$MYVIMFILES/.nviminfo')
+  else
+    let &viminfofile = expand('$MYVIMFILES/.viminfo')
+  endif
+
   if has('persistent_undo')
-    if !has('nvim')
-      let l:undodir = expand('$VIMCACHEDIR/undo/vim')
-    else
+    if has('nvim')
       let l:undodir = expand('$VIMCACHEDIR/undo/nvim')
+    else
+      let l:undodir = expand('$VIMCACHEDIR/undo/vim')
     endif
     if !isdirectory(l:undodir)
       call mkdir(expand(l:undodir), 'p')
     endif
-    set undofile
     let &undodir = l:undodir
     let &wildignore .= ',' . &undodir
+    set undofile
   endif
 endfunction
 
@@ -308,8 +314,9 @@ endfunction
 
 function! s:RC.LoadPluginConfig() abort
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
-  for l:config in split(globpath($MYVIMFILES, 'config/*.vim', 1), "\n")
-    if s:IsInstalled(matchstr(l:config, '\vconfig[\/]\zs[^\/]+\ze\.vim'))
+  let l:ext = has('nvim') ? '.lua' : '.vim'
+  for l:config in split(globpath($MYVIMFILES, 'config/*' . l:ext, 1), "\n")
+    if s:IsInstalled(matchstr(l:config, '\vconfig[\/]\zs[^\/]+\ze\' . l:ext))
       source `=l:config`
     endif
   endfor
