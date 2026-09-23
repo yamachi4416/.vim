@@ -36,6 +36,6 @@ Plug 'hrsh7th/nvim-cmp', has('nvim') ? {} : { 'on': [] }
 Plug 'hrsh7th/cmp-nvim-lsp', has('nvim') ? {} : { 'on': [] }
 Plug 'folke/lazydev.nvim', has('nvim') ? {} : { 'on': [] }
 
-call s:_.SourceIfExists('$MYVIMFILES/localplug.vim')
+call s:_.SourceIfExists('$MYVIMFILES/.local/plug.vim')
 
 call plug#end()

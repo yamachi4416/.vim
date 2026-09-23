@@ -8,7 +8,7 @@ let s:RC = {'_': {}}
 function! s:RC._SetEnv() abort
   if !has('vim_starting') | return | endif
   let $MYVIMFILES  = expand('<script>:p:h')
-  let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
+  let $VIMPLUGDIR  = expand('$MYVIMFILES/.bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/.cache')
   if exists('&pyxversion')
     set pyxversion=3
@@ -346,7 +346,7 @@ function! s:RC.Init() abort
 endfunction
 
 function! s:RC.LoadLocalrc() abort
-  call s:SourceIfExists('$MYVIMFILES/localrc.vim')
+  call s:SourceIfExists('$MYVIMFILES/.local/vimrc.vim')
 endfunction
 
 function! s:RC.Startup() abort
