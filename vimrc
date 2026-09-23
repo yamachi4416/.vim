@@ -10,6 +10,10 @@ function! s:RC._SetEnv() abort
   let $MYVIMFILES  = expand('<script>:p:h')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/.bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/.cache')
+
+  set runtimepath^=$MYVIMFILES
+  set runtimepath+=$MYVIMFILES/after
+
   if exists('&pyxversion')
     set pyxversion=3
   endif
