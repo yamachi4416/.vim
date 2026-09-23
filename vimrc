@@ -7,8 +7,7 @@ let s:RC = {'_': {}}
 
 function! s:RC._SetEnv() abort
   if !has('vim_starting') | return | endif
-  let g:skip_defaults_vim = 1
-  let $MYVIMFILES  = globpath('~', self.IsWindows ? 'vimfiles' : '.vim')
+  let $MYVIMFILES  = expand('<script>:p:h')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/.cache')
   if exists('&pyxversion')
