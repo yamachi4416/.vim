@@ -79,7 +79,6 @@ function! s:RC._SetBufFileVimOptions() abort
   set isfname& isfname-== isfname-=!
   set hidden
   set wildignorecase wildignore& wildignore+=*/.git/*,*/node_modules/*
-  let &wildignore .= ',' . $VIMCACHEDIR . '/*'
   set tags=tags;
 endfunction
 
@@ -251,11 +250,13 @@ function! s:RC._DefineLocalFunctions() abort
     return l:ret
   endfunction
 
-  function! s:IsInstalled(dirname) abort
+  function! s:IsInstalled(name) abort
     if exists('g:plugs')
-      return has_key(g:plugs, a:dirname) || has_key(g:plugs, a:dirname . '.vim')
+      return has_key(g:plugs, a:name) ||
+      \ has_key(g:plugs, a:name . '.vim') ||
+      \ has_key(g:plugs, a:name . '.nvim')
     endif
-    return &runtimepath =~# '\v[\\/]' . a:dirname . ',?'
+    return &runtimepath =~# '\v[\\/]' . a:name . ',?'
   endfunction
 
   function! s:FileTypeAutoCommand() abort
@@ -378,6 +379,11 @@ function! s:RC.LoadLocalrc() abort
   call s:SourceIfExists('$MYVIMFILES/.local/vimrc.vim')
 endfunction
 
+function! s:RC.LoadedEnd() abort
+  let &wildignore .= ',' . $VIMCACHEDIR . '/*'
+  set secure
+endfunction
+
 function! s:RC.Startup() abort
   let g:VIMRC = s:RC.Init()
 
@@ -388,9 +394,7 @@ function! s:RC.Startup() abort
   call s:RC.LoadKeyMap()
   call s:RC.LoadMenu()
   call s:RC.LoadLocalrc()
+  call s:RC.LoadedEnd()
 endfunction
 
 call s:RC.Startup()
-
-set secure
-

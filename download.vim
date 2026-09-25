@@ -23,6 +23,7 @@ call plug#begin($VIMPLUGDIR)
 Plug 'itchyny/lightline.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'prabirshrestha/vim-lsp', has('nvim') ? { 'on': [] } : {}
 Plug 'prabirshrestha/asyncomplete.vim', has('nvim') ? { 'on': [] } : {}
