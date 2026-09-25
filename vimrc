@@ -79,6 +79,7 @@ function! s:RC._SetBufFileVimOptions() abort
   set isfname& isfname-== isfname-=!
   set hidden
   set wildignorecase wildignore& wildignore+=*/.git/*,*/node_modules/*
+  let &wildignore .= ',' . $VIMCACHEDIR . '/*'
   set tags=tags;
 endfunction
 
@@ -134,22 +135,18 @@ function! s:RC._SetBackupUndoVimOptions() abort
   set history=100 viminfo-=!
 
   if self.IsNvim
+    let l:undodir = expand('$VIMCACHEDIR/undo/nvim')
     let &viminfofile = expand('$MYVIMFILES/.nviminfo')
   else
+    let l:undodir = expand('$VIMCACHEDIR/undo/vim')
     let &viminfofile = expand('$MYVIMFILES/.viminfo')
   endif
 
   if has('persistent_undo')
-    if self.IsNvim
-      let l:undodir = expand('$VIMCACHEDIR/undo/nvim')
-    else
-      let l:undodir = expand('$VIMCACHEDIR/undo/vim')
-    endif
     if !isdirectory(l:undodir)
       call mkdir(expand(l:undodir), 'p')
     endif
     let &undodir = l:undodir
-    let &wildignore .= ',' . &undodir
     set undofile
   endif
 endfunction
