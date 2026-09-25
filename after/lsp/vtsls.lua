@@ -1,6 +1,3 @@
-local mason_path = vim.fn.expand('$MASON/packages')
-local vue_pugin_location = mason_path .. '/vue-language-server/node_modules/@vue/language-server'
-
 --@type vim.lsp.Config
 return {
   settings = {
@@ -9,7 +6,10 @@ return {
         globalPlugins = {
           {
             name = '@vue/typescript-plugin',
-            location = vue_pugin_location,
+            location = vim.fs.joinpath(
+              vim.fn.expand('$MASON'),
+              '/packages/vue-language-server/node_modules/@vue/language-server'
+            ),
             languages = { 'vue' },
             configNamespace = 'typescript',
           },

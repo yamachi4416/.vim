@@ -143,7 +143,7 @@ function! s:RC._SetBackupUndoVimOptions() abort
 
   if has('persistent_undo')
     if !isdirectory(l:undodir)
-      call mkdir(expand(l:undodir), 'p')
+      call mkdir(l:undodir, 'p')
     endif
     let &undodir = l:undodir
     set undofile
