@@ -7,27 +7,36 @@ let s:RC = {'_': {}}
 
 function! s:RC._SetEnv() abort
   if !has('vim_starting') | return | endif
+
   let $MYVIMFILES  = expand('<script>:p:h')
   let $VIMPLUGDIR  = expand('$MYVIMFILES/.bundle/')
   let $VIMCACHEDIR = expand('$MYVIMFILES/.cache')
 
-  set runtimepath^=$MYVIMFILES
-  set runtimepath+=$MYVIMFILES/after
+  if self.IsNvim
+    set runtimepath^=$MYVIMFILES
+    set runtimepath+=$MYVIMFILES/after
+    let &packpath = &runtimepath
+  endif
 
   if exists('&pyxversion')
     set pyxversion=3
   endif
 
+  let l:path_sep = self.IsWindows ? ';' : ':'
+  let l:paths = split($PATH, l:path_sep)
+
   if self.IsWindows && isdirectory(expand('$SCOOP'))
-    let l:scoop = expand('$SCOOP/shims/')
-    let $PATH = l:scoop . ';' . $PATH
+    call extend(l:paths, [expand('$SCOOP/shims')])
   endif
 
-  if isdirectory(expand('~/.proto'))
-    let $PROTO_HOME = expand('~/.proto')
-    let l:proto = expand('$PROTO_HOME/shims') . ';' . expand('$PROTO_HOME/bin')
-    let $PATH = l:proto . ';' . $PATH
+  if isdirectory(expand('$PROTO_HOME'))
+    call extend(l:paths, [
+    \ expand('$PROTO_HOME/shims'),
+    \ expand('$PROTO_HOME/bin'),
+    \])
   endif
+
+  let $PATH = join(l:paths, l:path_sep) . l:path_sep
 endfunction
 
 function! s:RC._SetStartingVimOptions() abort
@@ -101,13 +110,21 @@ endfunction
 
 function! s:RC._SetCmdAndTermVimOptions() abort
   set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
-  set wildmenu wildmode=longest:full wildoptions=
+  set wildmenu wildmode=longest:full wildoptions=fuzzy
   set cmdwinheight=5
-  if has('vim_starting')
-    if !has('nvim') && !has('gui_running')
-      let &t_SI = "\<Esc>[5 q" "SI = INSERT mode
-      let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
-      let &t_EI = "\<Esc>[1 q" "EI = NORMAL mode (ELSE)
+
+  if has('vim_starting') && !has('gui_running')
+    if has('termguicolors')
+      set termguicolors
+    else
+      set t_Co=256
+    endif
+    if &term =~ 'xterm' || &term == 'win32'
+      let &t_SI = "\e[6 q"    " vertical bar cursor
+      let &t_SR = "\e[4 q"    " underline cursor
+      let &t_EI = "\e[2 q"    " block cursor
+      let &t_ti ..= "\e[2 q"  " block cursor
+      let &t_te ..= "\e[0 q"  " default (depends on terminal, normally blink block)
     endif
   endif
 endfunction
@@ -116,14 +133,14 @@ function! s:RC._SetBackupUndoVimOptions() abort
   set nobackup nowritebackup noswapfile
   set history=100 viminfo-=!
 
-  if has('nvim')
+  if self.IsNvim
     let &viminfofile = expand('$MYVIMFILES/.nviminfo')
   else
     let &viminfofile = expand('$MYVIMFILES/.viminfo')
   endif
 
   if has('persistent_undo')
-    if has('nvim')
+    if self.IsNvim
       let l:undodir = expand('$VIMCACHEDIR/undo/nvim')
     else
       let l:undodir = expand('$VIMCACHEDIR/undo/vim')
@@ -300,7 +317,6 @@ function! s:RC._InitAutogroup() abort
   augroup END
 endfunction
 
-
 function! s:RC.SetVimOptions() abort
   call self._SetStartingVimOptions()
   call self._SetEditVimOptions()
@@ -317,9 +333,20 @@ endfunction
 
 function! s:RC.LoadPluginConfig() abort
   call s:SourceIfExists('$MYVIMFILES/config/plugin.vim')
-  let l:ext = has('nvim') ? '.lua' : '.vim'
-  for l:config in split(globpath($MYVIMFILES, 'config/*' . l:ext, 1), "\n")
-    if s:IsInstalled(matchstr(l:config, '\vconfig[\/]\zs[^\/]+\ze\' . l:ext))
+  if self.IsNvim
+    call s:SourceIfExists('$MYVIMFILES/config/plugin.lua')
+  endif
+
+  for l:config in split(globpath($MYVIMFILES, 'config/*', 1), "\n")
+    let l:fname = matchstr(l:config, '\vconfig[\/]\zs[^\/]+$')
+    let l:ext = get(split(l:fname, '\v\ze\.'), -1, '')
+    let l:name = slice(l:fname, 0, len(l:fname) - len(l:ext))
+
+    if !self.IsNvim && l:ext !=# '.vim'
+      continue
+    endif
+
+    if s:IsInstalled(l:name)
       source `=l:config`
     endif
   endfor
@@ -340,6 +367,7 @@ endfunction
 function! s:RC.Init() abort
   let self.IsWindows = has('win32')
   let self.IsUnix = has('unix')
+  let self.IsNvim = has('nvim')
   call self._DefineLocalFunctions()
   call self._SetEnv()
   call s:SourceIfExists('$MYVIMFILES/localconf.vim')
