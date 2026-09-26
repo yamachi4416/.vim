@@ -3,8 +3,9 @@ vim.cmd.source(vim.fs.joinpath(vim.fn.expand('<script>:p:h'), 'vimrc'))
 local function format()
   if vim.fn.exists(':LspEslintFixAll') == 2 then
     vim.cmd('LspEslintFixAll')
+  else
+    vim.lsp.buf.format()
   end
-  vim.lsp.buf.format()
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -17,6 +18,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { buf = args.buf })
 
     vim.api.nvim_create_autocmd('BufWritePre', {
+      group = 'Vimrc',
       buffer = args.buf,
       callback = format,
     })
