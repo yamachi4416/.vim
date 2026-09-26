@@ -1,4 +1,5 @@
 let s:_ = g:VIMRC._
+let s:vim_style = s:_.ExpandPath('$VIMCACHEDIR/.vim_style.vim')
 
 let g:no_gvimrc_example = 1
 
@@ -6,7 +7,7 @@ set guioptions=ecM
 set browsedir=current
 set showtabline=2
 
-call s:_.SourceIfExists('$MYVIMFILES/.vim_style.vim')
+call s:_.SourceIfExists(s:vim_style)
 
 function s:OptionSet(ret, optname) abort
   let l:opt = '&' . a:optname
@@ -43,6 +44,6 @@ function! s:SaveWinPosAndFont() abort
   if &enc !=? 'utf-8'
     call map(l:ret, 'iconv(v:val, &enc, ''utf-8'')')
   endif
-  call writefile(l:ret, expand('$MYVIMFILES/.vim_style.vim'))
+  call writefile(l:ret, s:vim_style)
 endfunction
 

@@ -9,8 +9,8 @@ function! s:RC._SetEnv() abort
   if !has('vim_starting') | return | endif
 
   let $MYVIMFILES  = expand('<script>:p:h')
-  let $VIMPLUGDIR  = expand('$MYVIMFILES/.bundle/')
-  let $VIMCACHEDIR = expand('$MYVIMFILES/.cache')
+  let $VIMPLUGDIR  = expand('$MYVIMFILES/.local/plugs')
+  let $VIMCACHEDIR = expand('$MYVIMFILES/.local/cache')
 
   if self.IsNvim
     set runtimepath^=$MYVIMFILES
@@ -78,7 +78,7 @@ endfunction
 function! s:RC._SetBufFileVimOptions() abort
   set isfname& isfname-== isfname-=!
   set hidden
-  set wildignorecase wildignore& wildignore+=*/.git/*,*/node_modules/*
+  set wildignorecase wildignore&
   set tags=tags;
 endfunction
 
@@ -134,18 +134,17 @@ function! s:RC._SetBackupUndoVimOptions() abort
   set history=100 viminfo-=!
 
   if self.IsNvim
-    let l:undodir = expand('$VIMCACHEDIR/undo/nvim')
-    let &viminfofile = expand('$MYVIMFILES/.nviminfo')
+    set undodir=$VIMCACHEDIR/undo/nvim
+    set viminfofile=$VIMCACHEDIR/.nviminfo
   else
-    let l:undodir = expand('$VIMCACHEDIR/undo/vim')
-    let &viminfofile = expand('$MYVIMFILES/.viminfo')
+    set undodir=$VIMCACHEDIR/undo/vim
+    set viminfofile=$VIMCACHEDIR/.viminfo
   endif
 
   if has('persistent_undo')
-    if !isdirectory(l:undodir)
-      call mkdir(l:undodir, 'p')
+    if !isdirectory(&undodir)
+      call mkdir(&undodir, 'p')
     endif
-    let &undodir = l:undodir
     set undofile
   endif
 endfunction
@@ -234,12 +233,22 @@ function! s:RC._DefineLocalFunctions() abort
     endif
   endfunction
 
+  function! s:ExpandPath(path) abort
+    let l:wildignore = &wildignore
+    try
+      set wildignore=
+      return expand(a:path)
+    finally
+      let &wildignore = l:wildignore
+    endtry
+  endfunction
+
   function! s:SourceIfExists(path) abort
-    let l:filepath = expand(a:path)
-    if filereadable(l:filepath)
-      source `=l:filepath`
-      return 1
-    endif
+      let l:filepath = s:ExpandPath(a:path)
+      if filereadable(l:filepath)
+        source `=l:filepath`
+        return 1
+      endif
     return 0
   endfunction
 
@@ -294,6 +303,7 @@ function! s:RC._DefineLocalFunctions() abort
   \ 'ScratchWindow': function('s:ScratchWindow'),
   \ 'IncludeExpr': function('s:IncludeExpr'),
   \ 'GetFileFromUrl': function('s:GetFileFromUrl'),
+  \ 'ExpandPath': function('s:ExpandPath'),
   \ 'SourceIfExists': function('s:SourceIfExists'),
   \ 'GetSelectText': function('s:GetSelectText'),
   \ 'IsInstalled': function('s:IsInstalled'),
@@ -368,7 +378,7 @@ function! s:RC.Init() abort
   let self.IsNvim = has('nvim')
   call self._DefineLocalFunctions()
   call self._SetEnv()
-  call s:SourceIfExists('$MYVIMFILES/localconf.vim')
+  call s:SourceIfExists('$MYVIMFILES/.local/vimrc.vim')
   call self._DefineGlobalVariables()
   call self._InitAutogroup()
   call self.SetVimOptions()
@@ -380,21 +390,26 @@ function! s:RC.LoadLocalrc() abort
 endfunction
 
 function! s:RC.LoadedEnd() abort
-  let &wildignore .= ',' . $VIMCACHEDIR . '/*'
+  let &wildignore = '*/.git/*,*/node_modules/*,' . $VIMCACHEDIR . '/*'
   set secure
 endfunction
 
 function! s:RC.Startup() abort
+  let self.IsLoaded = 0
   let g:VIMRC = s:RC.Init()
 
-  call s:RC.SetPluginEnable()
-  call s:RC.LoadPluginConfig()
+  call self.SetPluginEnable()
+  call self.LoadPluginConfig()
+
   syntax enable
-  call s:RC.LoadCommand()
-  call s:RC.LoadKeyMap()
-  call s:RC.LoadMenu()
-  call s:RC.LoadLocalrc()
-  call s:RC.LoadedEnd()
+  call self.LoadCommand()
+  call self.LoadKeyMap()
+  call self.LoadMenu()
+
+  let self.IsLoaded = 1
+  call self.LoadLocalrc()
+
+  set secure
 endfunction
 
 call s:RC.Startup()
