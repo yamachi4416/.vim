@@ -276,9 +276,10 @@ function! s:RC._DefineLocalFunctions() abort
     if &l:path ==# ''
       setlocal path<
     endif
-    if filereadable(expand('$MYVIMFILES/dict/' . l:filetype . '.txt'))
-      let &l:dict = glob('$MYVIMFILES/dict/' . l:filetype . '.txt')
-      let &l:complete .= ',k' . &l:dict
+    let l:dict = $MYVIMFILES .'/.local/dict/' . l:filetype . '.txt'
+    if filereadable(l:dict)
+      execute 'setlocal dict+=' . l:dict
+      execute 'setlocal complete+=k' . l:dict
     endif
   endfunction
 
