@@ -391,7 +391,6 @@ function! s:RC.LoadLocalrc() abort
 endfunction
 
 function! s:RC.LoadedEnd() abort
-  let &wildignore = '*/.git/*,*/node_modules/*,' . $VIMCACHEDIR . '/*'
   set secure
 endfunction
 
@@ -409,8 +408,7 @@ function! s:RC.Startup() abort
 
   let self.IsLoaded = 1
   call self.LoadLocalrc()
-
-  set secure
+  call self.LoadedEnd()
 endfunction
 
 call s:RC.Startup()
