@@ -123,16 +123,6 @@ function! s:DiffOrigin() abort
 endfunction
 command! DiffOrig call s:DiffOrigin()
 
-function! s:SetpythonDll() abort
-  if !exists('&pythonthreedll') | return | endif
-  if executable('python')
-    let &pythonthreedll = expand(fnamemodify(exepath('python'), ':p:h') . '/python3?.dll')
-  else
-    let &pythonthreedll = ''
-  endif
-endfunction
-call s:SetpythonDll()
-
 function! s:StartupTimeLog() abort
   let l:logfile = tempname()
   let l:vim_command = "vim --startuptime %s -c %s"

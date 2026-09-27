@@ -20,10 +20,6 @@ function! s:SetEnv() abort
     let &packpath = &runtimepath
   endif
 
-  if exists('&pyxversion')
-    set pyxversion=3
-  endif
-
   let l:path_sep = s:IsWindows ? ';' : ':'
   let l:paths = split($PATH, l:path_sep)
 
