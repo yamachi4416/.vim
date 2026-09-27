@@ -1,6 +1,6 @@
 let s:_ = g:VIMRC._
 
-function! s:openGitDiff()
+function! s:OpenGitDiff()
   let hash = expand('<cword>')
   if hash =~# '^\v\w+$'
     call s:_.ScratchWindow(system('git show ' . hash))
@@ -8,4 +8,4 @@ function! s:openGitDiff()
   endif
 endfunction
 
-nnoremap <buffer> <C-k> :<C-u>call <SID>openGitDiff()<CR>
+nnoremap <buffer> <C-k> :<C-u>call <SID>OpenGitDiff()<CR>

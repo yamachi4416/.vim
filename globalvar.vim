@@ -36,15 +36,20 @@ let g:ruby_space_errors = 1
 let g:ruby_fold = 1
 
 " $VIMRUNTIME/syntax/python.vim
-let python_space_error_highlight = 1
+let g:python_space_error_highlight = 1
 
 " $VIMRUNTIME/syntax/markdown.vim
 let g:markdown_fenced_languages = [
-\ 'sh',
+\ 'css',
 \ 'java',
 \ 'javascript',
 \ 'python',
 \ 'ruby',
+\ 'sass',
+\ 'sh',
+\ 'sql',
+\ 'typescript',
+\ 'vue',
 \]
 
 " $MYVIMFILES/bundle/plug.vim
