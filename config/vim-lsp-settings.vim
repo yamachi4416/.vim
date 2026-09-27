@@ -1,7 +1,7 @@
 let g:lsp_settings = {
 \ 'efm-langserver': {
 \   'disabled': v:false,
-\   'args': ['-c', expand('$MYVIMFILES/config/efm-langserver/config.yaml')]
+\   'args': ['-c', expand('$MYVIMDIR/config/efm-langserver/config.yaml')]
 \ },
 \ 'vscode-eslint-language-server': {
 \   'allowlist': [

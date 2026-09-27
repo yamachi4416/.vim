@@ -10,13 +10,13 @@ let s:IsNvim = has('nvim')
 function! s:SetEnv() abort
   if !has('vim_starting') | return | endif
 
-  let $MYVIMFILES  = expand('<script>:p:h')
-  let $VIMPLUGDIR  = expand('$MYVIMFILES/.local/plugs')
-  let $VIMCACHEDIR = expand('$MYVIMFILES/.local/cache')
+  let $MYVIMDIR  = expand('<script>:p:h')
+  let $VIMPLUGDIR  = expand('$MYVIMDIR/.local/plugs')
+  let $VIMCACHEDIR = expand('$MYVIMDIR/.local/cache')
 
   if s:IsNvim
-    set runtimepath^=$MYVIMFILES
-    set runtimepath+=$MYVIMFILES/after
+    set runtimepath^=$MYVIMDIR
+    set runtimepath+=$MYVIMDIR/after
     let &packpath = &runtimepath
   endif
 
@@ -159,7 +159,7 @@ function! s:FileTypeAutoCommand() abort
   if &l:path ==# ''
     setlocal path<
   endif
-  let l:dict = $MYVIMFILES .'/.local/dict/' . l:filetype . '.txt'
+  let l:dict = $MYVIMDIR .'/.local/dict/' . l:filetype . '.txt'
   if filereadable(l:dict)
     execute 'setlocal dict+=' . l:dict
     execute 'setlocal complete+=k' . l:dict
@@ -179,7 +179,7 @@ function! s:InitAutogroup() abort
 endfunction
 
 function! s:LoadPluginConfig() abort
-  for l:config in globpath($MYVIMFILES, 'config/*', 1, 1)
+  for l:config in globpath($MYVIMDIR, 'config/*', 1, 1)
     let l:file = vimrc#util#fname_part(l:config)
     if vimrc#util#is_installed(l:file.name)
       call vimrc#util#source(l:config)
@@ -190,8 +190,8 @@ endfunction
 let g:vimrc_loaded = 0
 
 call s:SetEnv()
-call vimrc#util#source('$MYVIMFILES/.local/vimrc.vim')
-call vimrc#util#source('$MYVIMFILES/globalvar.vim')
+call vimrc#util#source('$MYVIMDIR/.local/vimrc.vim')
+call vimrc#util#source('$MYVIMDIR/globalvar.vim')
 
 call s:InitAutogroup()
 call s:SetStartingVimOptions()
@@ -201,15 +201,15 @@ call s:SetDisplayVimOptions()
 call s:SetCmdAndTermVimOptions()
 call s:SetBackupUndoVimOptions()
 
-call vimrc#util#source('$MYVIMFILES/download.vim')
-call vimrc#util#source('$MYVIMFILES/config/plugin.vim')
-call vimrc#util#source('$MYVIMFILES/config/plugin.lua')
+call vimrc#util#source('$MYVIMDIR/download.vim')
+call vimrc#util#source('$MYVIMDIR/config/plugin.vim')
+call vimrc#util#source('$MYVIMDIR/config/plugin.lua')
 call s:LoadPluginConfig()
 
 syntax enable
-call vimrc#util#source('$MYVIMFILES/mapping.vim')
+call vimrc#util#source('$MYVIMDIR/mapping.vim')
 
 let g:vimrc_loaded = 1
-call vimrc#util#source('$MYVIMFILES/.local/vimrc.vim')
+call vimrc#util#source('$MYVIMDIR/.local/vimrc.vim')
 
 set secure

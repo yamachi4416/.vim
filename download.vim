@@ -35,6 +35,6 @@ Plug 'hrsh7th/nvim-cmp', has('nvim') ? {} : { 'on': [] }
 Plug 'hrsh7th/cmp-nvim-lsp', has('nvim') ? {} : { 'on': [] }
 Plug 'folke/lazydev.nvim', has('nvim') ? {} : { 'on': [] }
 
-call vimrc#util#source('$MYVIMFILES/.local/plugs.vim')
+call vimrc#util#source('$MYVIMDIR/.local/plugs.vim')
 
 call plug#end()

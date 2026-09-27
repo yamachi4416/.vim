@@ -12,7 +12,7 @@ function! s:CreateDictUseSyntax() abort
     return
   endif
 
-  let l:file = $MYVIMFILES . '/.local/dict/' . &l:syntax . '.txt'
+  let l:file = $MYVIMDIR . '/.local/dict/' . &l:syntax . '.txt'
   if !filereadable(l:file)
     let l:words = {}
     for l:word in syntaxcomplete#OmniSyntaxList()
