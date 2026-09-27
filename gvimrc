@@ -2,13 +2,13 @@ let s:vim_style = vimrc#util#expand('$VIMCACHEDIR/.vim_style.vim')
 
 let g:no_gvimrc_example = 1
 
-set guioptions=ecM
+set guioptions=ecsM
 set browsedir=current
 set showtabline=2
 
 call vimrc#util#source(s:vim_style)
 
-function s:OptionSet(ret, optname) abort
+function! s:OptionSet(ret, optname) abort
   let l:opt = '&' . a:optname
   if exists(l:opt)
     let l:val = string(eval(l:opt))
@@ -17,8 +17,6 @@ function s:OptionSet(ret, optname) abort
     endif
   endif
 endfunction
-
-command! -nargs=0 SaveWinPosAndFont call s:SaveWinPosAndFont()
 
 function! s:SaveWinPosAndFont() abort
   let l:ret = ['scriptencoding utf-8']
@@ -46,3 +44,6 @@ function! s:SaveWinPosAndFont() abort
   call writefile(l:ret, s:vim_style)
 endfunction
 
+command! -nargs=0 SaveWinPosAndFont call s:SaveWinPosAndFont()
+
+call vimrc#util#source('$MYVIMDIR/.local/gvimrc.vim')
