@@ -22,6 +22,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/goyo.vim'
 
 Plug 'prabirshrestha/vim-lsp', has('nvim') ? { 'on': [] } : {}
 Plug 'prabirshrestha/asyncomplete.vim', has('nvim') ? { 'on': [] } : {}
