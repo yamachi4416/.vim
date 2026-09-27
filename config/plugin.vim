@@ -1,7 +1,5 @@
-let s:_ = g:VIMRC._
-
 if get(g:, 'loaded_matchit', 0)
-  call s:_.SourceIfExists('$VIMRUNTIME/macros/matchit.vim')
+  call vimrc#util#source('$VIMRUNTIME/macros/matchit.vim')
 endif
 
 let g:netrw_banner    = 0

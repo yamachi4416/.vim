@@ -1,7 +1,5 @@
-let s:_ = g:VIMRC._
-
 command! -nargs=? -bang -complete=function
-\ ScratchWindow call s:_.ScratchWindow(<bang>0 ? eval(<q-args>) : <q-args>)
+\ ScratchWindow call vimrc#util#scratch_window(<bang>0 ? eval(<q-args>) : <q-args>)
 
 function! s:ShellOutput(range, cmd) abort
   let l:cmd = a:cmd
@@ -13,7 +11,7 @@ function! s:ShellOutput(range, cmd) abort
         throw 'E:ShellOutput: command arg or shebang is required.'
       endif
     endif
-    call s:_.ScratchWindow(s:_.GetSelectText())
+    call vimrc#util#scratch_window(vimrc#util#get_select_text())
     execute '1,$!' . l:cmd
     return
   endif
@@ -25,7 +23,7 @@ function! s:ShellOutput(range, cmd) abort
     endif
   endif
 
-  call s:_.ScratchWindow(system(l:cmd))
+  call vimrc#util#scratch_window(system(l:cmd))
 endfunction
 
 command! -nargs=? -range=0 -complete=shellcmd

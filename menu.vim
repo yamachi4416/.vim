@@ -1,5 +1,3 @@
-let s:_ = g:VIMRC._
-
 function! s:BuildCommand(cmd, opts, sep) abort
   let l:cmdline = a:cmd
   for l:key in keys(a:opts)
@@ -17,7 +15,7 @@ function! s:GitLogGraph() abort
   \ '--format': "%h\t%ad\t%d\t%s",
   \}, '=')
   let l:out = systemlist(l:cmdline)
-  call s:_.ScratchWindow(l:out)
+  call vimrc#util#scratch_window(l:out)
   setlocal filetype=gitrebase
 endfunction
 

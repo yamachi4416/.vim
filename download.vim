@@ -1,19 +1,17 @@
-let s:_ = g:VIMRC._
-
 function! s:DownloadPlugVim(plugvim) abort
   if filereadable(a:plugvim) | return 1 | endif
   if !isdirectory($VIMPLUGDIR)
     call mkdir($VIMPLUGDIR)
   endif
   let l:repo = 'junegunn/vim-plug/master/plug.vim'
-  call s:_.GetFileFromUrl('https://raw.githubusercontent.com/' . l:repo, a:plugvim)
+  call vimrc#util#get_file_from_url('https://raw.githubusercontent.com/' . l:repo, a:plugvim)
 endfunction
 
 let g:plug_home = $VIMPLUGDIR
 let g:plug_url_format = 'https://github.com/%s.git'
 if !exists(':PlugInstall')
   call s:DownloadPlugVim(expand('$VIMPLUGDIR/plug.vim'))
-  if !s:_.SourceIfExists('$VIMPLUGDIR/plug.vim')
+  if !vimrc#util#source('$VIMPLUGDIR/plug.vim')
     finish
   endif
 endif
@@ -37,6 +35,6 @@ Plug 'hrsh7th/nvim-cmp', has('nvim') ? {} : { 'on': [] }
 Plug 'hrsh7th/cmp-nvim-lsp', has('nvim') ? {} : { 'on': [] }
 Plug 'folke/lazydev.nvim', has('nvim') ? {} : { 'on': [] }
 
-call s:_.SourceIfExists('$MYVIMFILES/.local/plugs.vim')
+call vimrc#util#source('$MYVIMFILES/.local/plugs.vim')
 
 call plug#end()
