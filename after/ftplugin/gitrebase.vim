@@ -1,1 +1,1 @@
-nnoremap <buffer> <C-k> :GitShowScrachWindow<CR>
+nnoremap <buffer> <C-k> :GitShow<CR>

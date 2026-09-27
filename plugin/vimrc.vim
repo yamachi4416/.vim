@@ -59,14 +59,14 @@ endfunction
 command! -nargs=? -range=0 -complete=shellcmd
 \ ShellOutput call s:ShellOutput(<count>, <q-args>)
 
-function! s:GitDiffScrachWindow(...) abort
-  let l:opts = a:0 && len(trim(a:1)) > 1 ? shellescape(a:1) : '--cached'
+function! s:GitDiff(...) abort
+  let l:opts = a:0 && !empty(trim(a:1)) ? shellescape(a:1) : '--cached'
   call s:ShellOutput(0, "git diff " . l:opts)
   setlocal filetype=diff
 endfunction
-command! -nargs=? GitDiffScrachWindow call s:GitDiffScrachWindow(<q-args>)
+command! -nargs=? GitDiff call s:GitDiff(<q-args>)
 
-function! s:GitGrepQuickfix(search_string) abort
+function! s:GitGrep(search_string) abort
   let l:search_string = a:search_string
   if l:search_string ==# ''
     let l:search_string = expand('<cfile>')
@@ -85,30 +85,30 @@ function! s:GitGrepQuickfix(search_string) abort
     copen
   endif
 endfunction
-command! -nargs=? GitGrepQuickfix call s:GitGrepQuickfix(<q-args>)
+command! -nargs=? GitGrep call s:GitGrep(<q-args>)
 
 function! s:GitLogGraph(...) abort
-  let l:opts = a:0 && len(trim(a:1)) > 1 ? ' ' . shellescape(a:1) : ''
-  let l:cmdline = s:BuildCommand(
-  \'git log --oneline --graph --all', {
-  \ '--date': 'short',
-  \ '--decorate': 'short',
-  \ '--format': "%h\t%ad\t%d\t%s",
-  \}, '=') . l:opts
-  let l:out = systemlist(l:cmdline)
-  call vimrc#util#scratch_window(l:out)
+  let l:target = a:0 && !empty(trim(a:1)) ? ' ' . shellescape(a:1) : ''
+  let l:cmdline = 'git log --oneline --graph --all ' .
+  \ '--date=short --decorate=short --format=' . shellescape("%h\t%ad\t%d\t%s") .
+  \ l:target
+  call vimrc#util#scratch_window(systemlist(l:cmdline))
   setlocal filetype=gitrebase
 endfunction
 command! -nargs=? GitLogGraph call s:GitLogGraph(<q-args>)
 
-function! s:GitShowScrachWindow(...)
-  let hash = expand('<cword>')
-  if hash =~# '^\v\w+$'
-    call vimrc#util#scratch_window(system('git show ' . hash))
-    setlocal filetype=gitcommit
+function! s:GitShow(...)
+  if a:0 && !empty(a:1)
+    let l:target = a:1
+  elseif expand('<cword>') =~# '^\v\w+$'
+    let l:target = expand('<cword>')
+  else
+    let l:target = 'HEAD'
   endif
+  call vimrc#util#scratch_window(system('git show ' . shellescape(l:target)))
+  setlocal filetype=gitcommit
 endfunction
-command! -nargs=? GitShowScrachWindow call s:GitShowScrachWindow(<q-args>)
+command! -nargs=? GitShow call s:GitShow(<q-args>)
 
 function! s:DiffOrigin() abort
   let l:syntax = &l:syntax
