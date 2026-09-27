@@ -1,3 +1,33 @@
+function! s:BuildCommand(cmd, opts, sep) abort
+  let l:cmdline = a:cmd
+  for l:key in keys(a:opts)
+    let l:val = a:opts[l:key]
+    let l:cmdline = l:cmdline . ' ' . l:key . a:sep . shellescape(l:val)
+  endfor
+  return l:cmdline
+endfunction
+
+function! s:CreateDictUseSyntax() abort
+  if &l:syntax ==# '' || &l:syntax ==# 'text'
+    return
+  endif
+
+  let l:file = $MYVIMFILES . '/.local/dict/' . &l:syntax . '.txt'
+  if !filereadable(l:file)
+    let l:words = {}
+    for l:word in syntaxcomplete#OmniSyntaxList()
+      let l:words[l:word] = 0
+    endfor
+    if writefile(sort(keys(l:words)), l:file) == -1
+      echoh ErrorMsg | echom 'Error' | echoh Normal | return
+    endif
+  endif
+
+  tabe `=l:file`
+  nnoremap <buffer><silent><F12> :<C-u>silent keeppatterns g/\v^.?$/d<CR>:%sort u<CR>:wq<CR>
+endfunction
+command! -nargs=? CreateDictUseSyntax call s:CreateDictUseSyntax()
+
 command! -nargs=? -bang -complete=function
 \ ScratchWindow call vimrc#util#scratch_window(<bang>0 ? eval(<q-args>) : <q-args>)
 
@@ -29,83 +59,12 @@ endfunction
 command! -nargs=? -range=0 -complete=shellcmd
 \ ShellOutput call s:ShellOutput(<count>, <q-args>)
 
-function! s:GitDiffScrachWindow() abort
-  call s:ShellOutput(0, "git diff --cached")
+function! s:GitDiffScrachWindow(...) abort
+  let l:opts = a:0 && len(trim(a:1)) > 1 ? shellescape(a:1) : '--cached'
+  call s:ShellOutput(0, "git diff " . l:opts)
   setlocal filetype=diff
 endfunction
-
-command! GitDiffScrachWindow call s:GitDiffScrachWindow()
-
-function! s:CreateDictUseSyntax() abort
-  if &l:syntax ==# '' || &l:syntax ==# 'text'
-    return
-  endif
-
-  let l:file = $MYVIMFILES . '/.local/dict/' . &l:syntax . '.txt'
-  if !filereadable(l:file)
-    let l:words = {}
-    for l:word in syntaxcomplete#OmniSyntaxList()
-      let l:words[l:word] = 0
-    endfor
-    if writefile(sort(keys(l:words)), l:file) == -1
-      echoh ErrorMsg | echom 'Error' | echoh Normal | return
-    endif
-  endif
-
-  tabe `=l:file`
-  nnoremap <buffer><silent><F12> :<C-u>silent keeppatterns g/\v^.?$/d<CR>:%sort u<CR>:wq<CR>
-endfunction
-command! -nargs=? CreateDictUseSyntax call s:CreateDictUseSyntax()
-
-function! s:QfGitDiff(...) abort
-  let [l:lnum, l:ret] = [0, []]
-  let l:dir = matchstr(system('git rev-parse --show-toplevel'), '\v^\f+\ze[\r\n]')
-
-  if empty(l:dir) | return | endif
-
-  for l:line in split(system(printf('git diff %s', a:0 ? a:1 : '')), '\v\r\n|\n|\r')
-    if l:line[:3] ==# 'diff'
-      let [l:lnum, l:fname] = [0, l:dir . '/' . matchstr(l:line, '\v\sb/\zs\f+$')]
-      continue
-    endif
-    let l:char = l:line[0]
-    if l:char ==# '@'
-      let l:lnum = str2nr(matchstr(l:line, '\v\+\d+'))
-      continue
-    endif
-    if l:lnum
-      if l:char ==# '+' || l:char ==# '-'
-        call add(l:ret, {
-        \ 'filename': l:fname, 'type': 'i', 'lnum': l:lnum, 'col': 1, 'text': l:line})
-      endif
-      let l:lnum = stridx('-\', l:char) + 1 ? l:lnum : l:lnum + 1
-    endif
-  endfor
-
-  call setqflist(l:ret, 'r')
-
-  return len(l:ret) ? 1 : 0
-endfunction
-command! -nargs=? QfGitDiff if s:QfGitDiff(<q-args>) | copen | endif
-
-function! s:SetpythonDll() abort
-  if !exists('&pythonthreedll') | return | endif
-  if executable('python')
-    let &pythonthreedll = expand(fnamemodify(exepath('python'), ':p:h') . '/python3?.dll')
-  else
-    let &pythonthreedll = ''
-  endif
-endfunction
-call s:SetpythonDll()
-
-function! s:StartupTimeLog() abort
-  let l:logfile = tempname()
-  let l:vim_command = "vim --startuptime %s -c %s"
-  let l:start_command = shellescape(printf(':edit %s', l:logfile))
-  let l:vim_command = printf(l:vim_command, fnameescape(l:logfile), l:start_command)
-  execute '!' . l:vim_command
-endfunction
-command! StartupTimeLog call s:StartupTimeLog()
+command! -nargs=? GitDiffScrachWindow call s:GitDiffScrachWindow(<q-args>)
 
 function! s:GitGrepQuickfix(search_string) abort
   let l:search_string = a:search_string
@@ -128,6 +87,29 @@ function! s:GitGrepQuickfix(search_string) abort
 endfunction
 command! -nargs=? GitGrepQuickfix call s:GitGrepQuickfix(<q-args>)
 
+function! s:GitLogGraph(...) abort
+  let l:opts = a:0 && len(trim(a:1)) > 1 ? ' ' . shellescape(a:1) : ''
+  let l:cmdline = s:BuildCommand(
+  \'git log --oneline --graph --all', {
+  \ '--date': 'short',
+  \ '--decorate': 'short',
+  \ '--format': "%h\t%ad\t%d\t%s",
+  \}, '=') . l:opts
+  let l:out = systemlist(l:cmdline)
+  call vimrc#util#scratch_window(l:out)
+  setlocal filetype=gitrebase
+endfunction
+command! -nargs=? GitLogGraph call s:GitLogGraph(<q-args>)
+
+function! s:GitShowScrachWindow(...)
+  let hash = expand('<cword>')
+  if hash =~# '^\v\w+$'
+    call vimrc#util#scratch_window(system('git show ' . hash))
+    setlocal filetype=gitcommit
+  endif
+endfunction
+command! -nargs=? GitShowScrachWindow call s:GitShowScrachWindow(<q-args>)
+
 function! s:DiffOrigin() abort
   let l:syntax = &l:syntax
   vert new
@@ -140,4 +122,25 @@ function! s:DiffOrigin() abort
   diffthis
 endfunction
 command! DiffOrig call s:DiffOrigin()
+
+function! s:SetpythonDll() abort
+  if !exists('&pythonthreedll') | return | endif
+  if executable('python')
+    let &pythonthreedll = expand(fnamemodify(exepath('python'), ':p:h') . '/python3?.dll')
+  else
+    let &pythonthreedll = ''
+  endif
+endfunction
+call s:SetpythonDll()
+
+function! s:StartupTimeLog() abort
+  let l:logfile = tempname()
+  let l:vim_command = "vim --startuptime %s -c %s"
+  let l:start_command = shellescape(printf(':edit %s', l:logfile))
+  let l:vim_command = printf(l:vim_command, fnameescape(l:logfile), l:start_command)
+  execute '!' . l:vim_command
+endfunction
+if !has('nvim')
+  command! StartupTimeLog call s:StartupTimeLog()
+endif
 

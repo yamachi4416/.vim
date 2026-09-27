@@ -208,7 +208,6 @@ call s:LoadPluginConfig()
 
 syntax enable
 call vimrc#util#source('$MYVIMFILES/mapping.vim')
-call vimrc#util#source('$MYVIMFILES/menu.vim')
 
 let g:vimrc_loaded = 1
 call vimrc#util#source('$MYVIMFILES/.local/vimrc.vim')
