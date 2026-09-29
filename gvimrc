@@ -5,6 +5,7 @@ let g:no_gvimrc_example = 1
 set guioptions=ecsM
 set browsedir=current
 set showtabline=2
+set guicursor+=a:blinkon0
 
 call vimrc#util#source(s:vim_style)
 

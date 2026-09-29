@@ -5,6 +5,9 @@ let s:save = {}
 let s:opts = {
 \ 'cmdheight': 1,
 \ 'showcmd': 0,
+\ 'signcolumn': 'no',
+\ 'conceallevel': 2,
+\ 'concealcursor': 'nc',
 \}
 
 function! s:UpdateOpt(key, val) abort
