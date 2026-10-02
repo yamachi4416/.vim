@@ -18,11 +18,13 @@ endif
 
 call plug#begin($VIMPLUGDIR)
 
-Plug 'itchyny/lightline.vim'
+Plug 'cohama/lexima.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'rafamadriz/friendly-snippets'
 
 Plug 'prabirshrestha/vim-lsp', has('nvim') ? { 'on': [] } : {}
 Plug 'prabirshrestha/asyncomplete.vim', has('nvim') ? { 'on': [] } : {}
