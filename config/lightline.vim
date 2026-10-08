@@ -1,6 +1,6 @@
 let g:lightline = {
 \ 'enable': { 'statusline': 1, 'tabline': 1 },
-\ 'colorscheme': 'powerlineish',
+\ 'colorscheme': 'simpleblack',
 \ 'active': {
 \   'left':  [ [ 'mode', 'paste' ],
 \              [ 'pwd', 'readonly', 'modified', 'filename' ],
