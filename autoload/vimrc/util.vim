@@ -111,3 +111,11 @@ function! vimrc#util#is_installed(name) abort
   return &runtimepath =~# '\v[\\/]' . a:name . ',?'
 endfunction
 
+function! vimrc#util#colorscheme(...) abort
+  for l:name in a:000
+    execute 'silent! colorscheme ' . l:name
+    if get(g:, 'colors_name', '') ==# l:name
+      break
+    endif
+  endfor
+endfunction
