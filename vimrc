@@ -59,7 +59,7 @@ function! s:SetEditVimOptions() abort
     set tagcase=match
   endif
   set virtualedit=block backspace=2
-  set completeopt=menuone,longest,preview
+  set completeopt=menuone,longest,popup
   set nojoinspaces
   set iminsert=0 formatoptions=cqrj nolinebreak
   set copyindent preserveindent
