@@ -178,6 +178,23 @@ function! s:InitAutogroup() abort
   augroup END
 endfunction
 
+function! s:SetKeyMappings() abort
+  inoremap <silent><expr><Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
+  inoremap <silent><expr><C-Space> vimrc#util#imode("\<Down>", "\<C-Space>")
+  if !s:IsNvim
+    inoremap <silent><expr><C-@> vimrc#util#imode("\<Down>", "\<C-Space>")
+  endif
+
+  cnoremap <C-a> <Home>
+  inoremap <silent> <C-b> <Left>
+  inoremap <silent> <C-f> <Right>
+
+  if exists('*wildmenumode')
+    set wildmenu wildcharm=<Tab>
+    cnoremap <expr><Tab> wildmenumode() ? "\<C-n>" : "\<Tab>"
+  endif
+endfunction
+
 function! s:LoadPluginConfig() abort
   for l:config in globpath($MYVIMDIR, 'config/*', 1, 1)
     let l:file = vimrc#util#fname_part(l:config)
@@ -207,7 +224,7 @@ call vimrc#util#source('$MYVIMDIR/config/plugin.lua')
 call s:LoadPluginConfig()
 
 syntax enable
-call vimrc#util#source('$MYVIMDIR/mapping.vim')
+call s:SetKeyMappings()
 
 let g:vimrc_loaded = 1
 call vimrc#util#source('$MYVIMDIR/.local/vimrc.vim')
