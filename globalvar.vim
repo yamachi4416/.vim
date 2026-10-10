@@ -51,6 +51,3 @@ let g:markdown_fenced_languages = [
 \ 'typescript',
 \ 'vue',
 \]
-
-" $MYVIMDIR/bundle/plug.vim
-let g:plug_pwindow = 'tab new'

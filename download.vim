@@ -7,6 +7,7 @@ function! s:DownloadPlugVim(plugvim) abort
   call vimrc#util#get_file_from_url('https://raw.githubusercontent.com/' . l:repo, a:plugvim)
 endfunction
 
+let g:plug_pwindow = 'tab new'
 let g:plug_home = $VIMPLUGDIR
 let g:plug_url_format = 'https://github.com/%s.git'
 if !exists(':PlugInstall')
