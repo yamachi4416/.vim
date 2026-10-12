@@ -5,24 +5,23 @@ let g:lsp_settings = {
 \ },
 \ 'vscode-eslint-language-server': {
 \   'allowlist': [
-\     'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue'
+\     'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue',
 \   ],
 \ },
 \}
 
 let g:lsp_settings_filetype_typescript = [
-\ 'typescript-language-server',
-\ 'vscode-eslint-language-server'
+\ 'vtsls',
+\ 'vscode-eslint-language-server',
 \]
 
 let g:lsp_settings_filetype_vue = [
 \ 'vtsls',
 \ 'volar-server',
-\ 'vscode-eslint-language-server'
+\ 'vscode-eslint-language-server',
 \]
 
 let g:lsp_settings_filetype_rust = [
 \ 'rust-analyzer',
-\ 'bacon-ls'
 \]
 
