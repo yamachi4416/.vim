@@ -111,9 +111,8 @@ function! s:SetDisplayVimOptions() abort
 endfunction
 
 function! s:SetCmdAndTermVimOptions() abort
-  set showcmd laststatus=2 cmdwinheight=10 cmdheight=2
+  set showcmd laststatus=2 cmdwinheight=5 cmdheight=2
   set wildmenu wildmode=longest:full wildoptions=fuzzy
-  set cmdwinheight=5
 
   if has('vim_starting') && !has('gui_running')
     if has('termguicolors')

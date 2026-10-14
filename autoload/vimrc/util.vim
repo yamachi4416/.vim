@@ -7,7 +7,7 @@ function! vimrc#util#winsplit(cmd, name) abort
   if empty(a:name)
     execute l:wincmd
   else
-    execute printf('%s %s', a:cmd, fnameescape(a:name))
+    execute printf('%s %s', l:wincmd, fnameescape(a:name))
   endif
 endfunction
 
@@ -47,7 +47,7 @@ function! vimrc#util#includeexpr(fname) abort
   let l:base = join(add(split(&l:path, ','), get(b:, 'base_path', '')), ',')
   let l:ret = globpath(l:base, l:file, 0, 1)
   if len(l:ret) == 0
-    let l:ret = glob('./**/' . l:file)
+    let l:ret = glob('./**/' . l:file, 0, 1)
   else
     let l:ret += [l:file]
   endif

@@ -49,7 +49,7 @@ function! s:ShellOutput(range, cmd) abort
   if empty(l:cmd)
     let l:cmd = expand('%:p')
     if !executable(l:cmd)
-      throw 'E:ShellOutput: ' . l:file . 'is not executable.'
+      throw 'E:ShellOutput: ' . l:cmd . ' is not executable.'
     endif
   endif
 
