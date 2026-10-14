@@ -1,4 +1,5 @@
 let g:ctrlp_show_hidden = 0
+let g:ctrlp_working_path_mode = 'rwa'
 let g:ctrlp_cache_dir = expand('$VIMCACHEDIR') . '/ctrlp'
 let g:ctrlp_root_markers = ['']
 let g:ctrlp_user_command = {
