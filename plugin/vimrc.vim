@@ -150,9 +150,7 @@ function! s:MemoNew(title) abort
   let l:dir = s:MemoDir()
   let l:title = empty(trim(a:title)) ? input('Title: ', '') : a:title
   if empty(trim(l:title)) | return | endif
-  let l:name = l:title
-  let l:name = substitute(l:name, '\v[/\\:*?"<>|]', '_', 'g')
-  let l:name = substitute(l:name, '\v\s+', '_', 'g')
+  let l:name = substitute(l:title, '\v([/\\:*?"<>|]|\s)+', '_', 'g')
   let l:path = printf('%s/%s_%s.md', l:dir, strftime('%Y%m%d'), l:name)
   let l:path = substitute(l:path, '\v[\\/]+', '/', 'g')
   split `=l:path`
