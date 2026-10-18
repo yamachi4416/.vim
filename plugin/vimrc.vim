@@ -133,37 +133,3 @@ endfunction
 if !has('nvim')
   command! StartupTimeLog call s:StartupTimeLog()
 endif
-
-function! s:MemoDir() abort
-  let l:memo_dir = get(g:, 'vimrc_memo_dir', '')
-  if empty(l:memo_dir)
-    throw 'E:MemoDir g:vimrc_memo_dir is empty'
-  endif
-  let l:memo_dir = vimrc#util#expand(l:memo_dir)
-  if !isdirectory(l:memo_dir)
-    throw 'E:MemoDir g:vimrc_memo_dir is not a directory'
-  endif
-  return l:memo_dir
-endfunction
-
-function! s:MemoNew(title) abort
-  let l:dir = s:MemoDir()
-  let l:title = empty(trim(a:title)) ? input('Title: ', '') : a:title
-  if empty(trim(l:title)) | return | endif
-  let l:name = substitute(l:title, '\v([/\\:*?"<>|]|\s)+', '_', 'g')
-  let l:path = printf('%s/%s_%s.md', l:dir, strftime('%Y%m%d'), l:name)
-  let l:path = substitute(l:path, '\v[\\/]+', '/', 'g')
-  split `=l:path`
-  if !filereadable(l:path)
-    call setline(1, printf('# %s', l:title))
-  endif
-endfunction
-command! -nargs=? MemoNew call s:MemoNew(<q-args>)
-
-function! s:MemoFind(search) abort
-  let l:dir = s:MemoDir()
-  let l:search = empty(trim(a:search)) ? input('Search: ', '') : a:search
-  if empty(trim(l:search)) | return | endif
-  execute printf('grep %s %s', shellescape(l:search), fnameescape(l:dir))
-endfunction
-command! -nargs=? MemoFind call s:MemoFind(<q-args>)
