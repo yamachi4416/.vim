@@ -19,22 +19,6 @@ function! s:SetEnv() abort
     set runtimepath+=$MYVIMDIR/after
     let &packpath = &runtimepath
   endif
-
-  let l:path_sep = s:IsWindows ? ';' : ':'
-  let l:paths = split($PATH, l:path_sep)
-
-  if s:IsWindows && isdirectory(expand('$SCOOP'))
-    call extend(l:paths, [expand('$SCOOP/shims')])
-  endif
-
-  if isdirectory(expand('$PROTO_HOME'))
-    call extend(l:paths, [
-    \ expand('$PROTO_HOME/shims'),
-    \ expand('$PROTO_HOME/bin'),
-    \])
-  endif
-
-  let $PATH = join(l:paths, l:path_sep) . l:path_sep
 endfunction
 
 function! s:SetStartingVimOptions() abort
