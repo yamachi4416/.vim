@@ -152,8 +152,6 @@ endfunction
 function! s:InitAutogroup() abort
   augroup Vimrc
     autocmd!
-    autocmd bufnewfile *.{bat,cmd}
-    \ setlocal fileencoding=cp932 fileformat=dos
     autocmd bufnewfile,bufreadpost *.jade
     \ setlocal filetype=pug
     autocmd filetype *
@@ -190,9 +188,6 @@ endfunction
 let g:vimrc_loaded = 0
 
 call s:SetEnv()
-call vimrc#util#source('$MYVIMDIR/.local/vimrc.vim')
-call vimrc#util#source('$MYVIMDIR/globalvar.vim')
-
 call s:InitAutogroup()
 call s:SetStartingVimOptions()
 call s:SetEditVimOptions()
@@ -201,9 +196,10 @@ call s:SetDisplayVimOptions()
 call s:SetCmdAndTermVimOptions()
 call s:SetBackupUndoVimOptions()
 
-call vimrc#util#source('$MYVIMDIR/download.vim')
+call vimrc#util#source('$MYVIMDIR/.local/vimrc.vim')
 call vimrc#util#source('$MYVIMDIR/config/plugin.vim')
 call vimrc#util#source('$MYVIMDIR/config/plugin.lua')
+call vimrc#util#source('$MYVIMDIR/plugged.vim')
 call s:LoadPluginConfig()
 
 syntax enable
