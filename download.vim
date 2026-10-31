@@ -11,7 +11,7 @@ let g:plug_pwindow = 'tab new'
 let g:plug_home = $VIMPLUGDIR
 let g:plug_url_format = 'https://github.com/%s.git'
 if !exists(':PlugInstall')
-  call s:DownloadPlugVim(expand('$VIMPLUGDIR/plug.vim'))
+  call s:DownloadPlugVim(vimrc#util#expand('$VIMPLUGDIR/plug.vim'))
   if !vimrc#util#source('$VIMPLUGDIR/plug.vim')
     finish
   endif
