@@ -1,16 +1,18 @@
-function! s:MemoDir() abort
+let s:expand = function('vimrc#util#expand')
+
+function! s:getMemoDir() abort
   let l:dir = get(g:, 'memo_dir', '')
   if empty(l:dir)
     throw 'E:MemoDir g:memo_dir is empty'
   endif
-  let l:dir = vimrc#util#expand(l:dir)
+  let l:dir = s:expand(l:dir)
   if !isdirectory(l:dir)
     throw 'E:MemoDir g:memo_dir is not a directory'
   endif
   return l:dir
 endfunction
 
-function! s:GetOrInput(value, prompt) abort
+function! s:getOrInput(value, prompt) abort
   let l:value = trim(a:value)
   if !empty(l:value)
     return l:value
@@ -19,8 +21,8 @@ function! s:GetOrInput(value, prompt) abort
 endfunction
 
 function! memo#new(title) abort
-  let l:dir = s:MemoDir()
-  let l:title = s:GetOrInput(a:title, 'Title: ')
+  let l:dir = s:getMemoDir()
+  let l:title = s:getOrInput(a:title, 'Title: ')
   if empty(l:title) | return | endif
   let l:name = substitute(l:title, '\v([/\\:*?"<>|]|\s)+', '_', 'g')
   let l:path = printf('%s/%s_%s.md', l:dir, strftime('%Y%m%d'), l:name)
@@ -32,8 +34,8 @@ function! memo#new(title) abort
 endfunction
 
 function! memo#find(search) abort
-  let l:dir = s:MemoDir()
-  let l:search = s:GetOrInput(a:search, 'Search: ')
+  let l:dir = s:getMemoDir()
+  let l:search = s:getOrInput(a:search, 'Search: ')
   if empty(l:search) | return | endif
   execute printf('grep %s %s', shellescape(l:search), fnameescape(l:dir))
 endfunction
