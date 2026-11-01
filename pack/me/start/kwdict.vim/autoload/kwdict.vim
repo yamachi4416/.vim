@@ -12,7 +12,7 @@ endfunction
 
 function! s:getLines(path) abort
   if !filereadable(a:path)
-    throw printf('E:kwdict %s is not readable.', l:path)
+    throw printf('E:kwdict %s is not readable.', a:path)
   endif
   return readfile(a:path)
 endfunction
